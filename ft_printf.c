@@ -6,9 +6,11 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/03 22:37:57 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 12:19:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*  Проверить строку check_type, перенести инициализацию, переделать вывод не по символам */
 
 #include "ft_printf.h"
 
@@ -31,7 +33,7 @@ char	*processing(t_all *all, char *s, va_list *ap)
 	if (*s == '.')
 		s = check_width_or_precision(all, ++s, ap, 1);
 	s = check_modifier(all, s);
-//	s = check_type(all, *s);
+	s = check_type(all, s);
 	return (s);
 }
 
@@ -56,11 +58,11 @@ int		ft_printf(const char *str, ...)
 		//	intput();
 		}
 		if (!*s)
-			break;
+			break ;
 		s++;
 	}
 	va_end(ap);
-	free (tmp_s);
+	free(tmp_s);
 	printf("\nminus = %d, plus = %d, space = %d, zero = %d, hash = %d\n",
 		all.flag_minus, all.flag_plus, all.flag_space, all.flag_zero, all.flag_hash);
 	printf("width = %d, precision = %d\n", all.width, all.precision);
@@ -68,7 +70,7 @@ int		ft_printf(const char *str, ...)
 	return (1);
 }
 
-int		main()
+int		main(void)
 {
 	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhll", 20);
 	return (0);

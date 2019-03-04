@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/03 22:13:07 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 12:17:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_all
 //	int		modifier_l = 3;
 //	int		modifier_ll = 4;
 //	int		modifier_L = 5; //заменить 5 модификаторов на 1
+
 //	int		type_int = 1;
 //	int		type_uint = 2;
 //	int		type_int8 = 3;

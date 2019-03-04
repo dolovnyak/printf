@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/03 22:37:53 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 12:37:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char    *check_flags(t_all *all, char *s)
+char	*check_flags(t_all *all, char *s)
 {
 	while (*s == '-' || *s == '0' || *s == '+' || *s == '#' || *s == ' ')
 	{
@@ -40,9 +40,9 @@ char	*check_width_or_precision(t_all *all, char *s, va_list *ap, int flag)
 	if (*s == '*')
 	{
 		if (flag == 0)
-			all->width = va_arg(*ap, int); //проверить может ли быть ширина не только int
-		else 
-			all->precision = va_arg(*ap, int); //тут также
+			all->width = va_arg(*ap, int);
+		else
+			all->precision = va_arg(*ap, int); //тут также, может ли быть инт
 		s++;
 	}
 	else if (*s >= '0' && *s <= '9')
@@ -80,44 +80,50 @@ char	*check_modifier(t_all *all, char *s)
 	return (s);
 }
 
-/*void	check_type(t_all *all, char c)
+void	check_type_other(t_all *all, char *s)
 {
-
-}
-
-char	*check_type(t_all *all, char c)
-{
-	if (c == 'd' || c == 'i')
-		all->type_int = 1;
-	else if (c == 'u')
-		all->type_uint = 1;
-	else if (c == 'o')
-		all->type_int8 = 1;
-	else if (c == 'x')
-		all->type_int16x = 1;
-	else if (c == 'X')
-		all->type_int16X = 1;
-	else if (c == 'f' || c == 'F')
-		all->type_float = 1;
-	else if (c == 'e' || c == 'E')
-		all->type_efloat = 1;
-	else if (c == 'g' || c == 'G')
-		all->type_gfloat = 1;
-	else if (c == 'a' || c == 'A')
-		all->type_afloat = 1;
-	else if (c == 'c')
-		all->type_uchar = 1;
-	else if (c == 's')
-		all->type_string = 1;
+	if (c == 's')
+		all->type = 11;
 	else if (c == 'S')
 	{
-		all->modifier_l = 1;
-		all->type_string = 1;
+		all->modifier = 3;
+		all->type = 11;
 	}
 	else if (c == 'p')
-		all->type_ptr = 1;
+	{
+		all->type = 4;
+		all->modifier = 3;
+		all->flag_hash = 1;
+	}
 	else if (c == 'n')
-		all->ebanina_type = 1;
+		all->type = 13;
 	else if (c == '%')
-		all->percent_type = 1;
-}*/
+		all->type = 14;
+}
+
+char	*check_type(t_all *all, char *s)
+{
+	if (c == 'd' || c == 'i')
+		all->type = 1;
+	else if (c == 'u')
+		all->type = 2;
+	else if (c == 'o')
+		all->type = 3;
+	else if (c == 'x')
+		all->type = 4;
+	else if (c == 'X')
+		all->type = 5;
+	else if (c == 'f' || c == 'F')
+		all->type = 6;
+	else if (c == 'e' || c == 'E')
+		all->type = 7;
+	else if (c == 'g' || c == 'G')
+		all->type = 8;
+	else if (c == 'a' || c == 'A')
+		all->type = 9;
+	else if (c == 'c')
+		all->type = 10;
+	check_type_other(all, s);
+	s++;
+	return (s);
+}
