@@ -1,3 +1,7 @@
+Если символ типа не встретился, а встретился другой - ничего не выводится и поход по строке начинается с симовла, который встретился вместо символа типа.
+Если просто точка без чисел после нее, то что?
+Если precision = -1 - число округляется и выводится без точности, как интовое
+
 modifier_h = 1;
 modifier_hh = 2;
 modifier_l = 3;
@@ -14,6 +18,6 @@ type_gfloat = 8;
 type_afloat = 9;
 type_uchar = 10;
 type_string = 11;
-type_ptr = 4;
+type_ptr = 4, all->modifier = 3, all->type = 4, all->flag_hash = 1;
 ebanina_type = 12;
 percent_type = 13;

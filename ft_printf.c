@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 14:22:45 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 15:20:41 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,7 @@ void	initialization(t_all *all)
 	all->modifier = 0;
 }
 
-char	*processing(t_all *all, char *s, va_list *ap)
-{
-	s = check_flags(all, ++s);
-	s = check_width_or_precision(all, s, ap, 0);
-	if (*s == '.')
-		s = check_width_or_precision(all, ++s, ap, 1);
-	s = check_modifier(all, s);
-	s = check_type(all, s);
-	return (s);
-}
-
-void	input(t_all *all, va_list *ap)
+void	check_type_and_output(t_all *all, va_list *ap)
 {
 	char	*s;
 
@@ -48,6 +37,20 @@ void	input(t_all *all, va_list *ap)
 		do_n(all, ap);
 	if (all->type == 13)
 		do_percent(all, ap, s);
+}
+
+char	*processing_and_output(t_all *all, char *s, va_list *ap)
+{
+	s = check_flags(all, ++s);
+	s = check_width_or_precision(all, s, ap, 0);
+	if (*s == '.')
+	{
+		all->precision = -1;
+		s = check_width_or_precision(all, ++s, ap, 1);
+	}
+	s = check_modifier(all, s);
+	s = check_type_and_output(all, s);
+	return (s);
 }
 
 int		ft_printf(const char *str, ...)
@@ -66,10 +69,7 @@ int		ft_printf(const char *str, ...)
 		if (*s != '%')
 			write(1, s, 1);
 		else
-		{
-			s = processing(&all, s, &ap);
-			input(&all, &ap);
-		}
+			s = processing_and_output(&all, s, &ap);
 		if (!*s)
 			break ;
 		s++;

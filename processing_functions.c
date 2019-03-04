@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 14:20:06 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 15:40:29 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	check_type_other(t_all *all, char *s)
 		all->type = 12;
 	else if (*s == '%')
 		all->type = 13;
+	else
+		s--;
 }
 
 char	*check_type(t_all *all, char *s)
@@ -123,7 +125,8 @@ char	*check_type(t_all *all, char *s)
 		all->type = 9;
 	else if (*s == 'c')
 		all->type = 10;
-	check_type_other(all, s);
+	else
+		check_type_other(all, s);
 	s++;
 	return (s);
 }
