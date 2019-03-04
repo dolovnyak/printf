@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 12:19:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:11:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ char	*processing(t_all *all, char *s, va_list *ap)
 	s = check_modifier(all, s);
 	s = check_type(all, s);
 	return (s);
+}
+
+void	input(t_all *all, va_list *ap)
+{
+	if (all->type == 4)
+		do_16x(all, ap);
 }
 
 int		ft_printf(const char *str, ...)

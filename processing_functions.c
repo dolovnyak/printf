@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 12:37:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/04 12:48:50 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ void	check_type_other(t_all *all, char *s)
 		all->flag_hash = 1;
 	}
 	else if (c == 'n')
-		all->type = 13;
+		all->type = 12;
 	else if (c == '%')
-		all->type = 14;
+		all->type = 13;
 }
 
 char	*check_type(t_all *all, char *s)
