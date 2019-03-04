@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 12:48:50 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 14:20:06 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*check_flags(t_all *all, char *s)
 	return (s);
 }
 
-char	*check_width_or_precision(t_all *all, char *s, va_list *ap, int flag)
+char	*check_width_or_precision(t_all *all, char *s, va_list *ap, char flag)
 {
 	if (*s == '*')
 	{
@@ -82,46 +82,46 @@ char	*check_modifier(t_all *all, char *s)
 
 void	check_type_other(t_all *all, char *s)
 {
-	if (c == 's')
+	if (*s == 's')
 		all->type = 11;
-	else if (c == 'S')
+	else if (*s == 'S')
 	{
 		all->modifier = 3;
 		all->type = 11;
 	}
-	else if (c == 'p')
+	else if (*s == 'p')
 	{
 		all->type = 4;
 		all->modifier = 3;
 		all->flag_hash = 1;
 	}
-	else if (c == 'n')
+	else if (*s == 'n')
 		all->type = 12;
-	else if (c == '%')
+	else if (*s == '%')
 		all->type = 13;
 }
 
 char	*check_type(t_all *all, char *s)
 {
-	if (c == 'd' || c == 'i')
+	if (*s == 'd' || *s == 'i')
 		all->type = 1;
-	else if (c == 'u')
+	else if (*s == 'u')
 		all->type = 2;
-	else if (c == 'o')
+	else if (*s == 'o')
 		all->type = 3;
-	else if (c == 'x')
+	else if (*s == 'x')
 		all->type = 4;
-	else if (c == 'X')
+	else if (*s == 'X')
 		all->type = 5;
-	else if (c == 'f' || c == 'F')
+	else if (*s == 'f' || *s == 'F')
 		all->type = 6;
-	else if (c == 'e' || c == 'E')
+	else if (*s == 'e' || *s == 'E')
 		all->type = 7;
-	else if (c == 'g' || c == 'G')
+	else if (*s == 'g' || *s == 'G')
 		all->type = 8;
-	else if (c == 'a' || c == 'A')
+	else if (*s == 'a' || *s == 'A')
 		all->type = 9;
-	else if (c == 'c')
+	else if (*s == 'c')
 		all->type = 10;
 	check_type_other(all, s);
 	s++;

@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 13:11:47 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 14:22:45 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	initialization(t_all *all)
 {
+	all->symbol_num = 0;
 	all->flag_minus = 0;
 	all->flag_plus = 0;
 	all->flag_space = 0;
@@ -39,8 +40,14 @@ char	*processing(t_all *all, char *s, va_list *ap)
 
 void	input(t_all *all, va_list *ap)
 {
+	char	*s;
+
 	if (all->type == 4)
-		do_16x(all, ap);
+		do_16x(all, ap, s);
+	if (all->type == 12)
+		do_n(all, ap);
+	if (all->type == 13)
+		do_percent(all, ap, s);
 }
 
 int		ft_printf(const char *str, ...)
@@ -61,11 +68,12 @@ int		ft_printf(const char *str, ...)
 		else
 		{
 			s = processing(&all, s, &ap);
-		//	intput();
+			input(&all, &ap);
 		}
 		if (!*s)
 			break ;
 		s++;
+		all.symbol_num++;
 	}
 	va_end(ap);
 	free(tmp_s);
@@ -78,6 +86,11 @@ int		ft_printf(const char *str, ...)
 
 int		main(void)
 {
-	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhll", 20);
+	int a;
+
+	a = 0;
+//	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhll", 20);
+	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhlln", 10, &a);
+	printf ("%d\n", a);
 	return (0);
 }
