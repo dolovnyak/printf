@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 17:53:01 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 19:30:25 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		initialization(t_all *all)
 	all->modifier = 0;
 }
 
-void    	check_more_type(t_all *all, va_list *ap, char *s)
+char    	*check_more_type(t_all *all, va_list *ap, char *s)
 {
 	char	*str;
 	
@@ -47,6 +47,7 @@ void    	check_more_type(t_all *all, va_list *ap, char *s)
 		do_percent(all, ap, str);
 	else
 		s--;
+	return (s);
 }
 
 char    	*check_type_and_output(t_all *all, va_list *ap, char *s)
@@ -72,8 +73,7 @@ char    	*check_type_and_output(t_all *all, va_list *ap, char *s)
 	else if (*s == 'a' || *s == 'A')
 		do_afloat(all, ap, str);
 	else
-		check_more_type(all, ap, s);
-	s++;
+		s = check_more_type(all, ap, s);
 	return (s);
 }
 
@@ -115,20 +115,35 @@ int			ft_printf(const char *str, ...)
 	}
 	va_end(ap);
 	free(tmp_s);
-	printf("\nminus = %d, plus = %d, space = %d, zero = %d, hash = %d\n",
-			all.flag_minus, all.flag_plus, all.flag_space, all.flag_zero, all.flag_hash);
-	printf("width = %d, precision = %d\n", all.width, all.precision);
-	printf("modifier = %d\n", all.modifier);
+//	printf("\nminus = %d, plus = %d, space = %d, zero = %d, hash = %d\n",
+//			all.flag_minus, all.flag_plus, all.flag_space, all.flag_zero, all.flag_hash);
+//	printf("width = %d, precision = %d\n", all.width, all.precision);
+//	printf("modifier = %d\n", all.modifier);
 	return (1);
 }
 
 int		main(void)
 {
 	int a;
+	int	b;
 
 	a = 0;
-	//	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhll", 20);
-	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhlln", 10, &a);
-	printf ("%d\n", a);
+	b = 0;
+	printf("ALLAHALAGLALALALALALALA^^666 % +0-10.*hhlln\n", 20, &a);
+	ft_printf("ALLAHALAGLALALALALALALA^^666 % +0-10.*hhlln\n", 10, &b);
+	printf ("\n%d\n", a);
+	printf ("%d\n", b);
+	ft_printf("123%-10%A");
+	printf("\n123%-10%A\n");
+	ft_printf("123%010%A");
+	printf("\n123%010%A\n");
+	ft_printf("123%10%A");
+	printf("\n123%10%A\n");
+	ft_printf("123%-10ca", 'O');
+	printf("\n123%-10ca\n", 'O');
+	ft_printf("123%010ca", 'O');
+	printf("\n123%010ca\n", 'O');
+	ft_printf("123%10ca", 'O');
+	printf("\n123%10ca\n", 'O');
 	return (0);
 }
