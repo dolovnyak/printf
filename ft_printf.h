@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 14:21:28 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 16:23:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,16 @@ char			*check_width_or_precision(t_all *all, char *s,
 char			*check_modifier(t_all *all, char *s);
 char			*check_type(t_all *all, char *s);
 void			do_n(t_all *all, va_list *ap);
-void			do_percent(t_all *all, va_list *ap, char *s);
-void			do_16x(t_all *all, va_list *ap, char *s);
-
+void			do_percent(t_all *all, va_list *ap, char *str);
+void			do_int16x(t_all *all, va_list *ap, char *str);
+void			do_int(t_all all, va_list *ap, char *str);
+void			do_uint(t_all all, va_list *ap, char *str);
+void            do_int8(t_all all, va_list *ap, char *str);
+void            do_int(t_all all, va_list *ap, char *str);
+void            do_float(t_all all, va_list *ap, char *str);
+void            do_efloat(t_all all, va_list *ap, char *str);
+void            do_gfloat(t_all all, va_list *ap, char *str);
+void            do_afloat(t_all all, va_list *ap, char *str);
+void            do_uchar(t_all all, va_list *ap, char *str);
+void            do_string(t_all all, va_list *ap, char *str);
 #endif

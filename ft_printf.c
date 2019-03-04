@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 15:49:57 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 16:22:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "ft_printf.h"
 
-void	initialization(t_all *all)
+void		initialization(t_all *all)
 {
 	all->symbol_num = 0;
 	all->flag_minus = 0;
@@ -27,58 +27,62 @@ void	initialization(t_all *all)
 	all->modifier = 0;
 }
 
-void    check_more_type(t_all *all, char *s)
+void    	check_more_type(t_all *all, va_list *ap, char *s)
 {
+	char	*str;
+	
 	if (*s == 's')
-		all->type = 11;
+		do_string(all, ap, str);
 	else if (*s == 'S')
 	{
 		all->modifier = 3;
-		all->type = 11;
+		do_string(all, ap, str);
 	}
 	else if (*s == 'p')
 	{
 		all->type = 4;
 		all->modifier = 3;
-		all->flag_hash = 1;
+		do_int16x(a;;, ap, str);
 	}
 	else if (*s == 'n')
 		do_n(all, ap);
 	else if (*s == '%')
-		do_percent(all, ap, s);
+		do_percent(all, ap, str);
 	else
 		s--;
 }
 
-char    *check_type_and_output(t_all *all, char *s)
+char    	*check_type_and_output(t_all *all, va_list *ap, char *s)
 {
+	char	*str;
+	
 	if (*s == 'd' || *s == 'i')
-		all->type = 1;
+		do_int(all, ap, str);
 	else if (*s == 'u')
-		all->type = 2;
+		do_uint(all, ap, str);
 	else if (*s == 'o')
-		all->type = 3;
+		do_int8(all, ap, str);
 	else if (*s == 'x')
-		do_16x(all, ap, s);
+		do_int16x(all, ap, str);
 	else if (*s == 'X')
-		all->type = 5;
+		do_int16X(all, ap, str);
 	else if (*s == 'f' || *s == 'F')
-		all->type = 6;
+		do_float(all, ap, str);
 	else if (*s == 'e' || *s == 'E')
-		all->type = 7;
+		do_efloat(all, ap, str);
 	else if (*s == 'g' || *s == 'G')
-		all->type = 8;
+		do_gfloat(all, ap, str);
 	else if (*s == 'a' || *s == 'A')
-		all->type = 9;
+		do_afloat(all, ap, str);
 	else if (*s == 'c')
-		all->type = 10;
+		do_uchar(all, ap, str);
 	else
-		check_more_type(all, s);
+		check_more_type(all, ap, s);
 	s++;
 	return (s);
 }
 
-char	*processing_and_output(t_all *all, char *s, va_list *ap)
+char		*processing_and_output(t_all *all, char *s, va_list *ap)
 {
 	s = check_flags(all, ++s);
 	s = check_width_or_precision(all, s, ap, 0);
@@ -88,11 +92,11 @@ char	*processing_and_output(t_all *all, char *s, va_list *ap)
 		s = check_width_or_precision(all, ++s, ap, 1);
 	}
 	s = check_modifier(all, s);
-	s = check_type_and_output(all, s);
+	s = check_type_and_output(all, ap,  s);
 	return (s);
 }
 
-int		ft_printf(const char *str, ...)
+int			ft_printf(const char *str, ...)
 {
 	t_all	all;
 	va_list	ap;

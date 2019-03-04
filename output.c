@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 12:50:06 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 14:25:57 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 16:07:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	do_16x(t_all *all, va_list *ap, char *s)
+void	do_int16x(t_all *all, va_list *ap, char *s)
 {
 
 }
