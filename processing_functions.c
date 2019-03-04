@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 15:40:29 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 15:48:47 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,56 +77,5 @@ char	*check_modifier(t_all *all, char *s)
 		all->modifier = 5;
 	while (*s == 'h' || *s == 'l' || *s == 'L')
 		s++;
-	return (s);
-}
-
-void	check_type_other(t_all *all, char *s)
-{
-	if (*s == 's')
-		all->type = 11;
-	else if (*s == 'S')
-	{
-		all->modifier = 3;
-		all->type = 11;
-	}
-	else if (*s == 'p')
-	{
-		all->type = 4;
-		all->modifier = 3;
-		all->flag_hash = 1;
-	}
-	else if (*s == 'n')
-		all->type = 12;
-	else if (*s == '%')
-		all->type = 13;
-	else
-		s--;
-}
-
-char	*check_type(t_all *all, char *s)
-{
-	if (*s == 'd' || *s == 'i')
-		all->type = 1;
-	else if (*s == 'u')
-		all->type = 2;
-	else if (*s == 'o')
-		all->type = 3;
-	else if (*s == 'x')
-		all->type = 4;
-	else if (*s == 'X')
-		all->type = 5;
-	else if (*s == 'f' || *s == 'F')
-		all->type = 6;
-	else if (*s == 'e' || *s == 'E')
-		all->type = 7;
-	else if (*s == 'g' || *s == 'G')
-		all->type = 8;
-	else if (*s == 'a' || *s == 'A')
-		all->type = 9;
-	else if (*s == 'c')
-		all->type = 10;
-	else
-		check_type_other(all, s);
-	s++;
 	return (s);
 }

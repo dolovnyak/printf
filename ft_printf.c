@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 15:20:41 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/04 15:49:57 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,55 @@ void	initialization(t_all *all)
 	all->modifier = 0;
 }
 
-void	check_type_and_output(t_all *all, va_list *ap)
+void    check_more_type(t_all *all, char *s)
 {
-	char	*s;
-
-	if (all->type == 4)
-		do_16x(all, ap, s);
-	if (all->type == 12)
+	if (*s == 's')
+		all->type = 11;
+	else if (*s == 'S')
+	{
+		all->modifier = 3;
+		all->type = 11;
+	}
+	else if (*s == 'p')
+	{
+		all->type = 4;
+		all->modifier = 3;
+		all->flag_hash = 1;
+	}
+	else if (*s == 'n')
 		do_n(all, ap);
-	if (all->type == 13)
+	else if (*s == '%')
 		do_percent(all, ap, s);
+	else
+		s--;
+}
+
+char    *check_type_and_output(t_all *all, char *s)
+{
+	if (*s == 'd' || *s == 'i')
+		all->type = 1;
+	else if (*s == 'u')
+		all->type = 2;
+	else if (*s == 'o')
+		all->type = 3;
+	else if (*s == 'x')
+		do_16x(all, ap, s);
+	else if (*s == 'X')
+		all->type = 5;
+	else if (*s == 'f' || *s == 'F')
+		all->type = 6;
+	else if (*s == 'e' || *s == 'E')
+		all->type = 7;
+	else if (*s == 'g' || *s == 'G')
+		all->type = 8;
+	else if (*s == 'a' || *s == 'A')
+		all->type = 9;
+	else if (*s == 'c')
+		all->type = 10;
+	else
+		check_more_type(all, s);
+	s++;
+	return (s);
 }
 
 char	*processing_and_output(t_all *all, char *s, va_list *ap)
@@ -78,7 +117,7 @@ int		ft_printf(const char *str, ...)
 	va_end(ap);
 	free(tmp_s);
 	printf("\nminus = %d, plus = %d, space = %d, zero = %d, hash = %d\n",
-		all.flag_minus, all.flag_plus, all.flag_space, all.flag_zero, all.flag_hash);
+			all.flag_minus, all.flag_plus, all.flag_space, all.flag_zero, all.flag_hash);
 	printf("width = %d, precision = %d\n", all.width, all.precision);
 	printf("modifier = %d\n", all.modifier);
 	return (1);
@@ -89,7 +128,7 @@ int		main(void)
 	int a;
 
 	a = 0;
-//	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhll", 20);
+	//	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhll", 20);
 	ft_printf("ALLAHALAGLALALALALALALA^^666\n % +0-10.*hhlln", 10, &a);
 	printf ("%d\n", a);
 	return (0);
