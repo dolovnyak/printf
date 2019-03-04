@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 16:22:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/04 17:53:01 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,13 @@ void    	check_more_type(t_all *all, va_list *ap, char *s)
 	
 	if (*s == 's')
 		do_string(all, ap, str);
-	else if (*s == 'S')
-	{
-		all->modifier = 3;
-		do_string(all, ap, str);
-	}
+	else if (*s == 'c')
+		do_uchar(all, ap, str);
 	else if (*s == 'p')
 	{
-		all->type = 4;
+		all->flag_hash = 1;
 		all->modifier = 3;
-		do_int16x(a;;, ap, str);
+		do_int16x(all, ap, str);
 	}
 	else if (*s == 'n')
 		do_n(all, ap);
@@ -74,8 +71,6 @@ char    	*check_type_and_output(t_all *all, va_list *ap, char *s)
 		do_gfloat(all, ap, str);
 	else if (*s == 'a' || *s == 'A')
 		do_afloat(all, ap, str);
-	else if (*s == 'c')
-		do_uchar(all, ap, str);
 	else
 		check_more_type(all, ap, s);
 	s++;

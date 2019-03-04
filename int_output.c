@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   int_output.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/04 12:50:06 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 16:07:29 by sschmele         ###   ########.fr       */
+/*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
+/*   Updated: 2019/03/04 16:47:56 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	do_int16x(t_all *all, va_list *ap, char *s)
+void	do_int(t_all *all, va_list *ap, char *str)
 {
 
 }
 
-void	do_n(t_all *all, va_list *ap)
+void	do_uint(t_all *all, va_list *ap, char *str)
 {
-	int *ptr;
 
-	ptr = va_arg(*ap, int*);
-	*ptr = all->symbol_num;
 }
 
-void	do_percent(t_all *all, va_list *ap, char *s)
+void	do_int8(t_all *all, va_list *ap, char *str)
+{
+
+}
+
+void	do_int16x(t_all *all, va_list *ap, char *str)
+{
+
+}
+
+void	do_int16X(t_all *all, va_list *ap, char *str)
 {
 
 }
