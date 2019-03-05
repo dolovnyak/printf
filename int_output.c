@@ -6,19 +6,41 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/05 19:32:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/05 23:13:16 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+char	*re_strsub(char *s, int start, int len)
+{
+	char	*a;
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	if ((a = (char*)ft_memalloc(len + 1)))
+	{
+		while (i < len)
+		{
+			a[i] = s[start];
+			start++;
+			i++;
+		}
+		a[i] = '\0';
+	}
+	free (s);
+	return (a);
+}
+
 void		do_int(t_all *all, va_list *ap, char *str)
 {
 	int		len;
 	char	*fin;
-	int		flag;
+	char	check_minus;
 
-	flag = 0;
+	check_minus = 0;
 	if (all->modifier == 0)
 		str = ft_itoa_base(va_arg(*ap, int), 10);
 	else if (all->modifier == 1)
@@ -28,43 +50,15 @@ void		do_int(t_all *all, va_list *ap, char *str)
 	else
 		str = ft_itoa_base(va_arg(*ap, long), 10);
 	len = ft_strlen(str);
-	if (all->precision > (len - 1))
+	if (str[0] == '-')
 	{
-		fin = int_p_processing(all, str, len);
-		str = ft_strdup(fin);
-		flag = 1;
+		len--;
+		check_minus = 1;
+		str = re_strsub(str, 1, len);
 	}
-	if (all->flag_plus != 0 && !(str[0] == '-'))
-	{
-		if (flag == 1)
-		{
-			free(fin);
-			len = ft_strlen(str);
-		}
-		fin = int_f_processing(all, str, len);
-		str = ft_strdup(fin);
-	}
-	if (all->flag_space != 0 && !(str[0] == '-'))
-	{
-		if (flag == 1)
-		{
-			free(fin);
-			len = ft_strlen(str);
-		}
-		fin = int_f_processing(all, str, len);
-		str = ft_strdup(fin);
-	}
-	if (all->width > len || all->width > all->precision)
-	{
-		if (flag == 1)
-		{
-			free(fin);
-			len = ft_strlen(str);
-		}
-		fin = int_w_processing(all, str, len);
-		str = ft_strdup(fin);
-		flag = 2;
-	}
+	str = int_precision_processing(all, str, &len, check_minus);
+	if (all->width > len)
+		str = int_w_processing(all, str, len);
 	write(1, str, ft_strlen(str));
 }
 
