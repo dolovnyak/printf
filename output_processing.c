@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/05 23:07:22 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/05 23:29:52 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char		*int_precision_processing(t_all *all, char *str, int *len, char check_minu
 	char	*new;
 
 	if ((check_minus == 1 || all->flag_plus == 1 || all->flag_space == 1) && all->precision > *len)
-		all->precision++;
+		all->precision++; //доп символ под знак
 	else if (check_minus == 1 || all->flag_plus == 1 || all->flag_space == 1)
-		all->precision = *len + 1;
+		all->precision = *len + 1; //чтобы зайти функцию и поставить доп знак
 	if (all->precision > *len)
 	{
 		new = malloc(all->precision);
@@ -51,7 +51,7 @@ char        *int_w_processing(t_all *all, char *str, int len)
 		ft_strcpy(fin, str);
 		ft_memset((void*)&fin[len], ' ', (all->width - len));
 	}
-	else if (all->flag_zero == 1 && str[1] != '0')
+	else if (all->flag_zero == 1 && str[1] != '0' && str[0] != '0') //проверка (супер хуевая) была ли точность
 	{
 		ft_strcpy(&fin[all->width - len], str);
 		ft_memset((void*)fin, '0', (all->width - len));
