@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/05 11:58:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/05 19:21:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		initialization(t_all *all)
 	all->flag_space = 0;
 	all->flag_zero = 0;
 	all->flag_hash = 0;
-	all->width = 0;
+	all->width = 1;
 	all->precision = 0;
 	all->modifier = 0;
 }
@@ -34,7 +34,8 @@ char    	*check_more_type(t_all *all, va_list *ap, char *s)
 	if (*s == 's')
 		do_string(all, ap, str);
 	else if (*s == 'c')
-		do_uchar(all, ap, str);
+		do_percent_or_uchar(all, ap, str, 1);
+		//do_uchar(all, ap, str);
 	else if (*s == 'p')
 	{
 		all->flag_hash = 1;
@@ -44,7 +45,7 @@ char    	*check_more_type(t_all *all, va_list *ap, char *s)
 	else if (*s == 'n')
 		do_n(all, ap);
 	else if (*s == '%')
-		do_percent(all, ap, str);
+		do_percent_or_uchar(all, ap, str, 0);
 	else
 		s--;
 	return (s);
@@ -74,6 +75,7 @@ char    	*check_type_and_output(t_all *all, va_list *ap, char *s)
 		do_afloat(all, ap, str);
 	else
 		s = check_more_type(all, ap, s);
+	s++;
 	return (s);
 }
 
@@ -91,61 +93,39 @@ char		*processing_and_output(t_all *all, char *s, va_list *ap)
 	return (s);
 }
 
+char		*output_nonpercent_symbs(t_all *all, char *s)
+{
+	register int i;
+
+	i = 0;
+	while (s[i] != '%' && s[i])
+		i++;
+	write (1, s, i);
+	all->symbol_num += i;
+	return (s + i);
+}
+
 int			ft_printf(const char *str, ...)
 {
 	t_all	all;
 	va_list	ap;
 	char	*tmp_s;
 	char	*s;
-	//char	*buf[BUFF_SIZE + 1];
 
 	s = ft_strdup(str);
 	tmp_s = s;
-	initialization(&all);
 	va_start(ap, str);
 	while (*s)
 	{
-		if (*s != '%')
-			//ft_strcpy(buf, &s)
-			write(1, s, 1);
-		else
+		if (*s == '%')
+		{
+			initialization(&all);
 			s = processing_and_output(&all, s, &ap);
-		if (!*s)
-			break ;
-		s++;
-		all.symbol_num++;
+		}
+		else
+			s = output_nonpercent_symbs(&all, s);
 	}
 	va_end(ap);
 	free(tmp_s);
-//	printf("\nminus = %d, plus = %d, space = %d, zero = %d, hash = %d\n",
-//			all.flag_minus, all.flag_plus, all.flag_space, all.flag_zero, all.flag_hash);
-//	printf("width = %d, precision = %d\n", all.width, all.precision);
-//	printf("modifier = %d\n", all.modifier);
 	return (1);
-}
-
-int		main(void)
-{
-	long long int	a;
-	long long int	b;
-
-	a = -2147483648;
-	b = -2147483648;
-	printf("bla%lld\n", a);
-	ft_printf("bla%lld\n", b);
-	//printf ("\n%d\n", a);
-	//printf ("%d\n", b);
-	//ft_printf("123%-10%A");
-	//printf("\n123%-10%A\n");
-	//ft_printf("123%010%A");
-	//printf("\n123%010%A\n");
-	//ft_printf("123%10%A");
-	//printf("\n123%10%A\n");
-	//ft_printf("123%-10ca", 'O');
-	//printf("\n123%-10ca\n", 'O');
-	//ft_printf("123%010ca", 'O');
-	//printf("\n123%010ca\n", 'O');
-	//ft_printf("123%10ca", 'O');
-	//printf("\n123%10ca\n", 'O');
-	return (0);
 }
