@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/05 12:40:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/05 13:22:12 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void            do_gfloat(t_all *all, va_list *ap, char *str);
 void            do_afloat(t_all *all, va_list *ap, char *str);
 void            do_uchar(t_all *all, va_list *ap, char *str);
 void            do_string(t_all *all, va_list *ap, char *str);
-char			*ft_itoa_base(int value, int base);
+char			*ft_itoa_base(long value, int base);
 
 #endif
