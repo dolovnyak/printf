@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base2.c                                    :+:      :+:    :+:   */
+/*   ft_itoa_base .c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 08:33:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/05 13:24:23 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/05 19:31:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdlib.h>
 #define MALLOC(x) if (x == NULL) return (NULL)
 
 int			count_digits(long value, int base)
