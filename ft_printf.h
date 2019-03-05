@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 17:51:34 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/05 12:40:19 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include <stdarg.h>
 # include "libft/libft.h"
-# include <stdio.h>
+# include <stdio.h>			//DELETE
+
+# define BUFF_SIZE 500
 
 typedef struct	s_all
 {
@@ -36,6 +38,7 @@ char			*check_width_or_precision(t_all *all, char *s,
 		va_list *ap, char flag);
 char			*check_modifier(t_all *all, char *s);
 char			*check_type(t_all *all, char *s);
+char			*check_type_and_output(t_all *all, va_list *ap, char *s);
 void			do_n(t_all *all, va_list *ap);
 void			do_percent(t_all *all, va_list *ap, char *str);
 void			do_int(t_all *all, va_list *ap, char *str);
@@ -49,5 +52,6 @@ void            do_gfloat(t_all *all, va_list *ap, char *str);
 void            do_afloat(t_all *all, va_list *ap, char *str);
 void            do_uchar(t_all *all, va_list *ap, char *str);
 void            do_string(t_all *all, va_list *ap, char *str);
+char			*ft_itoa_base(int value, int base);
 
 #endif

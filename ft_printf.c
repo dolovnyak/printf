@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/04 19:30:25 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/05 11:58:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int			ft_printf(const char *str, ...)
 	va_list	ap;
 	char	*tmp_s;
 	char	*s;
+	//char	*buf[BUFF_SIZE + 1];
 
 	s = ft_strdup(str);
 	tmp_s = s;
@@ -105,6 +106,7 @@ int			ft_printf(const char *str, ...)
 	while (*s)
 	{
 		if (*s != '%')
+			//ft_strcpy(buf, &s)
 			write(1, s, 1);
 		else
 			s = processing_and_output(&all, s, &ap);
@@ -124,26 +126,26 @@ int			ft_printf(const char *str, ...)
 
 int		main(void)
 {
-	int a;
-	int	b;
+	long long int	a;
+	long long int	b;
 
-	a = 0;
-	b = 0;
-	printf("ALLAHALAGLALALALALALALA^^666 % +0-10.*hhlln\n", 20, &a);
-	ft_printf("ALLAHALAGLALALALALALALA^^666 % +0-10.*hhlln\n", 10, &b);
-	printf ("\n%d\n", a);
-	printf ("%d\n", b);
-	ft_printf("123%-10%A");
-	printf("\n123%-10%A\n");
-	ft_printf("123%010%A");
-	printf("\n123%010%A\n");
-	ft_printf("123%10%A");
-	printf("\n123%10%A\n");
-	ft_printf("123%-10ca", 'O');
-	printf("\n123%-10ca\n", 'O');
-	ft_printf("123%010ca", 'O');
-	printf("\n123%010ca\n", 'O');
-	ft_printf("123%10ca", 'O');
-	printf("\n123%10ca\n", 'O');
+	a = -2147483648;
+	b = -2147483648;
+	printf("bla%lld\n", a);
+	ft_printf("bla%lld\n", b);
+	//printf ("\n%d\n", a);
+	//printf ("%d\n", b);
+	//ft_printf("123%-10%A");
+	//printf("\n123%-10%A\n");
+	//ft_printf("123%010%A");
+	//printf("\n123%010%A\n");
+	//ft_printf("123%10%A");
+	//printf("\n123%10%A\n");
+	//ft_printf("123%-10ca", 'O');
+	//printf("\n123%-10ca\n", 'O');
+	//ft_printf("123%010ca", 'O');
+	//printf("\n123%010ca\n", 'O');
+	//ft_printf("123%10ca", 'O');
+	//printf("\n123%10ca\n", 'O');
 	return (0);
 }
