@@ -8,6 +8,19 @@ int     main(void)
 	a = 120;
 	b = 120;
 
+	printf	  ("% 010d\n", 255);
+	ft_printf ("% 010d\n", 255);
+	printf	  ("%010.2d\n", -255);
+	ft_printf ("%010.2d\n", -255);
+	printf	  ("%010.d\n", -255);
+	ft_printf ("%010.d\n", -255);
+	printf	  ("%010d\n", -255);
+	ft_printf ("%010d\n", -255);
+	printf ("%.5d\n", -255);
+	ft_printf ("%.5d\n", -255);
+	printf ("%+.5d\n", 255);
+	ft_printf ("%+.5d\n", 255);
+
 	printf ("%d\n", 255);
 	ft_printf ("%d\n", 255);
 	printf ("%d\n", -255);
@@ -16,12 +29,10 @@ int     main(void)
 	ft_printf ("%.4d\n", 255);
 	printf ("ori%+010.4d\n", 255);
 	ft_printf ("our%+010.4d\n", 255);
-	printf ("ori%010.5d\n", 255);
+	printf	  ("ori%010.5d\n", 255);
 	ft_printf ("our%010.5d\n", 255);
 	printf ("%40.20ld\n", -12512352555);
 	ft_printf ("%40.20ld\n", -12512352555);
-	
-	
 	printf ("A%.5sO\n", "123456789");
 	ft_printf ("A%.5sO\n", "123456789");
 	printf ("A%10.5sO\n", "123456789");

@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/05 23:13:16 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/06 21:09:55 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,32 @@ char	*re_strsub(char *s, int start, int len)
 		}
 		a[i] = '\0';
 	}
-	free (s);
+	free(s);
 	return (a);
 }
 
 void		do_int(t_all *all, va_list *ap, char *str)
 {
+	long	num;
 	int		len;
 	char	*fin;
 	char	check_minus;
 
-	check_minus = 0;
 	if (all->modifier == 0)
-		str = ft_itoa_base(va_arg(*ap, int), 10);
+		num = va_arg(*ap, int);
 	else if (all->modifier == 1)
-		str = ft_itoa_base((short int)va_arg(*ap, int), 10);
+		num = (short int)va_arg(*ap, int);
 	else if (all->modifier == 2)
-		str = ft_itoa_base((unsigned char)va_arg(*ap, int), 10);
+		num = (unsigned char)va_arg(*ap, int);
 	else
-		str = ft_itoa_base(va_arg(*ap, long), 10);
+		num = va_arg(*ap, long);
+	check_minus = num < 0 ? 1 : 0;
+	num = num < 0 ? -num : num;
+	str = ft_itoa_base(num, 10);
 	len = ft_strlen(str);
-	if (str[0] == '-')
-	{
-		len--;
-		check_minus = 1;
-		str = re_strsub(str, 1, len);
-	}
 	str = int_precision_processing(all, str, &len, check_minus);
 	if (all->width > len)
-		str = int_w_processing(all, str, len);
+		str = int_w_processing(all, str, len, check_minus);
 	write(1, str, ft_strlen(str));
 }
 

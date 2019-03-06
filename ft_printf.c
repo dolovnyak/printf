@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/05 19:21:13 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/06 20:29:05 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		initialization(t_all *all)
 	all->flag_zero = 0;
 	all->flag_hash = 0;
 	all->width = 1;
-	all->precision = 0;
+	all->precision = -1;
 	all->modifier = 0;
 }
 
@@ -85,7 +85,7 @@ char		*processing_and_output(t_all *all, char *s, va_list *ap)
 	s = check_width_or_precision(all, s, ap, 0);
 	if (*s == '.')
 	{
-		all->precision = -1;
+		all->precision = 0;
 		s = check_width_or_precision(all, ++s, ap, 1);
 	}
 	s = check_modifier(all, s);
