@@ -6,33 +6,11 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/06 21:09:55 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/06 21:15:45 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-char	*re_strsub(char *s, int start, int len)
-{
-	char	*a;
-	int		i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	if ((a = (char*)ft_memalloc(len + 1)))
-	{
-		while (i < len)
-		{
-			a[i] = s[start];
-			start++;
-			i++;
-		}
-		a[i] = '\0';
-	}
-	free(s);
-	return (a);
-}
 
 void		do_int(t_all *all, va_list *ap, char *str)
 {
