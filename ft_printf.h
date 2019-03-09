@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/06 18:33:42 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/06 22:31:39 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_all
 	char	flag_space;
 	char	flag_zero;
 	char	flag_hash;
+	char	flag_sign_minus;
 	int		width;
 	int		precision;
 	int		modifier;
@@ -51,8 +52,6 @@ void            do_afloat(t_all *all, va_list *ap, char *str);
 void            do_string(t_all *all, va_list *ap, char *str);
 char			*ft_itoa_base(long value, int base);
 void			do_percent_or_uchar(t_all *all, va_list *ap, char *str, char f);
-char			*int_precision_processing(t_all *all, char *str,
-		int *len, char check_minus);
-char			*int_w_processing(t_all *all, char *str, int len, char check_minus);
-char			*int_f_processing(t_all *all, char *str, int len);
+char			*int_precision_processing(t_all *all, char *str, int *len);
+char			*int_w_processing(t_all *all, char *str, int len);
 #endif

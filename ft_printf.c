@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/06 20:29:05 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/06 22:44:38 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void		initialization(t_all *all)
 {
+	all->flag_sign_minus = 0;
 	all->symbol_num = 0;
 	all->flag_minus = 0;
 	all->flag_plus = 0;
@@ -35,7 +36,6 @@ char    	*check_more_type(t_all *all, va_list *ap, char *s)
 		do_string(all, ap, str);
 	else if (*s == 'c')
 		do_percent_or_uchar(all, ap, str, 1);
-		//do_uchar(all, ap, str);
 	else if (*s == 'p')
 	{
 		all->flag_hash = 1;
