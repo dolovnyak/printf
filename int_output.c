@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/10 15:54:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/10 19:11:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,18 @@ void	do_uint(t_all *all, va_list *ap, char *str)
 	int		len;
 
 	if (all->modifier == 0)
-		num = va_arg(*ap, unsigned int);
+		str = ft_itoa_base(va_arg(*ap, unsigned int), 10);
 	else if (all->modifier == 1)
-		num = (unsigned int)va_arg(*ap, int);
+		str = ft_itoa_base((unsigned short)va_arg(*ap, int), 10);
 	else if (all->modifier == 2)
-		num = (unsigned char)va_arg(*ap, int);
+		str = ft_itoa_base((unsigned char)va_arg(*ap, int), 10);
 	else
-		num = (unsigned long long)va_arg(*ap, long);
-	str = ft_itoa_base(num, 10);
+		str = ft_itoa_base((unsigned long long)va_arg(*ap, long), 10);
 	len = ft_strlen(str);
 	if (all->precision >= len)
-		str = int_precision_processing(all, str, &len);
+		str = other_p_processing(all, str, &len);
 	if (all->width >= len)
-		str = int_w_mz_processing(all, str, len);
+		str = other_w_mz_processing(all, str, len);
 	write(1, str, ft_strlen(str));
 }
 
@@ -74,18 +73,57 @@ void	do_int8(t_all *all, va_list *ap, char *str)
 		str = ft_itoa_base((long long)va_arg(*ap, long), 8);
 	len = ft_strlen(str);
 	if (all->precision >= len)
-		str = int_precision_processing(all, str, &len);
+		str = other_p_processing(all, str, &len);
+	if (all->flag_hash == 1 && all->precision < 0)
+		str = int8_h_processing(all, str, &len);
 	if (all->width >= len)
-		str = int_w_mz_processing(all, str, len);
+		str = other_w_mz_processing(all, str, len);
 	write(1, str, ft_strlen(str));
 }
 
 void	do_int16x(t_all *all, va_list *ap, char *str)
 {
+	int     len;
+	int		i;
 
+	i = 0;
+	if (all->modifier == 0)
+		str = ft_itoa_base(va_arg(*ap, int), 16);
+	else if (all->modifier == 1)
+		str = ft_itoa_base((short int)va_arg(*ap, int), 16);
+	else if (all->modifier == 2)
+		str = ft_itoa_base((unsigned char)va_arg(*ap, int), 16);
+	else
+		str = ft_itoa_base((long long)va_arg(*ap, long), 16);
+	len = ft_strlen(str);
+	if (all->precision >= len)
+		str = other_p_processing(all, str, &len);
+	if (all->flag_hash == 1)
+		str = int16X_h_processing(all, str, &len);
+	if (all->width >= len)
+		str = other_w_mz_processing(all, str, len);
+	do_lower(str);
+	write(1, str, ft_strlen(str));
 }
 
 void	do_int16X(t_all *all, va_list *ap, char *str)
 {
-
+	int	len;
+	
+	if (all->modifier == 0)
+		str = ft_itoa_base(va_arg(*ap, int), 16);
+	else if (all->modifier == 1)
+		str = ft_itoa_base((short int)va_arg(*ap, int), 16);
+	else if (all->modifier == 2)
+		str = ft_itoa_base((unsigned char)va_arg(*ap, int), 16);
+	else
+		str = ft_itoa_base((long long)va_arg(*ap, long), 16);
+	len = ft_strlen(str);
+	if (all->precision >= len)
+		str = other_p_processing(all, str, &len);
+	if (all->flag_hash == 1 && all->precision < 0)
+		str = int16X_h_processing(all, str, &len);
+	if (all->width >= len)
+		str = other_w_mz_processing(all, str, len);
+	write(1, str, ft_strlen(str));
 }
