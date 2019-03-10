@@ -6,75 +6,87 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/09 10:14:46 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/10 15:54:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+char		*flags_ps_or_signs(t_all *all, char *str, int len)
+{
+	char	*new;
+
+	if (all->flag_sign_minus == 1)
+	{
+		new = ft_strnew((size_t)len + 1);
+		new[0] = '-';
+	}
+	else if (all->flag_plus == 1)
+	{
+		new = ft_strnew((size_t)len + 1);
+		new[0] = '+';
+	}
+	else if (all->flag_space == 1)
+	{
+		new = ft_strnew((size_t)len + 1);
+		new[0] = ' ';
+	}
+	else
+		return (str);
+	ft_strcpy(&new[1], str);
+	ft_strdel(&str);
+	return (new);
+}
+
 char		*int_precision_processing(t_all *all, char *str, int *len)
 {
 	char	*new;
 
-	if ((all->flag_sign_minus == 1 || all->flag_plus == 1 || all->flag_space == 1) && all->precision > *len)
-		all->precision++;
-	if (all->precision > *len)
+	new = ft_strnew(all->precision);
+	ft_memset((void*)new, '0', (all->precision - *len));
+	ft_strcpy(&new[all->precision - *len], str);
+	if (all->flag_sign_minus == 1 || all->flag_plus == 1
+			|| all->flag_space == 1)
 	{
-		new = malloc(all->precision);
-		ft_strcpy(&new[all->precision - *len], str);
-		ft_memset((void*)new, '0', (all->precision - *len));
-		if (all->flag_sign_minus == 1)
-			new[0] = '-';
-		else if (all->flag_plus == 1)
-			new[0] = '+';
-		else if (all->flag_space == 1)
-			new[0] = ' ';
-		*len = all->precision;
-		free(str);
-		return (new);
+		new = flags_ps_or_signs(all, new, all->precision);
+		all->precision++;
 	}
-	else
-		return (str);
+	*len = all->precision;
+	ft_strdel(&str);
+	return (new);
 }
 
-char        *int_w_processing(t_all *all, char *str, int len)
+char		*int_w_mz_processing(t_all *all, char *str, int len)
 {
 	char 	*new;
+	int		i;
 
-	new = ft_strnew(all->width);
-	if (all->flag_minus == 1)
+	i = 0;
+	if (all->precision < len && (all->flag_sign_minus == 1 || 
+				all->flag_plus == 1 || all->flag_space == 1))
 	{
-		ft_strcpy(new + 1, str);
-		ft_memset((void*)&new[len + 1], ' ', (all->width - len));
-		if (all->flag_sign_minus == 1)
-			new[0] = '-';
-		else if (all->flag_plus == 1)
-			new[0] = '+';
-		else
-			new[0] = ' ';
+		str = flags_ps_or_signs(all, str, len);
+		len++;
+		i = 1;
 	}
+	new = ft_strnew(all->width);
+	ft_memset((void*)new, ' ', all->width);
+	if (all->flag_minus == 1)
+		ft_memcpy((void*)new, (const void*)str, len + i);
 	else if (all->flag_zero == 1 && all->precision < 0)
 	{
-		ft_strcpy(&new[all->width - len], str);
-		ft_memset((void*)new, '0', (all->width - len));
-		if (all->flag_sign_minus == 1)
-			new[0] = '-';
-		else if (all->flag_plus == 1)
-			new[0] = '+';
-		else
-			new[0] = ' ';
+		if (i == 1)
+			new[0] = str[0];
+		ft_memset((void*)&new[i], '0', (all->width - len));
+		ft_strcpy(&new[all->width - len + i], &str[i]);
 	}
+	else if (all->width >= len)
+		ft_strcpy(&new[all->width - len], str);
 	else
 	{
-		ft_memset((void*)new, ' ', (all->width - len));
-		ft_strcpy(&new[all->width - len], str);
-		if (all->flag_sign_minus == 1)
-			new[all->width - len - 1] = '-';
-		else if (all->flag_plus == 1)
-			new[all->width - len - 1] = '+';
-		else
-			new[all->width - len - 1] = ' ';
+		ft_strdel(&new);
+		return (str);
 	}
-	free(str);
+	ft_strdel(&str);
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/06 22:31:39 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/10 15:56:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void            do_string(t_all *all, va_list *ap, char *str);
 char			*ft_itoa_base(long value, int base);
 void			do_percent_or_uchar(t_all *all, va_list *ap, char *str, char f);
 char			*int_precision_processing(t_all *all, char *str, int *len);
-char			*int_w_processing(t_all *all, char *str, int len);
+char			*int_w_mz_processing(t_all *all, char *str, int len);
+char			*flags_ps_or_signs(t_all *all, char *str, int len);
 #endif

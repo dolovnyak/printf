@@ -28,9 +28,11 @@ int     main(void)
 	printf	  ("%-+10d\n", -666);	
 	ft_printf ("%-+10d\n", -666);	
 	printf	  ("% 010.20u\n", 1256);
-	ft_printf ("% 010.20u\n", 1256);
-	printf	  ("% 10d\n", 255);
-	ft_printf ("% 10d\n", 255);
+	ft_printf ("% 010.20u\n", 1256); //здесь непредсказуемое поведение, поэтому пусть выводит то, что выводит
+	printf    ("% u\n", 133);
+	ft_printf ("% u\n", 133);
+	printf	  ("% 10d\n", 143);
+	ft_printf ("% 10d\n", 143);
 	printf	  ("%010.2d\n", -255);
 	ft_printf ("%010.2d\n", -255);
 	printf	  ("%010.d\n", -255);
@@ -61,12 +63,14 @@ int     main(void)
 	ft_printf ("A%010.5sO\n", "123456789");
 	printf ("A%-10.5sO\n", "123456789");
 	ft_printf ("A%-10.5sO\n", "123456789");
+	printf("MISTAKE\n");
 	printf ("%0cO\n", 'A');
 	ft_printf ("%0cO\n", 'A');
 	printf("bla%hhd\n", a);
 	ft_printf("bla%hhd\n", b);
 	printf ("\n%d\n", a);
 	printf ("%d\n", b);
+	printf("MISTAKE\n");
 	ft_printf("123%%A");
 	printf("\n123%%A\n");
 	ft_printf("123%-10%A");

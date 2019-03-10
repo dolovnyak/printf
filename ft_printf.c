@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/06 22:44:38 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/09 18:35:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		initialization(t_all *all)
 	all->flag_space = 0;
 	all->flag_zero = 0;
 	all->flag_hash = 0;
-	all->width = 1;
+	all->width = 0;
 	all->precision = -1;
 	all->modifier = 0;
 }
@@ -32,6 +32,7 @@ char    	*check_more_type(t_all *all, va_list *ap, char *s)
 {
 	char	*str;
 	
+	str = NULL;
 	if (*s == 's')
 		do_string(all, ap, str);
 	else if (*s == 'c')
@@ -55,6 +56,7 @@ char    	*check_type_and_output(t_all *all, va_list *ap, char *s)
 {
 	char	*str;
 	
+	str = NULL;
 	if (*s == 'd' || *s == 'i')
 		do_int(all, ap, str);
 	else if (*s == 'u')

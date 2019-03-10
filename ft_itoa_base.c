@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base .c                                    :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/05 08:33:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/05 19:31:42 by sschmele         ###   ########.fr       */
+/*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
+/*   Updated: 2019/03/09 18:09:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int			count_digits(long value, int base)
 	int		res;
 
 	res = 0;
+	if (value == 0)
+		return (1);
 	while (value)
 	{
 		value /= base;
@@ -42,9 +44,11 @@ char		*ft_itoa_base(long nb, int base)
 	MALLOC((str = ft_strnew(len)));
 	if (nb < 0)
 	{
-		str[i] = '-';
+		str[0] = '-';
 		nb *= -1;
 	}
+	if (nb == 0)
+		str[0] = 0 + '0';
 	while (nb)
 	{
 		str[len - ++i] = main[nb % base];
