@@ -87,7 +87,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 			ar rc $(NAME) *.o
 .c.o:
-			$(CC) $(CFLAGS) -o $@ $<
+			@$(CC) $(CFLAGS) -o $@ $<
 
 clean:
 			/bin/rm -f *.o
