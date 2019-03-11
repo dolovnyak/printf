@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 12:50:06 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/05 19:21:12 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/11 16:12:21 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	do_percent_or_uchar(t_all *all, va_list *ap, char *str, char f)
 		str = width_processing(str, 1, all);
 		len = all->width;
 	}
-	write(1, str, all->width);
+	write(1, str, len);
 	all->symbol_num += len;
 	free(str);
 }
@@ -83,7 +83,7 @@ void	do_string(t_all *all, va_list *ap, char *str)
 
 	str = ft_strdup(va_arg(*ap, char*));
 	len = ft_strlen(str);
-	if (all->precision < len)
+	if (all->precision < len && all->precision != -1)
 	{
 		str = re_strncpy(str, all->precision);
 		len = all->precision;
@@ -93,6 +93,7 @@ void	do_string(t_all *all, va_list *ap, char *str)
 		str = width_processing(str, len, all);
 		len = all->width;
 	}
+	all->symbol_num += len;
 	write (1, str, len);
 	free(str);
 }

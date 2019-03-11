@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/11 13:42:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:14:44 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 void		initialization(t_all *all)
 {
 	all->flag_sign_minus = 0;
-	all->symbol_num = 0;
 	all->flag_minus = 0;
 	all->flag_plus = 0;
 	all->flag_space = 0;
@@ -117,6 +116,7 @@ int			ft_printf(const char *str, ...)
 	s = ft_strdup(str);
 	tmp_s = s;
 	va_start(ap, str);
+	all.symbol_num = 0;
 	while (*s)
 	{
 		if (*s == '%')
@@ -129,5 +129,5 @@ int			ft_printf(const char *str, ...)
 	}
 	va_end(ap);
 	free(tmp_s);
-	return (1);
+	return (all.symbol_num);
 }
