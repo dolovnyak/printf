@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/09 18:35:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/11 13:42:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char    	*check_type_and_output(t_all *all, va_list *ap, char *s)
 	else if (*s == 'x')
 		do_int16x(all, ap, str);
 	else if (*s == 'X')
-		do_int16X(all, ap, str);
+		do_int16xupper(all, ap, str);
 	else if (*s == 'f' || *s == 'F')
 		do_float(all, ap, str);
 	else if (*s == 'e' || *s == 'E')

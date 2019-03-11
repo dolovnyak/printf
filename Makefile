@@ -1,6 +1,15 @@
 NAME = printf			#называется libftprintf.a
 FLAGS = -Wall -Wextra -Werror		#вставить флагии!!
-SRCS = ft_printf.c int_output.c output_processing.c processing_functions.c ft_itoa_base.c char_and_nonstandard_output.c float_output.c main.c
+SRCS = ft_printf.c \
+	   processing_functions.c \
+	   int_output.c \
+	   output_processing_di.c \
+	   output_processing_uob.c \
+	   output_processing_x.c \
+	   char_and_nonstandard_output.c \
+	   float_output.c \
+	   ft_itoa_base.c \
+	   main_xX.c		#убрать итоа бэйз в либу
 OBJS = $(SRCS:.c=.o)
 INCLUDES = ft_printf.h
 
