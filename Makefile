@@ -1,4 +1,4 @@
-NAME = printf			#называется libftprintf.a
+NAME = libftprintf.a			#называется libftprintf.a
 FLAGS = -Wall -Wextra -Werror		#вставить флагии!!
 SRCS = ft_printf.c \
 	   processing_functions.c \
@@ -9,7 +9,7 @@ SRCS = ft_printf.c \
 	   char_and_nonstandard_output.c \
 	   float_output.c \
 	   ft_itoa_base.c \
-	   main_xX.c		#убрать итоа бэйз в либу
+#	   main_files/main_xX.c		#убрать итоа бэйз в либу
 OBJS = $(SRCS:.c=.o)
 INCLUDES = ft_printf.h
 
@@ -17,18 +17,21 @@ all:	$(NAME)
 
 $(NAME):		$(OBJS)
 				@echo "\x1b[32;01mCompilation\x1b[32;01m"
-				@make --directory ./libft
-				@gcc $(OBJS) -o $(NAME) -L ./libft -lft
+				@make -C ./libft
+				@cp libft/libft.a $(NAME)
+				@ar rc $(NAME) $(OBJS)
+				@runlib $(NAME)
 
 $(OBJS):		%.o: %.c
 				@gcc -c $< -I $(INCLUDES) -o $@
+				make -C libft/
 clean:
-				@echo "\033[34mDeliting o-files\033[34m"
+				@echo "\033[34mDeliting o-files\033[0m"
 				@/bin/rm -f $(OBJS)
 				@make clean --directory ./libft
 
 fclean: clean
-				@echo "\033[34mDeliting binary\033[34m"
+				@echo "\033[34mDeliting binary\033[0m"
 				@/bin/rm -f $(NAME)
 				@make fclean --directory ./libft
 
