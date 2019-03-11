@@ -6,14 +6,14 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/11 17:06:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:06:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #define MALLOC(x) if (x == NULL) return (NULL)
 
-static int	count_digits(int value, int base)
+static int	count_digits_ll(long value, int base)
 {
 	int		res;
 
@@ -28,7 +28,7 @@ static int	count_digits(int value, int base)
 	return (res);
 }
 
-char		*ft_itoa_base(int nb, int base)
+char		*ft_lltoa_base(long nb, int base)
 {
 	int		i;
 	char	*str;
@@ -39,7 +39,7 @@ char		*ft_itoa_base(int nb, int base)
 		return (NULL);
 	i = 0;
 	main = "0123456789ABCDEF";
-	len = count_digits(nb, base);
+	len = count_digits_ll(nb, base);
 	(nb < 0 && base == 10) ? len++ : len;
 	MALLOC((str = ft_strnew(len)));
 	if (nb < 0)
