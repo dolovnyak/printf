@@ -6,16 +6,16 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/11 17:53:49 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/11 19:22:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		do_int(t_all *all, va_list *ap, char *str)
+void			do_int(t_all *all, va_list *ap, char *str)
 {
-	long	num;
-	int		len;
+	long		num;
+	int			len;
 
 	if (all->modifier == 0)
 		num = va_arg(*ap, int);
@@ -39,18 +39,20 @@ void		do_int(t_all *all, va_list *ap, char *str)
 	write(1, str, len);
 }
 
-void		do_uint(t_all *all, va_list *ap, char *str)
+void				do_uint(t_all *all, va_list *ap, char *str)
 {
-	int		len;
+	unsigned long   num;
+	int				len;
 
 	if (all->modifier == 0)
-		str = ft_lltoa_base(va_arg(*ap, unsigned int), 10);
+		num = va_arg(*ap, unsigned int);
 	else if (all->modifier == 1)
-		str = ft_itoa_base((unsigned short)va_arg(*ap, int), 10);
+		num = (unsigned short)va_arg(*ap, unsigned int);
 	else if (all->modifier == 2)
-		str = ft_itoa_base((unsigned char)va_arg(*ap, int), 10);
+		num = (unsigned char)va_arg(*ap, unsigned int);
 	else
-		str = ft_lltoa_base((unsigned long long)va_arg(*ap, long), 10);
+		num = va_arg(*ap, unsigned long);
+	str = ft_utoa_base(num, 10);
 	len = ft_strlen(str);
 	if (all->precision >= len)
 		str = intu82_p_processing(all, str, &len);
@@ -60,18 +62,20 @@ void		do_uint(t_all *all, va_list *ap, char *str)
 	write(1, str, len);
 }
 
-void		do_int8(t_all *all, va_list *ap, char *str)
+void				do_int8(t_all *all, va_list *ap, char *str)
 {
-	int		len;
+	unsigned long   num;
+	int				len;
 
 	if (all->modifier == 0)
-		str = ft_itoa_base(va_arg(*ap, int), 8);
+		num = va_arg(*ap, unsigned int);
 	else if (all->modifier == 1)
-		str = ft_itoa_base((short int)va_arg(*ap, int), 8);
+		num = (unsigned short)va_arg(*ap, unsigned int);
 	else if (all->modifier == 2)
-		str = ft_itoa_base((unsigned char)va_arg(*ap, int), 8);
+		num = (unsigned char)va_arg(*ap, unsigned int);
 	else
-		str = ft_lltoa_base((long long)va_arg(*ap, long), 8);
+		num = va_arg(*ap, unsigned long);
+	str = ft_utoa_base(num, 8);
 	len = ft_strlen(str);
 	if (all->precision >= len)
 		str = intu82_p_processing(all, str, &len);
@@ -83,18 +87,20 @@ void		do_int8(t_all *all, va_list *ap, char *str)
 	write(1, str, len);
 }
 
-void		do_int16x(t_all *all, va_list *ap, char *str)
+void				do_int16x(t_all *all, va_list *ap, char *str)
 {
-	int		len;
+	unsigned long   num;
+	int				len;
 
 	if (all->modifier == 0)
-		str = ft_itoa_base(va_arg(*ap, int), 16);
+		num = va_arg(*ap, unsigned int);
 	else if (all->modifier == 1)
-		str = ft_itoa_base((short int)va_arg(*ap, int), 16);
+		num = (unsigned short)va_arg(*ap, unsigned int);
 	else if (all->modifier == 2)
-		str = ft_itoa_base((unsigned char)va_arg(*ap, int), 16);
+		num = (unsigned char)va_arg(*ap, unsigned int);
 	else
-		str = ft_lltoa_base((long long)va_arg(*ap, long), 16);
+		num = va_arg(*ap, unsigned long);
+	str = ft_utoa_base(num, 16);
 	len = ft_strlen(str);
 	if (all->flag_hash == 1 && all->precision < 0 && all->width == 0)
 		str = int16x_h_processing(str, &len);
@@ -108,18 +114,20 @@ void		do_int16x(t_all *all, va_list *ap, char *str)
 	write(1, str, len);
 }
 
-void		do_int16xupper(t_all *all, va_list *ap, char *str)
+void				do_int16xupper(t_all *all, va_list *ap, char *str)
 {
-	int		len;
+	unsigned long   num;
+	int				len;
 
 	if (all->modifier == 0)
-		str = ft_itoa_base(va_arg(*ap, int), 16);
+		num = va_arg(*ap, unsigned int);
 	else if (all->modifier == 1)
-		str = ft_itoa_base((short int)va_arg(*ap, int), 16);
+		num = (unsigned short)va_arg(*ap, unsigned int);
 	else if (all->modifier == 2)
-		str = ft_itoa_base((unsigned char)va_arg(*ap, int), 16);
+		num = (unsigned char)va_arg(*ap, unsigned int);
 	else
-		str = ft_lltoa_base((long long)va_arg(*ap, long), 16);
+		num = va_arg(*ap, unsigned long);
+	str = ft_utoa_base(num, 16);
 	len = ft_strlen(str);
 	if (all->flag_hash == 1 && all->precision < 0 && all->width == 0)
 		str = int16x_h_processing(str, &len);

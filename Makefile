@@ -9,7 +9,8 @@ SRCS = ft_printf.c \
 	   char_and_nonstandard_output.c \
 	   float_output.c \
 	   ft_itoa_base.c \
-	   ft_ltoa_base.c
+	   ft_ltoa_base.c \
+	   ft_utoa_base.c
 		#убрать итоа бэйз в либу
 OBJS = $(SRCS:.c=.o)
 INCLUDES = ft_printf.h
