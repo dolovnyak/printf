@@ -23,7 +23,7 @@ $(NAME):		$(OBJS)
 				@runlib $(NAME)
 
 $(OBJS):		%.o: %.c
-				@gcc -c $< -I $(INCLUDES) -o $@
+				gcc -c $< -I $(INCLUDES) -o $@
 				make -C libft/
 clean:
 				@echo "\033[34mDeliting o-files\033[0m"
