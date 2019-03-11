@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/11 13:47:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:47:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,32 @@ char		*intu82_p_processing(t_all *all, char *str, int *len)
 	return (new);
 }
 
-char		*intu82_w_mz_processing(t_all *all, char *str, int len)
+char		*intu82_w_mz_processing(t_all *all, char *str, int *len)
 {
 	char	*new;
 
 	new = ft_strnew(all->width);
 	if (all->flag_minus == 1)
 	{
-		ft_memcpy((void*)new, (const void*)str, len);
-		ft_memset((void*)&new[len], ' ', (all->width - len));
+		ft_memcpy((void*)new, (const void*)str, *len);
+		ft_memset((void*)&new[*len], ' ', (all->width - *len));
 	}
 	else if (all->flag_zero == 1 && all->precision < 0)
 	{
-		ft_memset((void*)new, '0', (all->width - len));
-		ft_strcpy(&new[all->width - len], str);
+		ft_memset((void*)new, '0', (all->width - *len));
+		ft_strcpy(&new[all->width - *len], str);
 	}
 	else
 	{
-		ft_memset((void*)new, ' ', (all->width - len));
-		ft_strcpy(&new[all->width - len], str);
+		ft_memset((void*)new, ' ', (all->width - *len));
+		ft_strcpy(&new[all->width - *len], str);
 	}
+	*len = ft_strlen(new);
 	ft_strdel(&str);
 	return (new);
 }
 
-char		*int8_h_processing(t_all *all, char *str, int *len)
+char		*int8_h_processing(char *str, int *len)
 {
 	char	*new;
 

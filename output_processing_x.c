@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/11 13:40:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:51:05 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char		*int16_p_processing(t_all *all, char *str, int *len)
 	*len = all->precision;
 	ft_strdel(&str);
 	if (all->flag_hash == 1)
-		new = int16x_h_processing(all, new, len);
+		new = int16x_h_processing(new, len);
 	return (new);
 }
 
@@ -31,7 +31,7 @@ char		*int16_w_mz_processing(t_all *all, char *str, int len)
 	char	*new;
 
 	if (all->flag_hash == 1 && all->flag_zero == 0 && all->precision < 0)
-		str = int16x_h_processing(all, str, &len);
+		str = int16x_h_processing(str, &len);
 	new = ft_strnew(all->width);
 	if (all->flag_minus == 1)
 	{
@@ -54,7 +54,7 @@ char		*int16_w_mz_processing(t_all *all, char *str, int len)
 	return (new);
 }
 
-char		*int16x_h_processing(t_all *all, char *str, int *len)
+char		*int16x_h_processing(char *str, int *len)
 {
 	char	*new;
 
