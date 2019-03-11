@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 22:12:59 by sbecker           #+#    #+#             */
-/*   Updated: 2019/02/25 22:01:53 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/11 16:34:13 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 
 	i = 0;
-	if (!(a = (char *)malloc(ft_strlen(s1) + 1)))
+	if (!s1 || !(a = (char *)malloc(ft_strlen(s1) + 1)))
 		return (0);
 	while (s1[i])
 	{

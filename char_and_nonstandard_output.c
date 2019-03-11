@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 12:50:06 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/11 16:12:21 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/11 16:42:50 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	do_string(t_all *all, va_list *ap, char *str)
 {
 	int		len;
 
-	str = ft_strdup(va_arg(*ap, char*));
+	if (!(str = ft_strdup(va_arg(*ap, char*))))
+		str = ft_strdup("(null)");
 	len = ft_strlen(str);
 	if (all->precision < len && all->precision != -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/11 17:49:59 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:53:49 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		do_uint(t_all *all, va_list *ap, char *str)
 	int		len;
 
 	if (all->modifier == 0)
-		str = ft_itoa_base(va_arg(*ap, unsigned int), 10);
+		str = ft_lltoa_base(va_arg(*ap, unsigned int), 10);
 	else if (all->modifier == 1)
 		str = ft_itoa_base((unsigned short)va_arg(*ap, int), 10);
 	else if (all->modifier == 2)
