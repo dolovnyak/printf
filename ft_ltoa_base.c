@@ -6,14 +6,14 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/11 17:06:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:51:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #define MALLOC(x) if (x == NULL) return (NULL)
 
-static int	count_digits_ll(long value, int base)
+static int	count_dig(long value, int base)
 {
 	int		res;
 
@@ -28,7 +28,7 @@ static int	count_digits_ll(long value, int base)
 	return (res);
 }
 
-char		*ft_lltoa_base(long nb, int base)
+char		*ft_ltoa_base(long nb, int base)
 {
 	int		i;
 	char	*str;
@@ -39,20 +39,20 @@ char		*ft_lltoa_base(long nb, int base)
 		return (NULL);
 	i = 0;
 	main = "0123456789ABCDEF";
-	len = count_digits_ll(nb, base);
-	(nb < 0 && base == 10) ? len++ : len;
+	len = nb < 0 && base == 10 ? count_dig(nb, base) + 1 : count_dig(nb, base);
 	MALLOC((str = ft_strnew(len)));
-	if (nb < 0)
-	{
-		str[0] = '-';
-		nb *= -1;
-	}
-	if (nb == 0)
-		str[0] = 0 + '0';
-	while (nb)
-	{
-		str[len - ++i] = main[nb % base];
-		nb /= base;
-	}
+	str[0] = nb < 0 ? '-' : '0';
+	if (str[0] == '-')
+		while (nb)
+		{
+			str[len - ++i] = main[-(nb % base)];
+			nb /= base;
+		}
+	else
+		while (nb)
+		{
+			str[len - ++i] = main[nb % base];
+			nb /= base;
+		}
 	return (str);
 }

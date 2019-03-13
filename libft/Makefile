@@ -78,7 +78,9 @@ SRC = ft_atoi.c \
 	  ft_swap.c \
 	  ft_dswap.c \
 	  ft_fswap.c \
-	  ft_atoi_base.c
+	  ft_atoi_base.c \
+	  ft_restrsub.c \
+	  ft_strnewsetchar.c
 OBJ=$(SRC:.c=.o)
 %.c : %.o
 
@@ -87,7 +89,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 			ar rc $(NAME) *.o
 .c.o:
-			@$(CC) $(CFLAGS) -o $@ $<
+			$(CC) $(CFLAGS) -o $@ $<
 
 clean:
 			/bin/rm -f *.o

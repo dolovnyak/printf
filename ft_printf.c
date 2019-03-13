@@ -6,11 +6,9 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/11 16:14:44 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/13 18:11:22 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*  Проверить строку check_type, перенести инициализацию, переделать вывод не по символам */
 
 #include "ft_printf.h"
 
@@ -27,59 +25,6 @@ void		initialization(t_all *all)
 	all->modifier = 0;
 }
 
-char    	*check_more_type(t_all *all, va_list *ap, char *s)
-{
-	char	*str;
-	
-	str = NULL;
-	if (*s == 's')
-		do_string(all, ap, str);
-	else if (*s == 'c')
-		do_percent_or_uchar(all, ap, str, 1);
-	else if (*s == 'p')
-	{
-		all->flag_hash = 1;
-		all->modifier = 3;
-		do_int16x(all, ap, str);
-	}
-	else if (*s == 'n')
-		do_n(all, ap);
-	else if (*s == '%')
-		do_percent_or_uchar(all, ap, str, 0);
-	else
-		s--;
-	return (s);
-}
-
-char    	*check_type_and_output(t_all *all, va_list *ap, char *s)
-{
-	char	*str;
-	
-	str = NULL;
-	if (*s == 'd' || *s == 'i')
-		do_int(all, ap, str);
-	else if (*s == 'u')
-		do_uint(all, ap, str);
-	else if (*s == 'o')
-		do_int8(all, ap, str);
-	else if (*s == 'x')
-		do_int16x(all, ap, str);
-	else if (*s == 'X')
-		do_int16xupper(all, ap, str);
-	else if (*s == 'f' || *s == 'F')
-		do_float(all, ap, str);
-	else if (*s == 'e' || *s == 'E')
-		do_efloat(all, ap, str);
-	else if (*s == 'g' || *s == 'G')
-		do_gfloat(all, ap, str);
-	else if (*s == 'a' || *s == 'A')
-		do_afloat(all, ap, str);
-	else
-		s = check_more_type(all, ap, s);
-	s++;
-	return (s);
-}
-
 char		*processing_and_output(t_all *all, char *s, va_list *ap)
 {
 	s = check_flags(all, ++s);
@@ -90,7 +35,7 @@ char		*processing_and_output(t_all *all, char *s, va_list *ap)
 		s = check_width_or_precision(all, ++s, ap, 1);
 	}
 	s = check_modifier(all, s);
-	s = check_type_and_output(all, ap,  s);
+	s = check_type_and_output(all, ap, s);
 	return (s);
 }
 
@@ -101,7 +46,7 @@ char		*output_nonpercent_symbs(t_all *all, char *s)
 	i = 0;
 	while (s[i] != '%' && s[i])
 		i++;
-	write (1, s, i);
+	write(1, s, i);
 	all->symbol_num += i;
 	return (s + i);
 }

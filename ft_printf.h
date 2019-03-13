@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/11 17:03:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/13 18:11:56 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include "libft/libft.h"
-# include <stdio.h>			//DELETE
+# include <stdio.h>
 
 typedef struct	s_all
 {
@@ -50,8 +50,8 @@ void			do_efloat(t_all *all, va_list *ap, char *str);
 void			do_gfloat(t_all *all, va_list *ap, char *str);
 void			do_afloat(t_all *all, va_list *ap, char *str);
 void			do_string(t_all *all, va_list *ap, char *str);
-char			*ft_itoa_base(int nb, int base);
-char			*ft_lltoa_base(long nb, int base);
+char			*ft_utoa_base(unsigned long nb, int base);
+char			*ft_ltoa_base(long nb, int base);
 void			do_percent_or_uchar(t_all *all, va_list *ap, char *str, char f);
 char			*int_precision_processing(t_all *all, char *str, int *len);
 char			*int_w_mz_processing(t_all *all, char *str, int *len);
@@ -61,6 +61,10 @@ char			*intu82_w_mz_processing(t_all *all, char *str, int *len);
 char			*int8_h_processing(char *str, int *len);
 char			*int16x_h_processing(char *str, int *len);
 char			*int16_p_processing(t_all *all, char *str, int *len);
-char			*int16_w_mz_processing(t_all *all, char *str, int len);
+char			*int16_w_mz_processing(t_all *all, char *str, int *len);
 void			do_lower(char *str);
+char			*get_str(va_list *ap, char *str, t_all *all, int base);
+void			zero_p(t_all *all, char *str, int *len, int flag);
+char			*check_type_and_output(t_all *all, va_list *ap, char *s);
+
 #endif

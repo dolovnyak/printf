@@ -1,4 +1,4 @@
-NAME = libftprintf.a			#называется libftprintf.a
+NAME = libftprintf.a
 FLAGS = -Wall -Wextra -Werror		#вставить флагии!!
 SRCS = ft_printf.c \
 	   processing_functions.c \
@@ -8,25 +8,25 @@ SRCS = ft_printf.c \
 	   output_processing_x.c \
 	   char_and_nonstandard_output.c \
 	   float_output.c \
-	   ft_itoa_base.c \
+	   ft_utoa_base.c \
 	   ft_ltoa_base.c \
-	   ft_utoa_base.c
-		#убрать итоа бэйз в либу
+	   help_functions_for_int.c
+
 OBJS = $(SRCS:.c=.o)
-INCLUDES = ft_printf.h
 
 all:	$(NAME)
 
-$(NAME):		$(OBJS)
-				@echo "\x1b[32;01mCompilation\x1b[32;01m"
+$(NAME):		text $(OBJS)
+				@echo "\x1b[32;01mCompilation Lib\x1b[32;01m"
 				@make -C ./libft
 				@cp libft/libft.a $(NAME)
 				@ar rc $(NAME) $(OBJS)
-				@runlib $(NAME)
+
+text:
+				@echo "Compilation"
 
 $(OBJS):		%.o: %.c
-				gcc -c $< -I $(INCLUDES) -o $@
-				make -C libft/
+				gcc -c -o $@ $<
 clean:
 				@echo "\033[34mDeliting o-files\033[0m"
 				@/bin/rm -f $(OBJS)

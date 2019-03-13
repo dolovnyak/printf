@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/11 19:22:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/12 23:29:37 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,31 @@ char		*int16_p_processing(t_all *all, char *str, int *len)
 	return (new);
 }
 
-char		*int16_w_mz_processing(t_all *all, char *str, int len)
+char		*int16_w_mz_processing(t_all *all, char *str, int *len)
 {
 	char	*new;
 
 	if (all->flag_hash == 1 && all->flag_zero == 0 && all->precision < 0)
-		str = int16x_h_processing(str, &len);
+		str = int16x_h_processing(str, len);
 	new = ft_strnew(all->width);
 	if (all->flag_minus == 1)
 	{
-		ft_memcpy((void*)new, (const void*)str, len);
-		ft_memset((void*)&new[len], ' ', (all->width - len));
+		ft_memcpy((void*)new, (const void*)str, *len);
+		ft_memset((void*)&new[*len], ' ', (all->width - *len));
 	}
 	else if (all->flag_zero == 1 && all->precision < 0)
 	{
-		ft_memset((void*)new, '0', (all->width - len));
-		ft_strcpy(&new[all->width - len], str);
+		ft_memset((void*)new, '0', (all->width - *len));
+		ft_strcpy(&new[all->width - *len], str);
 		if (all->flag_hash == 1)
 			new[1] = 'X';
 	}
 	else
 	{
-		ft_memset((void*)new, ' ', (all->width - len));
-		ft_strcpy(&new[all->width - len], str);
+		ft_memset((void*)new, ' ', (all->width - *len));
+		ft_strcpy(&new[all->width - *len], str);
 	}
+	*len = all->width;
 	ft_strdel(&str);
 	return (new);
 }

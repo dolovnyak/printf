@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/11 17:49:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/13 19:23:39 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char		*flags_ps_or_signs(t_all *all, char *str, int *len)
 	}
 	else
 		return (str);
-	*len += 1;
+	++(*len);
 	ft_strcpy(&new[1], str);
 	ft_strdel(&str);
 	return (new);
@@ -56,35 +56,29 @@ char		*int_precision_processing(t_all *all, char *str, int *len)
 
 char		*int_w_mz_processing(t_all *all, char *str, int *len)
 {
-	char 	*new;
+	char	*new;
 	int		i;
 
 	i = 0;
-	if (all->precision < *len && (all->flag_sign_minus == 1 || 
+	if (all->precision < *len && (all->flag_sign_minus == 1 ||
 				all->flag_plus == 1 || all->flag_space == 1))
 	{
 		str = flags_ps_or_signs(all, str, len);
 		i = 1;
+		all->width = all->width < *len ? *len : all->width;
 	}
-	new = ft_strnew(all->width);
-	ft_memset((void*)new, ' ', all->width);
+	new = ft_strnewsetchar(all->width, ' ');
 	if (all->flag_minus == 1)
 		ft_memcpy((void*)new, (const void*)str, *len);
 	else if (all->flag_zero == 1 && all->precision < 0)
 	{
-		if (i == 1)
-			new[0] = str[0];
+		new[0] = str[0];
 		ft_memset((void*)&new[i], '0', (all->width - *len));
 		ft_strcpy(&new[all->width - *len + i], &str[i]);
 	}
-	else if (all->width >= *len)
-		ft_strcpy(&new[all->width - *len], str);
 	else
-	{
-		ft_strdel(&new);
-		return (str);
-	}
-	*len = ft_strlen(new);
+		ft_strcpy(&new[all->width - *len], str);
+	*len = all->width;
 	ft_strdel(&str);
 	return (new);
 }

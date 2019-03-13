@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 12:43:16 by sbecker           #+#    #+#             */
-/*   Updated: 2019/02/23 04:33:50 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/13 19:20:53 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ void				ft_dswap(double *a, double *b);
 void				ft_fswap(float *a, float *b);
 int					ft_atoi_base(const char *str, int str_base);
 int					get_next_line(const int fd, char **line);
+char				*ft_restrsub(char *s, int start, int len);
+char				*ft_strnewsetchar(size_t size, char c);
 
 #endif
