@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:14:10 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/15 06:18:14 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/15 06:30:33 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,13 @@ int main()
 	printf ("\ntake mantissa:\n");
 	c = c << 11;
 	c &= ~(1l << 63);
-	c = c >> 11;
 	i = 64;
-	mantissa[0] = '1';
 	while (--i >= 0)
 	{
 		mantissa[63 - i] = ((1l << i) & c) ? '1' : '0';
 		printf ("%d ", ((1l << i) & c) ? 1 : 0);
 	}
+	mantissa[0] = '1';
 	printf ("\nmantissa: %s", mantissa);
 
 
