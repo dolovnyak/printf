@@ -6,12 +6,11 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/11 18:36:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/16 11:56:11 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define MALLOC(x) if (x == NULL) return (NULL)
 
 static int	count_digits_u(unsigned long value, int base)
 {
@@ -40,7 +39,8 @@ char		*ft_utoa_base(unsigned long nb, int base)
 	i = 0;
 	main = "0123456789ABCDEF";
 	len = count_digits_u(nb, base);
-	MALLOC((str = ft_strnew(len)));
+	if (!(str = ft_strnew(len)))
+		return (NULL);
 	if (nb == 0)
 		str[0] = 0 + '0';
 	while (nb)

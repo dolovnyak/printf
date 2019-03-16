@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/16 11:28:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/16 13:31:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		do_int16x(t_all *all, va_list *ap, char *str)
 	len = ft_strlen(str);
 	if (str[0] == '0')
 		zero_p(all, str, &len, 0);
-	if (all->flag_hash == 1 && all->precision < 0 && all->width == 0)
+	if (all->flag_hash == 1 && all->precision < 0 && all->width < len)
 		str = int16x_h_processing(str, &len);
 	if (all->precision >= len)
 		str = int16_p_processing(all, str, &len);

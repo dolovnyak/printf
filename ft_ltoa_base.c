@@ -6,12 +6,11 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/12 19:51:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/16 11:59:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define MALLOC(x) if (x == NULL) return (NULL)
 
 static int	count_dig(long value, int base)
 {
@@ -40,7 +39,7 @@ char		*ft_ltoa_base(long nb, int base)
 	i = 0;
 	main = "0123456789ABCDEF";
 	len = nb < 0 && base == 10 ? count_dig(nb, base) + 1 : count_dig(nb, base);
-	MALLOC((str = ft_strnew(len)));
+	str = ft_strnew(len);
 	str[0] = nb < 0 ? '-' : '0';
 	if (str[0] == '-')
 		while (nb)
