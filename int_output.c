@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/13 18:01:30 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/16 11:28:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		do_int(t_all *all, va_list *ap, char *str)
 	}
 	all->symbol_num += len;
 	write(1, str, len);
+	free(str);
 }
 
 void		do_uint(t_all *all, va_list *ap, char *str)
@@ -52,6 +53,7 @@ void		do_uint(t_all *all, va_list *ap, char *str)
 		str = intu82_w_mz_processing(all, str, &len);
 	all->symbol_num += len;
 	write(1, str, len);
+	free(str);
 }
 
 void		do_int8(t_all *all, va_list *ap, char *str)
@@ -70,6 +72,7 @@ void		do_int8(t_all *all, va_list *ap, char *str)
 		str = intu82_w_mz_processing(all, str, &len);
 	all->symbol_num += len;
 	write(1, str, len);
+	free(str);
 }
 
 void		do_int16x(t_all *all, va_list *ap, char *str)
@@ -89,6 +92,7 @@ void		do_int16x(t_all *all, va_list *ap, char *str)
 	do_lower(str);
 	all->symbol_num += len;
 	write(1, str, len);
+	free(str);
 }
 
 void		do_int16xupper(t_all *all, va_list *ap, char *str)
@@ -107,4 +111,5 @@ void		do_int16xupper(t_all *all, va_list *ap, char *str)
 		str = int16_w_mz_processing(all, str, &len);
 	all->symbol_num += len;
 	write(1, str, len);
+	free(str);
 }
