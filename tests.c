@@ -30,7 +30,8 @@ void	get_data(t_procent_syms *all)
 		else
 			all->spase_zero_minus_plus_hash[i] = 0;
 	all->width = rand() % 200;
-	all->precision = rand() % 200;
+	if (rand() % 3 == 0)
+		all->precision = rand() % 1000;
 	all->modifier = rand() % 5;
 	all->len_width = all->width == 0 ? 0 : ft_numlen(all->width);
 	all->len_precision = all->precision == 0 ? 0 : ft_numlen(all->precision);
@@ -50,7 +51,7 @@ char	*get_params(t_procent_syms *all)
 	int				tmp_count;
 	char			*tmp;
 
-	tmp = ft_memalloc(all->count + 2);
+	tmp = ft_memalloc(all->count + 4);
 	tmp[0] = '%';
 	tmp_count = 1;
 	i = -1;
@@ -109,8 +110,9 @@ char	*get_params(t_procent_syms *all)
 		tmp[tmp_count] = 'x';
 	else if (all->type == 5)
 		tmp[tmp_count] = 'X';
-		printf ("string: %s, ", tmp);
-	tmp[++tmp_count] = '\n';
+	tmp[++tmp_count] = 'A';	
+	tmp[++tmp_count] = 'A';	
+	tmp[++tmp_count] = 'A';	
 	return (tmp);
 }
 
@@ -122,6 +124,7 @@ int		main()
 	register int i;
 	long	num;
 
+	setbuf(stdout, NULL);
 	srand(time(0));
 	param_num = 100000;
 	while (param_num-- >= 0)
@@ -130,21 +133,13 @@ int		main()
 		num = (rand() % 2) ? -num : num;
 		get_data(&all);
 		s = get_params(&all);
-		printf ("num: %ld\noriginal:\n", num);
 		printf (s, num);
-		printf ("custom:\n");
+		printf ("\n");
 		ft_printf (s, num);
+		printf ("\nstring: %s; ", s);
+		printf ("num: %ld\n", num);
+		printf ("\n");
 		free (s);
 	}
 	return (0);
 }
-
-
-//		printf ("flags: ");
-//		i = -1;
-//		while (++i < 5)
-//			printf ("%d ", all.spase_zero_minus_plus_hash[i]);
-//		printf ("\nwidth: %d\n", all.width);
-//		printf ("precision: %d\n", all.precision);
-//		printf ("modifier: %d\n", all.modifier);
-//		printf ("count: %d\n", all.count);
