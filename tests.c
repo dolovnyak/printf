@@ -51,7 +51,7 @@ char	*get_params(t_procent_syms *all)
 	int				tmp_count;
 	char			*tmp;
 
-	tmp = ft_memalloc(all->count + 4);
+	tmp = ft_memalloc(all->count + 5);
 	tmp[0] = '%';
 	tmp_count = 1;
 	i = -1;
