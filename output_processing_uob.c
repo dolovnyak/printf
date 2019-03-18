@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/12 21:43:51 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/18 19:01:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ char		*intu82_w_mz_processing(t_all *all, char *str, int *len)
 	return (new);
 }
 
-char		*int8_h_processing(char *str, int *len)
+/*
+**Hash flag works only if there are no other flags, if there us only width
+**more than length and if precision is less or equals length. There comes
+**only zero before the nb
+*/
+
+char		*int8_h_processing(t_all *all, char *str, int *len)
 {
 	char	*new;
 
@@ -57,6 +63,7 @@ char		*int8_h_processing(char *str, int *len)
 	new[0] = '0';
 	ft_strcpy(&new[1], str);
 	*len += 1;
+	all->flag_hash = 0;
 	ft_strdel(&str);
 	return (new);
 }
