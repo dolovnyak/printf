@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/13 18:11:56 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/18 18:11:31 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ char			*int_w_mz_processing(t_all *all, char *str, int *len);
 char			*flags_ps_or_signs(t_all *all, char *str, int *len);
 char			*intu82_p_processing(t_all *all, char *str, int *len);
 char			*intu82_w_mz_processing(t_all *all, char *str, int *len);
-char			*int8_h_processing(char *str, int *len);
-char			*int16x_h_processing(char *str, int *len);
+char			*int8_h_processing(t_all *all, char *str, int *len);
+char			*int16x_h_processing(t_all *all, char *str, int *len);
 char			*int16_p_processing(t_all *all, char *str, int *len);
-char			*int16_w_mz_processing(t_all *all, char *str, int *len);
+char			*int16_w_hmz_processing(t_all *all, char *str, int *len);
+char			*int16_w_hm_processing(t_all *all, char *str, int *len);
 void			do_lower(char *str);
 char			*get_str(va_list *ap, char *str, t_all *all, int base);
 void			zero_p(t_all *all, char *str, int *len, int flag);
