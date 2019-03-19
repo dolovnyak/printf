@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/19 13:19:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:49:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ char		*output_nonpercent_symbs(t_all *all, char *s)
 	while (s[i] != '%' && s[i])
 		i++;
 	all->fin_string = merge_strings(all->fin_string, s, i);
-	//write(1, s, i);
 	all->symbol_num += i;
 	return (s + i);
 }
 
-char        *merge_strings(char *s1, char *s2, size_t n)
+char		*merge_strings(char *s1, char *s2, size_t n)
 {
 	char	*new;
 	int		len_1;
@@ -60,7 +59,7 @@ char        *merge_strings(char *s1, char *s2, size_t n)
 	len_1 = ft_strlen(s1);
 	if (!(new = ft_memalloc(len_1 + n + 1)))
 		return (NULL);
-	ft_strcpy(new, s1);
+	ft_memcpy(new, s1, len_1);
 	ft_strncat(new, s2, n);
 	ft_strdel(&s1);
 	return (new);
@@ -73,13 +72,11 @@ int			ft_printf(const char *str, ...)
 	char	*tmp_s;
 	char	*s;
 
-	if (!(s = ft_strdup(str)))
-		return (0);
+	s = ft_strdup(str);
 	tmp_s = s;
 	va_start(ap, str);
 	all.symbol_num = 0;
-	if (!(all.fin_string = ft_memalloc(1)))
-		return (0);
+	all.fin_string = ft_memalloc(1);
 	while (*s)
 	{
 		if (*s == '%')
