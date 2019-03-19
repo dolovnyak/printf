@@ -42,29 +42,6 @@ size_t  ft_numlen(int num)
 	return (i);
 }
 
-char    *ft_itoa(int n)
-{
-	char                    *s;
-	size_t                  len;
-
-	len = ft_numlen(n);
-	printf ("CHECK1\n");
-	printf ("%s\n", s);
-	s = (char*)malloc(len + 1);
-	printf ("CHECK2\n");
-	if (n == -2147483648)
-		return (ft_strcpy(s, "-2147483648"));
-	n = POZ(n);
-	if (!s)
-		return (0);
-	s[--len] = n % 10 + '0';
-	while (n /= 10)
-		s[--len] = n % 10 + '0';
-	if (&s[--len])
-		s[len] = '-';
-	return (s);
-}
-
 void	get_data(t_procent_syms *test_params)
 {
 	register int i;
@@ -169,15 +146,14 @@ char	*get_params(t_procent_syms *test_params)
 
 int		main()
 {
-	char	*s;
-	int		param_num;
+	char			*s;
+	int				param_num;
 	t_procent_syms	test_params;
-	register int i;
-	long	num;
+	long			num;
 
-//	setbuf(stdout, NULL);
+	setbuf(stdout, NULL);
 	srand(time(0));
-	param_num = 10000000;
+	param_num = 1000000;
 	while (param_num-- >= 0)
 	{
 		num = rand() % 9223372036854775807;
@@ -185,16 +161,11 @@ int		main()
 		get_data(&test_params);
 		s = get_params(&test_params);
 		printf (s, num);
-		fflush(stdout);
 		printf ("\n");
-		fflush(stdout);
 		ft_printf (s, num);
 		printf ("\nstring: %s; ", s);
-		fflush(stdout);
 		printf ("num: %ld\n", num);
-		fflush(stdout);
 		printf ("\n");
-		fflush(stdout);
 		free (s);
 	}
 	return (0);
