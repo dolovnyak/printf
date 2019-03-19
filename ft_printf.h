@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/19 13:19:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:50:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void			do_int8(t_all *all, va_list *ap, char *str);
 void			do_int16x(t_all *all, va_list *ap, char *str);
 void			do_int16xupper(t_all *all, va_list *ap, char *str);
 void			do_float(t_all *all, va_list *ap, char *str);
-void			do_efloat(t_all *all, va_list *ap, char *str);
-void			do_gfloat(t_all *all, va_list *ap, char *str);
-void			do_afloat(t_all *all, va_list *ap, char *str);
 void			do_string(t_all *all, va_list *ap, char *str);
+void			do_ptype(t_all *all, va_list *ap, char *str);
 char			*ft_utoa_base(unsigned long nb, int base);
 char			*ft_ltoa_base(long nb, int base);
 void			do_percent_or_uchar(t_all *all, va_list *ap, char *str, char f);
@@ -69,5 +67,6 @@ char			*get_str(va_list *ap, char *str, t_all *all, int base);
 void			zero_p(t_all *all, char *str, int *len, int flag);
 char			*check_type_and_output(t_all *all, va_list *ap, char *s);
 char			*merge_strings(char *s1, char *s2, size_t n);
+void			do_letter_wzm(t_all *all, va_list *ap, char *str, char s);
 
 #endif

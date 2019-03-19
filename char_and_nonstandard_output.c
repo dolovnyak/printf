@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 12:50:06 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/19 13:15:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/19 15:59:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*width_processing(char *str, int len, t_all *all)
 		ft_memset((void*)new, ' ', all->width);
 		ft_strncpy(new + all->width - len, str, len);
 	}
-	free(str);
+	ft_strdel(&str);
 	return (new);
 }
 
@@ -60,9 +60,8 @@ void	do_percent_or_uchar(t_all *all, va_list *ap, char *str, char f)
 		len = all->width;
 	}
 	all->fin_string = merge_strings(all->fin_string, str, len);
-	//write(1, str, len);
 	all->symbol_num += len;
-	free(str);
+	ft_strdel(&str);
 }
 
 char	*re_strncpy(char *src, int n)
@@ -74,7 +73,7 @@ char	*re_strncpy(char *src, int n)
 	i = -1;
 	while (++i < n)
 		new[i] = src[i];
-	free(src);
+	ft_strdel(&src);
 	return (new);
 }
 
@@ -97,6 +96,5 @@ void	do_string(t_all *all, va_list *ap, char *str)
 	}
 	all->symbol_num += len;
 	all->fin_string = merge_strings(all->fin_string, str, len);
-	//write(1, str, len);
-	free(str);
+	ft_strdel(&str);
 }

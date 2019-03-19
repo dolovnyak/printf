@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/13 18:10:27 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/19 18:47:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,12 @@ char	*check_more_type(t_all *all, va_list *ap, char *s)
 	char	*str;
 
 	str = NULL;
-	if (*s == 's')
+	if (*s == 's' || *s == 'S')
 		do_string(all, ap, str);
-	else if (*s == 'c')
+	else if (*s == 'c' || *s == 'C')
 		do_percent_or_uchar(all, ap, str, 1);
 	else if (*s == 'p')
-	{
-		all->flag_hash = 1;
-		all->modifier = 3;
-		do_int16x(all, ap, str);
-	}
+		do_ptype(all, ap, str);
 	else if (*s == 'n')
 		do_n(all, ap);
 	else if (*s == '%')
@@ -105,7 +101,7 @@ char	*check_more_type(t_all *all, va_list *ap, char *s)
 		do_uint(all, ap, str);
 	}
 	else
-		s--;
+		do_letter_wzm(all, ap, str, *s);
 	return (s);
 }
 
@@ -126,12 +122,6 @@ char	*check_type_and_output(t_all *all, va_list *ap, char *s)
 		do_int16xupper(all, ap, str);
 	else if (*s == 'f' || *s == 'F')
 		do_float(all, ap, str);
-	else if (*s == 'e' || *s == 'E')
-		do_efloat(all, ap, str);
-	else if (*s == 'g' || *s == 'G')
-		do_gfloat(all, ap, str);
-	else if (*s == 'a' || *s == 'A')
-		do_afloat(all, ap, str);
 	else
 		s = check_more_type(all, ap, s);
 	s++;
