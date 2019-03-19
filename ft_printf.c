@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/19 18:49:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/19 19:20:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,24 @@ char		*merge_strings(char *s1, char *s2, size_t n)
 {
 	char	*new;
 	int		len_1;
+	int		i;
+	int		j;
 
 	len_1 = ft_strlen(s1);
+	i = 0;
+	j = 0;
 	if (!(new = ft_memalloc(len_1 + n + 1)))
 		return (NULL);
 	ft_memcpy(new, s1, len_1);
-	ft_strncat(new, s2, n);
+	while (i < len_1)
+		i++;
+	while (s2[j] && j < n)
+	{
+		new[i] = s2[j];
+		i++;
+		j++;
+	}
+	new[i] = '\0';
 	ft_strdel(&s1);
 	return (new);
 }
