@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/18 18:52:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/19 12:19:38 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		do_int16x(t_all *all, va_list *ap, char *str)
 		str = int16x_h_processing(all, str, &len);
 	if (all->precision >= len)
 		str = int16_p_processing(all, str, &len);
-	if (all->width >= len && all->width > all->precision
+	if (all->width > len && all->width > all->precision
 			&& all->precision < 0)
 		str = int16_w_hmz_processing(all, str, &len);
 	else if (all->width >= len && all->width > all->precision)
@@ -110,7 +110,7 @@ void		do_int16xupper(t_all *all, va_list *ap, char *str)
 		str = int16x_h_processing(all, str, &len);
 	if (all->precision >= len)
 		str = int16_p_processing(all, str, &len);
-	if (all->width >= len && all->width > all->precision
+	if (all->width > len && all->width > all->precision
 			&& all->precision < 0)
 		str = int16_w_hmz_processing(all, str, &len);
 	else if (all->width >= len && all->width > all->precision)
