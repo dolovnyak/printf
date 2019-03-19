@@ -10,7 +10,9 @@ SRCS = ft_printf.c \
 	   float_output.c \
 	   ft_utoa_base.c \
 	   ft_ltoa_base.c \
-	   help_functions_for_int.c
+	   help_functions_for_int.c \
+	   get_float_components.c \
+	   other_and_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -20,7 +22,7 @@ $(NAME):		text $(OBJS)
 				@echo "\x1b[32;01mCompilation Lib\x1b[32;01m"
 				@make -C ./libft
 				@cp libft/libft.a $(NAME)
-				@ar rc $(NAME) $(OBJS)
+				ar rc $(NAME) $(OBJS)
 
 text:
 				@echo "Compilation"

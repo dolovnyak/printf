@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/19 18:50:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/19 19:01:50 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ typedef struct	s_all
 	int		type;
 	char	*fin_string;
 }				t_all;
+
+typedef struct  s_float_components
+{
+	int         sign;
+	int         integer_part;
+	int         *fraction;
+	int         inf_check;
+	int         nan_check;
+	int         len;
+}               t_fcomp;
 
 int				ft_printf(const char *str, ...);
 char			*check_flags(t_all *all, char *s);
@@ -68,5 +78,6 @@ void			zero_p(t_all *all, char *str, int *len, int flag);
 char			*check_type_and_output(t_all *all, va_list *ap, char *s);
 char			*merge_strings(char *s1, char *s2, size_t n);
 void			do_letter_wzm(t_all *all, va_list *ap, char *str, char s);
+void			get_components(va_list *ap, t_fcomp *fcomp, t_all *all);
 
 #endif

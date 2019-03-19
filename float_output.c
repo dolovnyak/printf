@@ -6,140 +6,116 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/18 14:44:50 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/20 00:19:01 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-typedef struct	s_float_components
+char	*rounding_string(t_fcomp *fcomp, int precision)
 {
-	int	sign;
-	int	integer_part;
-	int	*fraction;
-	int	zero_check;
-	int	inf_check;
-	int	len;
-}				t_fcomp;
-
-char	*f_fraction(t_fcomp *fcomp, int exponent, long b)
-{
-	char			*b_fraction;
+	char			*s;
+	register int	round_num;
 	register int	i;
+	register int	j;
+	int				tmp;
 
-	if (exponent < 0)
+	j = -1;
+	s = ft_memalloc(-(precision - fcomp->len) + 1);
+	printf ("strlen: %zu\n", ft_strlen(s));
+	i = fcomp->len;
+	round_num = -(precision - fcomp->len) - 1;
+	while (--i >= round_num)
+		printf ("%d", fcomp->fraction[i]);
+	printf ("\n");
+	i = round_num;
+	if (fcomp->fraction[i - 1] >= 5)
+		fcomp->fraction[i] += 1;
+	while (++i < fcomp->len)
 	{
-		fcomp->len = -exponent + 53;
-		b_fraction = ft_memalloc(fcomp->len + 1);
-		ft_memset((void*)b_fraction, '0', fcomp->len);
-		if (exponent < 0)
+		if (fcomp->fraction[i - 1] >= 10)
 		{
-			b_fraction[fcomp->len - 54] = '1';
-			i = fcomp->len - exponent;
+			fcomp->fraction[i] += 1;
+			fcomp->fraction[i - 1] %= 10;
 		}
-		i = 52;
-		while (--i >= 0)
-			b_fraction[fcomp->len - 2 - i] = ((1l << i) & b) ? '1' : '0';
+		else
+			break;
 	}
-/*	else
-	{
-		fcomp->len = 53 - exponent;
-		b_fraction = ft_memalloc(fcomp->len + 1);
-		ft_memset((void*)b_fraction, '0', fcomp->len);
-		i = fcomp->len - exponent;
-		while (--i >= 0)
-			b_fraction[fcomp->len - 2 - i] = ((1l << i) & b) ? '1' : '0';
-	}*/
-	return (b_fraction);
+	i = fcomp->len;
+	while (--i >= round_num)
+		printf ("%d", fcomp->fraction[i]);
+	printf ("\n");
 }
 
-void	get_components(va_list *ap, t_fcomp *fcomp)
+char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 {
-	long			exponent;
-	long			bits;
-	register int	i;
-	double			a;
-	char			*b_fraction;
+	char	*s;
+	int		i;
+	int		j;
 
-	a = va_arg(*ap, double);
-	bits = *((long*)&a);
-	fcomp->sign = ((1lu << 63) & bits) ? -1 : 1;
-	exponent = bits >> 52;
-	fcomp->inf_check = exponent == 2047 ? 1 : 0;
-	bits &= ~(1lu << 63);
-	fcomp->zero_check = bits == 0 ? 1 : 0;
-	exponent -= 1023;
-	b_fraction = f_fraction(fcomp, exponent, bits);
-
-	int *res = (int*)ft_memalloc(fcomp->len * sizeof(int));
-	int *num = (int*)ft_memalloc(fcomp->len * sizeof(int));
-	num[fcomp->len - 1] = 5;
-	printf ("num: %d\n", num[fcomp->len - 1]);
-	i = -1;
-	int count;
-	printf ("\n");
-	while (b_fraction[++i])
+	all->precision = all->precision < 0 ? 6 : all->precision;
+	if (fcomp->inf_check)
+		return (ft_strdup("inf"));
+	if (fcomp->nan_check)
+		return (ft_strdup("nan"));
+	if (all->precision == 0)
 	{
-		count = -1;
-		if (b_fraction[i] == '1')
-			while (++count < fcomp->len)
-			{
-				res[count] += num[count];
-				res[count + 1] += res[count] / 10;
-				res[count] %= 10;
-			}
-
-		count = fcomp->len;
-		printf ("num: ");
-		while (--count >= 0)
-			printf ("%d", num[count]);
-		printf ("\n");
-		count = fcomp->len;
-		printf ("res: ");
-		while (--count >= 0)
-			printf ("%d", res[count]);
-		printf ("\n");
-
-		count = -1;
-		while (++count < fcomp->len - 1)
-			num[count] = num[count + 1];
-		num[fcomp->len - 1] = 0;
-		count = -1;
-		while (++count < fcomp->len)
-			num[count] *= 5;
-		count = -1;
-		while (++count < fcomp->len)
-		{
-			num[count + 1] += num[count] / 10;
-			num[count] %= 10;
-		}
+		printf ("CHECK\n");
+		s = ft_memalloc(2);
+		s[0] = fcomp->fraction[fcomp->len - 1] >= 5 ? (fcomp->integer_part + 1 + '0') : (fcomp->integer_part + '0');
+		if (fcomp->fraction[fcomp->len - 1] == 5 && fcomp->integer_part % 2 == 0)
+			s[0] = fcomp->integer_part + '0';
 	}
-	printf ("\nend res: 0.");
-	count = fcomp->len;
-	while (--count >= 0)
-		printf ("%d", res[count]);
-	printf ("\n\n");
-	printf ("fcomp->len: %d\n", fcomp->len);
-
+	else if (all->precision >= fcomp->len)
+	{
+		s = ft_strnewsetchar(all->precision + 2, '0');
+		s[0] = fcomp->integer_part + '0';
+		s[1] = '.';
+		i = fcomp->len;
+		j = 1;
+		while (--i >= 0)
+			s[++j] = fcomp->fraction[i] + '0';
+	}
+	else
+	{
+		rounding_string(fcomp, all->precision - 1);
+		s = ft_memalloc(all->precision + 2);
+		s[0] = fcomp->integer_part + '0';
+		s[1] = '.';
+		i = fcomp->len;
+		j = 1;
+		while (--i >= fcomp->len - all->precision)
+			s[++j] = fcomp->fraction[i] + '0';
+	}
+	return (s);
 }
 
 void	do_float(t_all *all, va_list *ap, char *str)
 {
 	t_fcomp			fcomp;
-	get_components(ap, &fcomp);
+	int				count;
+
+	get_components(ap, &fcomp, all);
+	/*	printf ("\ninf = %d\n", fcomp.inf_check);
+		printf ("nan = %d\n", fcomp.nan_check);
+		printf ("len: %d\n", fcomp.len);*/
+	printf ("end resl:   ");
+	count = fcomp.len;
+	while (--count >= 0)
+		printf ("%d", fcomp.fraction[count]);
+	printf ("\n");
+
+	str = get_string_with_precision(&fcomp, all);
+	printf ("string:   %s\n", str);
 }
 
-void	do_efloat(t_all *all, va_list *ap, char *str)
-{
-
-}
-
-void	do_gfloat(t_all *all, va_list *ap, char *str)
-{
-
-}
-
-void	do_afloat(t_all *all, va_list *ap, char *str)
-{
-
-}
+/*count = fcomp->len;
+  printf ("num: ");
+  while (--count >= 0)
+  printf ("%d", num[count]);
+  printf ("\n");
+  count = fcomp->len;
+  printf ("res: ");
+  while (--count >= 0)
+  printf ("%d", fcomp->fraction[count]);
+  printf ("\n");*/
