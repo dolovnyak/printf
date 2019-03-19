@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/19 12:19:41 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/19 13:36:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ char		*int16_w_hmz_processing(t_all *all, char *str, int *len)
 	char	*new;
 
 	new = ft_strnewsetchar(all->width, ' ');
-	if (all->flag_hash == 1 && all->flag_zero == 0)
+	if ((all->flag_hash == 1 && all->flag_zero == 0) || (all->flag_hash == 1
+				&& all->flag_zero == 1 && all->width == *len + 1))
 	{
 		str = int16x_h_processing(all, str, len);
 		all->width = all->width < *len ? *len : all->width;

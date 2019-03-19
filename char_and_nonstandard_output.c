@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 12:50:06 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/13 00:24:53 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/19 13:15:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	do_percent_or_uchar(t_all *all, va_list *ap, char *str, char f)
 		str = width_processing(str, 1, all);
 		len = all->width;
 	}
-	write(1, str, len);
+	all->fin_string = merge_strings(all->fin_string, str, len);
+	//write(1, str, len);
 	all->symbol_num += len;
 	free(str);
 }
@@ -95,6 +96,7 @@ void	do_string(t_all *all, va_list *ap, char *str)
 		len = all->width;
 	}
 	all->symbol_num += len;
-	write(1, str, len);
+	all->fin_string = merge_strings(all->fin_string, str, len);
+	//write(1, str, len);
 	free(str);
 }

@@ -12,8 +12,8 @@ int		main(void)
 	//a = -1978736411;
 	//b = -1978736411;
 	
-	a = -1837761702;
-	b = -1837761702;
+	a = 168061169;
+	b = 168061169;
 
 	//a = 0;
 	//b = 0;
@@ -223,5 +223,10 @@ int		main(void)
 	
 	printf("original: %0+#17llxAAA\n", a);
 	ft_printf("our     : %0+#17llxAAA\n\n", b);
+	
+	printf("original: %0+#5hXAAA\n", a);
+	ft_printf("our     : %0+#5hXAAA\n\n", b);
+
+
 	return (0);
 }
