@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/19 18:47:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/22 17:47:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*check_more_type(t_all *all, va_list *ap, char *s)
 	char	*str;
 
 	str = NULL;
-	if (*s == 's' || *s == 'S')
+	if (*s == 's')
 		do_string(all, ap, str);
 	else if (*s == 'c' || *s == 'C')
 		do_percent_or_uchar(all, ap, str, 1);
@@ -122,6 +122,8 @@ char	*check_type_and_output(t_all *all, va_list *ap, char *s)
 		do_int16xupper(all, ap, str);
 	else if (*s == 'f' || *s == 'F')
 		do_float(all, ap, str);
+	else if (*s == 'b' || *s == 'B')
+		do_int2(all, ap, str);
 	else
 		s = check_more_type(all, ap, s);
 	s++;

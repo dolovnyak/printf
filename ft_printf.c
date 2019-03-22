@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/19 19:20:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:37:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,26 @@ char		*output_nonpercent_symbs(t_all *all, char *s)
 	i = 0;
 	while (s[i] != '%' && s[i])
 		i++;
-	all->fin_string = merge_strings(all->fin_string, s, i);
+	all->fin_string = merge_strings(all->fin_string, all->symbol_num, s, i);
 	all->symbol_num += i;
 	return (s + i);
 }
 
-char		*merge_strings(char *s1, char *s2, size_t n)
+char		*merge_strings(char *s1, int len_1, char *s2, size_t n)
 {
 	char	*new;
-	int		len_1;
 	int		i;
 	int		j;
 
-	len_1 = ft_strlen(s1);
 	i = 0;
 	j = 0;
-	if (!(new = ft_memalloc(len_1 + n + 1)))
+	if (!(new = ft_strnew(len_1 + n)))
 		return (NULL);
 	ft_memcpy(new, s1, len_1);
 	while (i < len_1)
 		i++;
-	while (s2[j] && j < n)
-	{
-		new[i] = s2[j];
-		i++;
-		j++;
-	}
-	new[i] = '\0';
+	while (j < n)
+		new[i++] = s2[j++];
 	ft_strdel(&s1);
 	return (new);
 }
@@ -102,5 +95,6 @@ int			ft_printf(const char *str, ...)
 	write(1, all.fin_string, all.symbol_num);
 	va_end(ap);
 	free(tmp_s);
+	free(all.fin_string);
 	return (all.symbol_num);
 }

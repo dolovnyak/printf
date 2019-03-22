@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/20 00:19:01 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/22 18:32:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*rounding_string(t_fcomp *fcomp, int precision)
 	while (--i >= round_num)
 		printf ("%d", fcomp->fraction[i]);
 	printf ("\n");
+	return (s); //added
 }
 
 char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)

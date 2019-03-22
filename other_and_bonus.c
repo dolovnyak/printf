@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:19:15 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/19 18:54:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/22 18:17:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void		do_ptype(t_all *all, va_list *ap, char *str)
 	len = ft_strlen(str);
 	str = int16x_h_processing(all, str, &len);
 	do_lower(str);
+	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
 	all->symbol_num += len;
-	all->fin_string = merge_strings(all->fin_string, str, len);
 	free(str);
 }
 
@@ -41,8 +41,8 @@ void		do_letter_wzm(t_all *all, va_list *ap, char *str, char s)
 	if ((s >= 0 && s <= 32) || s == 127)
 	{
 		str = ft_strnew(0);
+		all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, 1);
 		all->symbol_num += 1;
-		all->fin_string = merge_strings(all->fin_string, str, 1);
 		free(str);
 	}
 	else
@@ -57,8 +57,33 @@ void		do_letter_wzm(t_all *all, va_list *ap, char *str, char s)
 		}
 		else
 			str[all->width - 1] = s;
+		all->fin_string = merge_strings(all->fin_string, all->symbol_num, str,
+			   	all->width);
 		all->symbol_num += all->width;
-		all->fin_string = merge_strings(all->fin_string, str, all->width);
 		free(str);
 	}
+}
+
+void		do_int2(t_all *all, va_list *ap, char *str)
+{
+	int		len;
+	
+	if (all->modifier == 0)
+		str = ft_utoa_base(va_arg(*ap, unsigned int), 2);
+	else if (all->modifier == 1)
+		 str = ft_utoa_base((unsigned short)va_arg(*ap, unsigned int), 2);
+	else if (all->modifier == 2)
+		str = ft_utoa_base((unsigned char)va_arg(*ap, unsigned int), 2);
+	else
+		str = ft_utoa_base(va_arg(*ap, unsigned long), 2);
+	len = ft_strlen(str);
+	if (str[0] == '0')
+		zero_p(all, str, &len, 0);
+	if (all->precision >= len)
+		str = intu82_p_processing(all, str, &len);
+	if (all->width >= len)
+		str = intu82_w_mz_processing(all, str, &len);
+	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
+	all->symbol_num += len;
+	free(str);
 }

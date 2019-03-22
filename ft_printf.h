@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/19 19:01:50 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/22 16:37:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void			do_lower(char *str);
 char			*get_str(va_list *ap, char *str, t_all *all, int base);
 void			zero_p(t_all *all, char *str, int *len, int flag);
 char			*check_type_and_output(t_all *all, va_list *ap, char *s);
-char			*merge_strings(char *s1, char *s2, size_t n);
+char			*merge_strings(char *s1, int len_1, char *s2, size_t n);
 void			do_letter_wzm(t_all *all, va_list *ap, char *str, char s);
 void			get_components(va_list *ap, t_fcomp *fcomp, t_all *all);
+void			do_int2(t_all *all, va_list *ap, char *str);
 
 #endif
