@@ -3,14 +3,17 @@
 
 int		main(void)
 {
-	unsigned int a;
-	unsigned int b;
+	unsigned long a;
+	unsigned long b;
 	
 	//a = 5;
 	//b = 5;
+	
+	a = -42;
+	b = -42;
 
-	a = 4294967295;
-	b = 4294967295;
+	//a = 4294967295;
+	//b = 4294967295;
 	
 
 	/*All with unsigned ints: 11 symbols and 1*/
@@ -20,12 +23,12 @@ int		main(void)
 
 	//flags
 	printf("FLAGS\n");
-	printf("original: %0u\n", a);
-	ft_printf("our     : %0u\n\n", b);
+	printf("original: %0lu\n", a);
+	ft_printf("our     : %0lu\n\n", b);
 
 
-	printf("original: %-uA\n", a);
-	ft_printf("our     : %-uA\n\n", b);
+	printf("original: %-luA\n", a);
+	ft_printf("our     : %-luA\n\n", b);
 	
 	//precision
 	printf("PRECISION\n");

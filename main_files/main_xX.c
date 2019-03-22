@@ -9,9 +9,14 @@ int		main(void)
 	//a = 16798;
 	//b = 16798;
 
-	a = 235;
-	b = 235;
+	//a = -1978736411;
+	//b = -1978736411;
 	
+	a = 168061169;
+	b = 168061169;
+
+	//a = 0;
+	//b = 0;
 
 	/*All with ints in 16-system*/
 	
@@ -110,9 +115,15 @@ int		main(void)
 
 	printf("original: %#14x\n", a);
 	ft_printf("our     : %#14x\n\n", b);
+	
+	printf("original: %#14x\n", a);
+	ft_printf("our     : %#14x\n\n", b);
+	
+	printf("original: %#3x\n", a);
+	ft_printf("our     : %#3x\n\n", b);
 
-	printf("original: %#14X\n", a);
-	ft_printf("our     : %#14X\n\n", b);
+	printf("original: %#3X\n", a);
+	ft_printf("our     : %#3X\n\n", b);
 
 	//precision, width and flags
 	printf("PRECISION, WIDTH AND FLAGS\n");
@@ -128,29 +139,35 @@ int		main(void)
 	printf("original: %-20.5XA\n", a);
 	ft_printf("our     : %-20.5XA\n\n", b);
 	
-	printf("original: %018.12x\n", a);
-	ft_printf("our     : %018.12x\n\n", b);
+	printf("original: %-10.10XA\n", a);
+	ft_printf("our     : %-10.10XA\n\n", b);
 
-	printf("original: %018.12X\n", a);
-	ft_printf("our     : %018.12X\n\n", b);
+	printf("original: %-10.10XA\n", a);
+	ft_printf("our     : %-10.10XA\n\n", b);
+	
+	printf("original: %018.12xAA\n", a);
+	ft_printf("our     : %018.12xAA\n\n", b);
 
-	printf("original: %011.12x\n", a);
-	ft_printf("our     : %011.12x\n\n", b);
+	printf("original: %018.12XAA\n", a);
+	ft_printf("our     : %018.12XAA\n\n", b);
 
-	printf("original: %011.12X\n", a);
-	ft_printf("our     : %011.12X\n\n", b);
+	printf("original: %011.12xAA\n", a);
+	ft_printf("our     : %011.12xAA\n\n", b);
 
-	printf("original: %#18.12x\n", a);
-	ft_printf("our     : %#18.12x\n\n", b);
+	printf("original: %011.12XAA\n", a);
+	ft_printf("our     : %011.12XAA\n\n", b);
 
-	printf("original: %#18.12X\n", a);
-	ft_printf("our     : %#18.12X\n\n", b);
+	printf("original: %#18.12xAA\n", a);
+	ft_printf("our     : %#18.12xAA\n\n", b);
 
-	printf("original: %#11.12x\n", a);
-	ft_printf("our     : %#11.12x\n\n", b);
+	printf("original: %#18.12XAA\n", a);
+	ft_printf("our     : %#18.12XAA\n\n", b);
 
-	printf("original: %#11.12X\n", a);
-	ft_printf("our     : %#11.12X\n\n", b);
+	printf("original: %#11.12xAA\n", a);
+	ft_printf("our     : %#11.12xAA\n\n", b);
+
+	printf("original: %#11.12XAA\n", a);
+	ft_printf("our     : %#11.12XAA\n\n", b);
 
 	//precision, width and double flags
 	printf("PRECISION, WIDTH AND DOUBLE FLAGS\n");
@@ -178,6 +195,9 @@ int		main(void)
 
 	printf("original: %0#15.20X\n", a);
 	ft_printf("our     : %0#15.20X\n\n", b);
+	
+	printf("original: %0#119.7XAAA\n", a);
+	ft_printf("our     : %0#119.7XAAA\n\n", b);
 
 	//width and double flags
 	printf("WIDTH AND DOUBLE FLAGS\n");
@@ -186,5 +206,27 @@ int		main(void)
 	
 	printf("original: %0#15X\n", a);
 	ft_printf("our     : %0#15X\n\n", b);
+
+	//new
+	printf("SCRIPS\n");
+	printf("original: %-+#78lxAAA\n", a);
+	ft_printf("our     : %-+#78lxAAA\n\n", b);
+	
+	printf("original: %0+#9.3XAAA\n", a);
+	ft_printf("our     : %0+#9.3XAAA\n\n", b);
+	
+	printf("original: % 0#8llxAAA\n", a);
+	ft_printf("our     : % 0#8llxAAA\n\n", b);
+	
+	printf("original: %0+#2hhxAAA\n", a);
+	ft_printf("our     : %0+#2hhxAAA\n\n", b);
+	
+	printf("original: %0+#17llxAAA\n", a);
+	ft_printf("our     : %0+#17llxAAA\n\n", b);
+	
+	printf("original: %0+#5hXAAA\n", a);
+	ft_printf("our     : %0+#5hXAAA\n\n", b);
+
+
 	return (0);
 }
