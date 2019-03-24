@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:19:15 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/22 18:17:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/24 13:58:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		do_ptype(t_all *all, va_list *ap, char *str)
 	len = ft_strlen(str);
 	str = int16x_h_processing(all, str, &len);
 	do_lower(str);
-	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
 }
@@ -41,7 +41,7 @@ void		do_letter_wzm(t_all *all, va_list *ap, char *str, char s)
 	if ((s >= 0 && s <= 32) || s == 127)
 	{
 		str = ft_strnew(0);
-		all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, 1);
+		all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, 1);
 		all->symbol_num += 1;
 		free(str);
 	}
@@ -57,21 +57,56 @@ void		do_letter_wzm(t_all *all, va_list *ap, char *str, char s)
 		}
 		else
 			str[all->width - 1] = s;
-		all->fin_string = merge_strings(all->fin_string, all->symbol_num, str,
-			   	all->width);
+		all->fin_str = merge_strings(all->fin_str, all->symbol_num,
+				str, all->width);
 		all->symbol_num += all->width;
 		free(str);
 	}
 }
 
+/*
+**We could use the int_w_mz_processing function but there is a condition about
+**precision and precision with floats works differently from ints so the
+**function is almost copied but without that condition.
+*/
+
+char		*float_w_mz_processing(t_all *all, char *str, int *len)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	if (all->flag_sign_minus == 1 || all->flag_plus == 1 ||
+			all->flag_space == 1)
+	{
+		str = flags_ps_or_signs(all, str, len);
+		i = 1;
+		all->width = all->width < *len ? *len : all->width;
+	}
+	new = ft_strnewsetchar(all->width, ' ');
+	if (all->flag_minus == 1)
+		ft_memcpy((void*)new, (const void*)str, *len);
+	else if (all->flag_zero == 1)
+	{
+		new[0] = str[0];
+		ft_memset((void*)&new[i], '0', (all->width - *len));
+		ft_strcpy(&new[all->width - *len + i], &str[i]);
+	}
+	else
+		ft_strcpy(&new[all->width - *len], str);
+	*len = all->width;
+	ft_strdel(&str);
+	return (new);
+}
+
 void		do_int2(t_all *all, va_list *ap, char *str)
 {
 	int		len;
-	
+
 	if (all->modifier == 0)
 		str = ft_utoa_base(va_arg(*ap, unsigned int), 2);
 	else if (all->modifier == 1)
-		 str = ft_utoa_base((unsigned short)va_arg(*ap, unsigned int), 2);
+		str = ft_utoa_base((unsigned short)va_arg(*ap, unsigned int), 2);
 	else if (all->modifier == 2)
 		str = ft_utoa_base((unsigned char)va_arg(*ap, unsigned int), 2);
 	else
@@ -83,7 +118,7 @@ void		do_int2(t_all *all, va_list *ap, char *str)
 		str = intu82_p_processing(all, str, &len);
 	if (all->width >= len)
 		str = intu82_w_mz_processing(all, str, &len);
-	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
 }

@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/23 21:19:52 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/24 14:36:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,30 @@
 
 typedef struct	s_all
 {
-	int		symbol_num;
-	char	flag_minus;
-	char	flag_plus;
-	char	flag_space;
-	char	flag_zero;
-	char	flag_hash;
-	char	flag_sign_minus;
-	int		width;
-	int		precision;
-	int		modifier;
-	int		type;
-	char	*fin_string;
+	int			symbol_num;
+	char		flag_minus;
+	char		flag_plus;
+	char		flag_space;
+	char		flag_zero;
+	char		flag_hash;
+	char		flag_sign_minus;
+	int			width;
+	int			precision;
+	int			modifier;
+	int			type;
+	char		*fin_str;
 }				t_all;
 
-typedef struct  s_float_components
+typedef struct	s_float_components
 {
-	int         sign;
-	int         *integer;
-	int         *fraction;
-	int         inf_check;
-	int         nan_check;
-	int         len_fraction;
-	int         len_integer;
-}               t_fcomp;
+	int			sign;
+	int			*integer;
+	int			*fraction;
+	int			inf_check;
+	int			nan_check;
+	int			len_fraction;
+	int			len_integer;
+}				t_fcomp;
 
 int				ft_printf(const char *str, ...);
 char			*check_flags(t_all *all, char *s);
@@ -81,7 +81,9 @@ void			do_letter_wzm(t_all *all, va_list *ap, char *str, char s);
 void			get_components(va_list *ap, t_fcomp *fcomp, t_all *all);
 void			do_int2(t_all *all, va_list *ap, char *str);
 char			*merge_strings(char *s1, int len_1, char *s2, size_t n);
-void			take_fraction(char *b_fraction, t_fcomp *fcomp);
+void			get_fraction(char *b_fraction, t_fcomp *fcomp);
 char			*bit_fraction(long exponent, long b, int *len);
+char			*float_w_mz_processing(t_all *all, char *str, int *len);
+int				check_5(int *num);
 
 #endif

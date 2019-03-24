@@ -6,7 +6,7 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/22 18:37:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/24 13:55:50 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char		*output_nonpercent_symbs(t_all *all, char *s)
 	i = 0;
 	while (s[i] != '%' && s[i])
 		i++;
-	all->fin_string = merge_strings(all->fin_string, all->symbol_num, s, i);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, s, i);
 	all->symbol_num += i;
 	return (s + i);
 }
@@ -81,7 +81,7 @@ int			ft_printf(const char *str, ...)
 	tmp_s = s;
 	va_start(ap, str);
 	all.symbol_num = 0;
-	all.fin_string = ft_memalloc(1);
+	all.fin_str = ft_memalloc(1);
 	while (*s)
 	{
 		if (*s == '%')
@@ -92,9 +92,9 @@ int			ft_printf(const char *str, ...)
 		else
 			s = output_nonpercent_symbs(&all, s);
 	}
-	write(1, all.fin_string, all.symbol_num);
+	write(1, all.fin_str, all.symbol_num);
 	va_end(ap);
 	free(tmp_s);
-	free(all.fin_string);
+	free(all.fin_str);
 	return (all.symbol_num);
 }

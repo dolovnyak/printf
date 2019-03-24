@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/24 11:49:43 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/24 15:22:16 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,51 @@
 	return (s); //added
 }*/
 
-/*int		check_5(int *num)
+int					check_5(int *num)
 {
+	int				i;
 
-}*/
+	i = 0;
+	while (num[i])
+	{
+		if (num[i] != 0)
+			return (1);
+		else
+			i++;
+	}
+	return (0);
+}
 
-char	*int_rounded(t_fcomp *fcomp)
+char				*int_rounded(t_fcomp *fcomp)
 {
 	char			*s;
 	register int	i;
 	register int	j;
 
 	s = ft_memalloc(fcomp->len_integer + 1);
-	if (fcomp->fraction[fcomp->len_fraction - 1] == 5 && fcomp->integer[0] % 2 == 0)
+	if (fcomp->fraction[fcomp->len_fraction - 1] == 5 &&
+			fcomp->integer[0] % 2 == 0)
 	{
-		//чекнуть числа после 5
+		check_5(&(fcomp->fraction[fcomp->len_fraction - 1])) == 1 ? 
+			fcomp->integer[0]++ : fcomp->integer[0]; //доделать
 		i = fcomp->len_integer - 1;
 		j = -1;
 		while (--i >= 0)
 			s[++j] = fcomp->integer[i] + '0';
+		}
 		return (s);
 	}
 	/*
 	else
-	{
-
 	}*/
 	return (s);
 }
 
-char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
+char				*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 {
-	char	*s;
-	int		i;
-	int		j;
+	char			*s;
+	int				i;
+	int				j;
 
 	all->precision = all->precision < 0 ? 6 : all->precision;
 	if (fcomp->inf_check)
@@ -114,9 +125,10 @@ char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 	return (s);
 }
 
-void	do_float(t_all *all, va_list *ap, char *str)
+void				do_float(t_all *all, va_list *ap, char *str)
 {
 	t_fcomp			fcomp;
+	int				len;
 	int				count; //del
 	int				i; //del
 
@@ -134,7 +146,18 @@ void	do_float(t_all *all, va_list *ap, char *str)
 	printf ("\n");
 
 	str = get_string_with_precision(&fcomp, all);
+	len = ft_strlen(str);
+	if (fcomp.sign == -1)
+		all->flag_sign_minus = 1;
+	if (all->width < len)
+		str = flags_ps_or_signs(all, str, &len);
+	else if (all->width >= len)
+		str = float_w_mz_processing(all, str, &len);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
+	all->symbol_num += len;
+
 	printf ("string:   %s\n", str);
-	free (fcomp.fraction);
-	free (fcomp.integer);
+	free(str);
+	free(fcomp.fraction);
+	free(fcomp.integer);
 }

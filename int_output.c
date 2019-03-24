@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/22 16:12:05 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/24 13:52:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		do_int(t_all *all, va_list *ap, char *str)
 		if (all->width >= len)
 			str = int_w_mz_processing(all, str, &len);
 	}
-	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
 }
@@ -51,7 +51,7 @@ void		do_uint(t_all *all, va_list *ap, char *str)
 		str = intu82_p_processing(all, str, &len);
 	if (all->width >= len)
 		str = intu82_w_mz_processing(all, str, &len);
-	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
 }
@@ -70,7 +70,7 @@ void		do_int8(t_all *all, va_list *ap, char *str)
 		str = intu82_p_processing(all, str, &len);
 	if (all->width >= len)
 		str = intu82_w_mz_processing(all, str, &len);
-	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
 }
@@ -93,7 +93,7 @@ void		do_int16x(t_all *all, va_list *ap, char *str)
 	else if (all->width >= len && all->width > all->precision)
 		str = int16_w_hm_processing(all, str, &len);
 	do_lower(str);
-	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
 }
@@ -115,7 +115,7 @@ void		do_int16xupper(t_all *all, va_list *ap, char *str)
 		str = int16_w_hmz_processing(all, str, &len);
 	else if (all->width >= len && all->width > all->precision)
 		str = int16_w_hm_processing(all, str, &len);
-	all->fin_string = merge_strings(all->fin_string, all->symbol_num, str, len);
+	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
 }
