@@ -46,13 +46,13 @@ int		main(void)
 	printf("original: %.6f\n", a);
 	ft_printf("our     : %.6f\n\n", b);
 	
-	printf("original: %.3f\n", a);
-	ft_printf("our     : %.3f\n\n", b);
+	printf("original: %.0f\n", a);
+	ft_printf("our     : %.0f\n\n", b);
 	
 	//width
 	printf("WIDTH\n");
-	printf("original: %8f\n", a);
-	ft_printf("our     : %8f\n\n", b);
+	printf("original: %12f\n", a);
+	ft_printf("our     : %19f\n\n", b);
 	
 	printf("original: %1f\n", a);
 	ft_printf("our     : %1f\n\n", b);
@@ -71,64 +71,79 @@ int		main(void)
 	printf("original: % .4f\n", a);
 	ft_printf("our     : % .4f\n\n", b);
 	
+	printf("original: %#.7f\n", a);
+	ft_printf("our     : %#.7f\n\n", b);
+	
 	//width and flags
 	printf("WIDTH AND FLAGS\n");
-	printf("original: %-5fAA\n", a);
-	ft_printf("our     : %-5fAA\n\n", b);
+	printf("original: %-12fAA\n", a);
+	ft_printf("our     : %-12fAA\n\n", b);
 
-	printf("original: %+10f\n", a);
-	ft_printf("our     : %+10f\n\n", b);
+	printf("original: %+20f\n", a);
+	ft_printf("our     : %+20f\n\n", b);
 
-	printf("original: %010f\n", a);
-	ft_printf("our     : %010f\n\n", b);
+	printf("original: %025f\n", a);
+	ft_printf("our     : %025f\n\n", b);
 
-	printf("original: % 7f\n", a);
-	ft_printf("our     : % 7f\n\n", b);
+	printf("original: % 16f\n", a);
+	ft_printf("our     : % 16f\n\n", b);
+	
+	printf("original: %#18f\n", a);
+	ft_printf("our     : %#18f\n\n", b);
 
 	//precision, width and flags
 	printf("PRECISION, WIDTH AND FLAGS\n");
 	printf("original: %-10.5fA\n", a);
 	ft_printf("our     : %-10.5fA\n\n", b);
 
-	printf("original: %-4.5fA\n", a);
-	ft_printf("our     : %-4.5fA\n\n", b);
+	printf("original: %-14.7fA\n", a);
+	ft_printf("our     : %-14.5fA\n\n", b);
 
-	printf("original: %+9.6f\n", a);
-	ft_printf("our     : %+9.6f\n\n", b); //если число лонг-лонг, а тип инт, ошибка
+	printf("original: %+18.6f\n", a);
+	ft_printf("our     : %+18.6f\n\n", b);
 
-	printf("original: %+4.6f\n", a);
-	ft_printf("our     : %+4.6f\n\n", b);
+	printf("original: %+7.6f\n", a);
+	ft_printf("our     : %+7.6f\n\n", b);
 
-	printf("original: % 11.7f\n", a);
-	ft_printf("our     : % 11.7f\n\n", b);
+	printf("original: % 20.7f\n", a);
+	ft_printf("our     : % 20.7f\n\n", b);
 
-	printf("original: % 5.7f\n", a);
-	ft_printf("our     : % 5.7f\n\n", b);
+	printf("original: % 18.10f\n", a);
+	ft_printf("our     : % 18.10f\n\n", b);
 	
 	printf("original: %018.12f\n", a);
 	ft_printf("our     : %018.12f\n\n", b);
 
-	printf("original: %011.12f\n", a);
-	ft_printf("our     : %011.12f\n\n", b);
+	printf("original: %012.12f\n", a);
+	ft_printf("our     : %012.12f\n\n", b);
 
 	//precision, width and double flags
 	printf("PRECISION, WIDTH AND DOUBLE FLAGS\n");
 	printf("original: % 019.8f\n", a);
 	ft_printf("our     : % 019.8f\n\n", b);
 
-	printf("original: %+017.12f\n", a);
-	ft_printf("our     : %+017.12f\n\n", b);
+	printf("original: %+026.12f\n", a);
+	ft_printf("our     : %+026.12f\n\n", b);
 
-	printf("original: %-+19.12f\n", a);
-	ft_printf("our     : %-+19.12f\n\n", b);
+	printf("original: %-+30.12fAA\n", a);
+	ft_printf("our     : %-+30.12fAA\n\n", b);
 
-	printf("original: %- 15.13f\n", a);
-	ft_printf("our     : %- 15.13f\n\n", b);
+	printf("original: %- 27.13fAA\n", a);
+	ft_printf("our     : %- 27.13fAA\n\n", b);
 
 	//width and double flags
 	printf("WIDTH AND DOUBLE FLAGS\n");
 	printf("original: %0#15f\n", a);
 	ft_printf("our     : %0#15f\n\n", b);
+	
+	printf("original: %0+20f\n", a);
+	ft_printf("our     : %0+20f\n\n", b);
+	
+	printf("original: %0 25f\n", a);
+	ft_printf("our     : %0 25f\n\n", b);
+	
+	printf("original: %+-25fAA\n", a);
+	ft_printf("our     : %+-25fAA\n\n", b);
 
 	printf("original: %0#4f\n", a);
 	ft_printf("our     : %0#4f\n\n", b);

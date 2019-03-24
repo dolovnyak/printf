@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 12:43:16 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 01:35:27 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/13 19:20:53 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,5 @@ int					ft_atoi_base(const char *str, int str_base);
 int					get_next_line(const int fd, char **line);
 char				*ft_restrsub(char *s, int start, int len);
 char				*ft_strnewsetchar(size_t size, char c);
-char				*ft_ltoa_base(long nb, int base);
-char				*ft_utoa_base(unsigned long nb, int base);
 
 #endif

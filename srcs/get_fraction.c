@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 21:14:38 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/24 06:46:14 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/25 00:48:51 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	countup_fraction(t_fcomp *fcomp, int *num, char bit)
 		}
 }
 
-void	take_fraction(char *b_fraction, t_fcomp *fcomp)
+void	get_fraction(char *b_fraction, t_fcomp *fcomp)
 {
 	register int	i;
 	int				count;

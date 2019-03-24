@@ -1,6 +1,6 @@
 NAME = libft.a
 CC=gcc
-CFLAGS=-c -Wall -Werror -Wextra
+CFLAGS=-c -Wall -Werror -Wextra -O3
 SRC = ft_atoi.c \
 	  ft_isdigit.c \
 	  ft_memcpy.c \
@@ -80,7 +80,10 @@ SRC = ft_atoi.c \
 	  ft_fswap.c \
 	  ft_atoi_base.c \
 	  ft_restrsub.c \
-	  ft_strnewsetchar.c
+	  ft_strnewsetchar.c \
+	  ft_ltoa_base.c \
+	  ft_utoa_base.c
+
 OBJ=$(SRC:.c=.o)
 %.c : %.o
 

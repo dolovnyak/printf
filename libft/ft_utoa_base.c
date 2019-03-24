@@ -6,13 +6,13 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/16 11:59:42 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/25 01:37:00 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static int	count_dig(long value, int base)
+static int	count_digits_u(unsigned long value, int base)
 {
 	int		res;
 
@@ -27,7 +27,7 @@ static int	count_dig(long value, int base)
 	return (res);
 }
 
-char		*ft_ltoa_base(long nb, int base)
+char		*ft_utoa_base(unsigned long nb, int base)
 {
 	int		i;
 	char	*str;
@@ -38,20 +38,15 @@ char		*ft_ltoa_base(long nb, int base)
 		return (NULL);
 	i = 0;
 	main = "0123456789ABCDEF";
-	len = nb < 0 && base == 10 ? count_dig(nb, base) + 1 : count_dig(nb, base);
-	str = ft_strnew(len);
-	str[0] = nb < 0 ? '-' : '0';
-	if (str[0] == '-')
-		while (nb)
-		{
-			str[len - ++i] = main[-(nb % base)];
-			nb /= base;
-		}
-	else
-		while (nb)
-		{
-			str[len - ++i] = main[nb % base];
-			nb /= base;
-		}
+	len = count_digits_u(nb, base);
+	if (!(str = ft_strnew(len)))
+		return (NULL);
+	if (nb == 0)
+		str[0] = 0 + '0';
+	while (nb)
+	{
+		str[len - ++i] = main[nb % base];
+		nb /= base;
+	}
 	return (str);
 }

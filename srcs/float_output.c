@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/24 15:22:16 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/25 01:02:26 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,10 @@ int					check_5(int *num)
 {
 	int				i;
 
-	i = 0;
-	while (num[i])
-	{
+	i = -1;
+	while (num[++i])
 		if (num[i] != 0)
 			return (1);
-		else
-			i++;
-	}
 	return (0);
 }
 
@@ -71,20 +67,16 @@ char				*int_rounded(t_fcomp *fcomp)
 
 	s = ft_memalloc(fcomp->len_integer + 1);
 	if (fcomp->fraction[fcomp->len_fraction - 1] == 5 &&
-			fcomp->integer[0] % 2 == 0)
+		fcomp->integer[0] % 2 == 0)
 	{
-		check_5(&(fcomp->fraction[fcomp->len_fraction - 1])) == 1 ? 
+		check_5(&(fcomp->fraction[fcomp->len_fraction])) == 1 ? 
 			fcomp->integer[0]++ : fcomp->integer[0]; //доделать
 		i = fcomp->len_integer - 1;
 		j = -1;
 		while (--i >= 0)
 			s[++j] = fcomp->integer[i] + '0';
-		}
 		return (s);
 	}
-	/*
-	else
-	}*/
 	return (s);
 }
 
@@ -156,7 +148,7 @@ void				do_float(t_all *all, va_list *ap, char *str)
 	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 
-	printf ("string:   %s\n", str);
+//	printf ("string:   %s\n", str);
 	free(str);
 	free(fcomp.fraction);
 	free(fcomp.integer);
