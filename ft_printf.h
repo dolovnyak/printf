@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/22 16:37:56 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/23 21:19:52 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ typedef struct	s_all
 typedef struct  s_float_components
 {
 	int         sign;
-	int         integer_part;
+	int         *integer;
 	int         *fraction;
 	int         inf_check;
 	int         nan_check;
-	int         len;
+	int         len_fraction;
+	int         len_integer;
 }               t_fcomp;
 
 int				ft_printf(const char *str, ...);
@@ -76,9 +77,11 @@ void			do_lower(char *str);
 char			*get_str(va_list *ap, char *str, t_all *all, int base);
 void			zero_p(t_all *all, char *str, int *len, int flag);
 char			*check_type_and_output(t_all *all, va_list *ap, char *s);
-char			*merge_strings(char *s1, int len_1, char *s2, size_t n);
 void			do_letter_wzm(t_all *all, va_list *ap, char *str, char s);
 void			get_components(va_list *ap, t_fcomp *fcomp, t_all *all);
 void			do_int2(t_all *all, va_list *ap, char *str);
+char			*merge_strings(char *s1, int len_1, char *s2, size_t n);
+void			take_fraction(char *b_fraction, t_fcomp *fcomp);
+char			*bit_fraction(long exponent, long b, int *len);
 
 #endif
