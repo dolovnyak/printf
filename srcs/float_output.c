@@ -6,81 +6,81 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 01:02:26 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/25 11:40:55 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*char	*rounding_string(t_fcomp *fcomp, int precision)
+char	*get_string_big_precision(t_fcomp *fcomp, int precision)
 {
 	char			*s;
-	register int	round_num;
 	register int	i;
 	register int	j;
-	int				tmp;
 
+	s = ft_strnewsetchar(fcomp->len_integer + precision, '0');
+	i = fcomp->len_integer - 1;
 	j = -1;
-	s = ft_memalloc(-(precision - fcomp->len) + 1);
-	printf ("strlen: %zu\n", ft_strlen(s));
-	i = fcomp->len;
-	round_num = -(precision - fcomp->len) - 1;
-	while (--i >= round_num)
-		printf ("%d", fcomp->fraction[i]);
-	printf ("\n");
-	i = round_num;
-	if (fcomp->fraction[i - 1] >= 5)
-		fcomp->fraction[i] += 1;
-	while (++i < fcomp->len)
-	{
-		if (fcomp->fraction[i - 1] >= 10)
-		{
-			fcomp->fraction[i] += 1;
-			fcomp->fraction[i - 1] %= 10;
-		}
-		else
-			break;
-	}
-	i = fcomp->len;
-	while (--i >= round_num)
-		printf ("%d", fcomp->fraction[i]);
-	printf ("\n");
-	return (s); //added
-}*/
-
-int					check_5(int *num)
-{
-	int				i;
-
-	i = -1;
-	while (num[++i])
-		if (num[i] != 0)
-			return (1);
-	return (0);
+	while (--i >= 0)
+		s[++j] = fcomp->integer[i] + '0';
+	s[++j] = '.';
+	i = fcomp->len_fraction;
+	while (--i >= 0)
+		s[++j] = fcomp->fraction[i] + '0';
+	return (s);
+	//printf ("S: %s\n", s);
+	//создать строку, полностью заполненую нулями, длиной = длина целой части + точность + точка + нуль
+	//с самого начала скопировать туда сначала инт, потом точку, потом дробную часть
 }
 
-char				*int_rounded(t_fcomp *fcomp)
+void	processing_overflow_fractionpart(t_fcomp *fcomp, int precision)
+{
+	register int	i;
+
+	i = fcomp->len_fraction - precision - 1;
+	while (++i < fcomp->len_fraction && fcomp->fraction[i] == 10)
+	{
+		fcomp->fraction[i + 1]++;
+		fcomp->fraction[i] = 0;
+	}
+	if (i == fcomp->len_fraction - 1)
+	{
+		fcomp->integer[0] = 10;
+		processing_overflow_integerpart(fcomp);
+	}
+}
+
+char	*get_string_int_fract(t_fcomp *fcomp, int precision)
 {
 	char			*s;
+	register int	len;
 	register int	i;
 	register int	j;
 
-	s = ft_memalloc(fcomp->len_integer + 1);
-	if (fcomp->fraction[fcomp->len_fraction - 1] == 5 &&
-		fcomp->integer[0] % 2 == 0)
+	len = fcomp->len_fraction;
+	if (fcomp->fraction[-(precision - len) - 1] == 5 && fcomp->fraction[-(precision - len)] % 2 == 0)
 	{
-		check_5(&(fcomp->fraction[fcomp->len_fraction])) == 1 ? 
-			fcomp->integer[0]++ : fcomp->integer[0]; //доделать
-		i = fcomp->len_integer - 1;
-		j = -1;
-		while (--i >= 0)
-			s[++j] = fcomp->integer[i] + '0';
-		return (s);
+		if (check_5(fcomp, precision) == 1)
+			fcomp->fraction[-(precision - len)]++;
 	}
+	else if (fcomp->fraction[-(precision - len) - 1] >= 5)
+		fcomp->fraction[-(precision - len)]++;
+	processing_overflow_fractionpart(fcomp, precision);
+	s = ft_strnewsetchar(fcomp->len_integer + precision, '0');
+	i = fcomp->len_integer - 1;
+	j = -1;
+	while (--i >= 0)
+		s[++j] = fcomp->integer[i] + '0';
+	s[++j] = '.';
+	i = fcomp->len_fraction;
+	while (--i >= fcomp->len_fraction - precision)
+		s[++j] = fcomp->fraction[i] + '0';
 	return (s);
+	//обработать округление и переполнение также как с интом, если переполнилась цифра, стоящая
+	//после точки - сделать ее равной нулю, увеличить последнюю интовоую цифру, обработать переполнение
 }
 
-char				*get_string_with_precision(t_fcomp *fcomp, t_all *all)
+char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 {
 	char			*s;
 	int				i;
@@ -92,32 +92,15 @@ char				*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 	if (fcomp->nan_check)
 		return (ft_strdup("nan"));
 	if (all->precision == 0)
-		return (int_rounded(fcomp));
-/*	else if (all->precision >= fcomp->len)
-	{
-		s = ft_strnewsetchar(all->precision + 2, '0');
-		s[0] = fcomp->integer_part + '0';
-		s[1] = '.';
-		i = fcomp->len;
-		j = 1;
-		while (--i >= 0)
-			s[++j] = fcomp->fraction[i] + '0';
-	}
+		return (get_string_integer(fcomp));
+	else if (all->precision >= fcomp->len_fraction)
+		return (get_string_big_precision(fcomp, all->precision));
 	else
-	{
-		rounding_string(fcomp, all->precision - 1);
-		s = ft_memalloc(all->precision + 2);
-		s[0] = fcomp->integer_part + '0';
-		s[1] = '.';
-		i = fcomp->len;
-		j = 1;
-		while (--i >= fcomp->len - all->precision)
-			s[++j] = fcomp->fraction[i] + '0';
-	}*/
+		return (get_string_int_fract(fcomp, all->precision));
 	return (s);
 }
 
-void				do_float(t_all *all, va_list *ap, char *str)
+void	do_float(t_all *all, va_list *ap, char *str)
 {
 	t_fcomp			fcomp;
 	int				len;
@@ -126,7 +109,8 @@ void				do_float(t_all *all, va_list *ap, char *str)
 
 	get_components(ap, &fcomp, all);
 
-	printf ("fraction:   ");
+	////////////////////////////////////////////////
+/*	printf ("fraction:   ");
 	count = fcomp.len_fraction;
 	while (--count >= 0)
 		printf ("%d", fcomp.fraction[count]);
@@ -135,9 +119,11 @@ void				do_float(t_all *all, va_list *ap, char *str)
 	i = fcomp.len_integer - 1;
 	while (--i >= 0)
 		printf ("%d", fcomp.integer[i]);
-	printf ("\n");
-
+	printf ("\n");*/
+	////////////////////////////////////////////////
 	str = get_string_with_precision(&fcomp, all);
+	//	printf ("string: %s\n", str);
+
 	len = ft_strlen(str);
 	if (fcomp.sign == -1)
 		all->flag_sign_minus = 1;
@@ -147,8 +133,6 @@ void				do_float(t_all *all, va_list *ap, char *str)
 		str = float_w_mz_processing(all, str, &len);
 	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
-
-//	printf ("string:   %s\n", str);
 	free(str);
 	free(fcomp.fraction);
 	free(fcomp.integer);

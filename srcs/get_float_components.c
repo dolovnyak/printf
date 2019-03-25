@@ -6,11 +6,31 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:49:23 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 01:15:26 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/25 10:32:50 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int find_len_integer(int len_s)
+{
+	int res = 0;
+	if (len_s < 10)
+	{
+		if (len_s % 3 == 0)
+			res = len_s / 3;
+		else
+			res = len_s / 3 + 1;
+	}
+	else
+	{
+		if (len_s % 10 >= 0 && len_s % 10 <= 3)
+			res = len_s / 10 + len_s / 5 + 1;
+		else
+			res = (len_s - (len_s / 10) * 10) / 7 + (len_s / 10) * 3 + 2;
+	}
+	return (res + 5);
+}
 
 int		exception_handling(t_fcomp *fcomp, long b, long exponent)
 {
@@ -53,10 +73,11 @@ void	get_components(va_list *ap, t_fcomp *fcomp, t_all *all)
 	b_fraction = bit_fraction(exponent, b, &fcomp->len_fraction);
 	get_fraction(b_fraction, fcomp);
 	b_integer = bit_integer(exponent, b, &fcomp->len_integer);
-	printf("bit fract: %s\n", b_fraction); //del
-	printf("bit integ: %s\n", b_integer);	//del
+//	fcomp->len_integer = find_len_integer(fcomp->len_integer);
 	get_integer(b_integer, fcomp);
-//	norm_integer(fcomp);
+	norm_integer(fcomp);
+//	printf("bit fract: %s\n", b_fraction); //del
+//	printf("bit integ: %s\n", b_integer);	//del
 	free(b_fraction);
 	free(b_integer);
 }

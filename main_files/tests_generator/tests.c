@@ -17,6 +17,32 @@ typedef struct	s_proc_sym
 	int		type;
 }				t_procent_syms;
 
+int             ft_atoi(const char *str)
+{
+	int                     sign;
+	long long       num;
+	long long       check;
+
+	num = 0;
+	check = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= 48 && *str <= 57)
+	{
+		num = num * 10 + (*str - '0');
+		if (num < 0 || num / 10 != check)
+			return (sign == 1 ? -1 : 0);
+		check = num;
+		str++;
+	}
+	return ((int)num * sign);
+}
+
 char    *ft_strcpy(char *dst, const char *src)
 {
 	int i;
@@ -56,7 +82,8 @@ void	get_data(t_procent_syms *test_params)
 		}
 		else
 			test_params->spase_zero_minus_plus_hash[i] = 0;
-	test_params->width = rand() % 200;
+	test_params->width = rand() % 1000;
+	test_params->precision = 0;
 	if (rand() % 3 == 0)
 		test_params->precision = rand() % 1000;
 	test_params->modifier = rand() % 5;
@@ -72,7 +99,7 @@ void	get_data(t_procent_syms *test_params)
 	test_params->type = rand() % 6;
 }
 
-char	*get_params(t_procent_syms *test_params)
+char	*get_params(t_procent_syms *test_params, int flag)
 {
 	register int	i;
 	int				tmp_count;
@@ -123,18 +150,23 @@ char	*get_params(t_procent_syms *test_params)
 		}
 		tmp_count++;
 	}
-	if (test_params->type == 0)
-		tmp[tmp_count] = 'd';
-	else if (test_params->type == 1)
-		tmp[tmp_count] = 'i';
-	else if (test_params->type == 2)
-		tmp[tmp_count] = 'o';
-	else if (test_params->type == 3)
-		tmp[tmp_count] = 'u';
-	else if (test_params->type == 4)
-		tmp[tmp_count] = 'x';
-	else if (test_params->type == 5)
-		tmp[tmp_count] = 'X';
+	if (flag == 0)
+	{
+		if (test_params->type == 0)
+			tmp[tmp_count] = 'd';
+		else if (test_params->type == 1)
+			tmp[tmp_count] = 'i';
+		else if (test_params->type == 2)
+			tmp[tmp_count] = 'o';
+		else if (test_params->type == 3)
+			tmp[tmp_count] = 'u';
+		else if (test_params->type == 4)
+			tmp[tmp_count] = 'x';
+		else if (test_params->type == 5)
+			tmp[tmp_count] = 'X';
+	}
+	else
+		tmp[tmp_count] = 'f';
 	tmp[++tmp_count] = 'A';	
 	tmp[++tmp_count] = 'A';	
 	tmp[++tmp_count] = 'A';	
@@ -144,29 +176,57 @@ char	*get_params(t_procent_syms *test_params)
 	return (tmp);
 }
 
-int		main()
+int		main(int argc, char **argv)
 {
 	char			*s;
 	int				param_num;
 	t_procent_syms	test_params;
 	long			num;
+	double			a;
+	register int	i;
 
+	if (argc != 3)
+	{
+		printf ("Tbl ||oMu_/\\_opKa\n");
+		return (0);
+	}
 	setbuf(stdout, NULL);
 	srand(time(0));
-	param_num = 1000000;
-	while (param_num-- >= 0)
+	param_num = ft_atoi(argv[2]);
+	if (argv[1][0] != 'f')
 	{
-		num = rand() % 9223372036854775807;
-		num = (rand() % 2) ? -num : num;
-		get_data(&test_params);
-		s = get_params(&test_params);
-		printf (s, num);
-		printf ("\n");
-		ft_printf (s, num);
-		printf ("\nstring: %s; ", s);
-		printf ("num: %ld\n", num);
-		printf ("\n");
-		free (s);
+		while (param_num--)
+		{
+			num = rand() % 9223372036854775807;
+			num = (rand() % 2) ? -num : num;
+			get_data(&test_params);
+			s = get_params(&test_params, 0);
+			printf (s, num);
+			printf ("\n");
+			ft_printf (s, num);
+			printf ("\nstring: %s; ", s);
+			printf ("num: %ld\n", num);
+			printf ("\n");
+			free (s);
+		}
 	}
+	else
+		while (param_num--)
+		{
+			num = 0;
+			i = 64;
+			while (--i >= 0)
+				num |= (rand() % 2 == 1) ? 1l << i : 0l;
+			a = *((double*)&num);
+			get_data(&test_params);
+			s = get_params(&test_params, 1);
+			printf (s, a);
+			printf ("\n");
+			ft_printf (s, a);
+			printf ("\nstring: %s; ", s);
+			printf ("num: %.400f\n", a);
+			printf ("\n");
+			free (s);
+		}
 	return (0);
 }
