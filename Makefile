@@ -1,6 +1,6 @@
 NAME = libftprintf.a
 
-FLAGS = -c -O3		#вставить флагии!! -Wall -Werror -Wextra
+FLAGS = -g -c -O3		#вставить флагии!! -Wall -Werror -Wextra
 
 SOURCES = ft_printf.c \
 	   processing_functions.c \
