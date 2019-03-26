@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 00:00:19 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/13 00:13:46 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 12:44:31 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ char	*get_str(va_list *ap, char *str, t_all *all, int base)
 
 void	zero_p(t_all *all, char *str, int *len, int flag)
 {
+	if (all->precision == 0 && flag == 1 && all->flag_hash == 1)
+		all->precision++;
+	all->flag_hash = 0;
 	all->flag_hash = flag == 0 ? 0 : all->flag_hash;
 	if (all->precision == 0 && all->width == 0)
 	{

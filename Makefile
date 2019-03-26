@@ -15,7 +15,8 @@ SOURCES = ft_printf.c \
 	   get_fraction.c \
 	   other_and_bonus.c \
 	   get_integer.c \
-	   integer_rounding.c
+	   integer_rounding.c \
+	   output_processing_f.c
 
 DIR_O = objs
 

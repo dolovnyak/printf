@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 01:07:03 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 09:59:32 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 12:05:19 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char    *bit_integer(long exponent, long b, int *len)
 		*len = 2;
 		return (ft_strdup("0"));
 	}
-//	printf ("exp: %d\n", exponent);
 	*len = exponent + 1;
 	b_integer = ft_memalloc(*len + 2);
 	ft_memset((void*)b_integer, '0', *len + 1);
@@ -79,7 +78,6 @@ void    get_integer(char *b_integer, t_fcomp *fcomp)
 	int             count;
 
 	power = fcomp->len_integer - 1;
-//	printf ("power: %d\n", power);
 	fcomp->integer = (int*)ft_memalloc((fcomp->len_integer + 1) * sizeof(int));
 	num = (int*)malloc((fcomp->len_integer + 1) * sizeof(int));
 	i = -1;

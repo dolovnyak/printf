@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 11:29:32 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 12:04:02 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,22 +109,7 @@ void	do_float(t_all *all, va_list *ap, char *str)
 	int				count; //del
 
 	get_components(ap, &fcomp, all);
-
-	////////////////////////////////////////////////
-/*	printf ("fraction:   ");
-	count = fcomp.len_fraction;
-	while (--count >= 0)
-		printf ("%d", fcomp.fraction[count]);
-	printf ("\n");
-	printf ("integer: ");
-	count = fcomp.len_integer - 1;
-	while (--count >= 0)
-		printf ("%d", fcomp.integer[count]);
-	printf ("\n");*/
-	////////////////////////////////////////////////
 	str = get_string_with_precision(&fcomp, all);
-	//	printf ("string: %s\n", str);
-
 	len = ft_strlen(str);
 	if (fcomp.sign == -1 && fcomp.nan_check != 1)
 		all->flag_sign_minus = 1;
@@ -141,3 +126,14 @@ void	do_float(t_all *all, va_list *ap, char *str)
 		free(fcomp.integer);
 	}
 }
+/*	printf ("fraction:   ");
+	count = fcomp.len_fraction;
+	while (--count >= 0)
+		printf ("%d", fcomp.fraction[count]);
+	printf ("\n");
+	printf ("integer: ");
+	count = fcomp.len_integer - 1;
+	while (--count >= 0)
+		printf ("%d", fcomp.integer[count]);
+	printf ("\n");*/
+	//	printf ("string: %s\n", str);
