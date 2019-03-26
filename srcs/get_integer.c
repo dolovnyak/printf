@@ -6,15 +6,37 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 01:07:03 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 14:03:37 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 15:45:53 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void    norm_integer(t_fcomp *fcomp)
+int					find_len_integer(int len_s)
 {
-	register int    i;
+	int				res;
+
+	res = 0;
+	if (len_s < 10)
+	{
+		if (len_s % 3 == 0)
+			res = len_s / 3;
+		else
+			res = len_s / 3 + 1;
+	}
+	else
+	{
+		if (len_s % 10 >= 0 && len_s % 10 <= 3)
+			res = len_s / 10 + len_s / 5 + 1;
+		else
+			res = (len_s - (len_s / 10) * 10) / 7 + (len_s / 10) * 3 + 2;
+	}
+	return (res + 5);
+}
+
+void				norm_integer(t_fcomp *fcomp)
+{
+	register int	i;
 
 	if (fcomp->len_integer == 2 && fcomp->integer[0] == 0)
 		return ;
@@ -24,10 +46,10 @@ void    norm_integer(t_fcomp *fcomp)
 	fcomp->len_integer = i + 2;
 }
 
-char    *bit_integer(long exponent, long b, int *len)
+char				*bit_integer(long exponent, long b, int *len)
 {
-	register int    i;
-	char            *b_integer;
+	register int	i;
+	char			*b_integer;
 
 	if (exponent < 0)
 	{
@@ -48,10 +70,10 @@ char    *bit_integer(long exponent, long b, int *len)
 	return (b_integer);
 }
 
-void    get_power(int power, int *num, t_fcomp *fcomp)
+void				get_power(int power, int *num, t_fcomp *fcomp)
 {
-	int count;
-	int p_count;
+	int				count;
+	int				p_count;
 
 	ft_memset((void*)num, 0, (fcomp->len_integer) * sizeof(int));
 	num[0] = 1;
@@ -70,12 +92,12 @@ void    get_power(int power, int *num, t_fcomp *fcomp)
 	}
 }
 
-void    get_integer(char *b_integer, t_fcomp *fcomp)
+void				get_integer(char *b_integer, t_fcomp *fcomp)
 {
-	register int    i;
-	int             power;
-	int             *num;
-	int             count;
+	register int	i;
+	int				power;
+	int				*num;
+	int				count;
 
 	power = fcomp->len_integer - 1;
 	if (fcomp->len_integer != 2)
