@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:19:15 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/26 12:40:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 13:35:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void		do_ptype(t_all *all, va_list *ap, char *str)
 
 	str = ft_utoa_base(va_arg(*ap, unsigned long), 16);
 	len = ft_strlen(str);
+	if (all->precision == 0)
+		zero_p(all, str, &len, 0);
 	str = int16x_h_processing(all, str, &len);
 	do_lower(str);
 	if (all->width >= len)
