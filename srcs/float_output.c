@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 11:12:57 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 11:29:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,12 @@ void	do_float(t_all *all, va_list *ap, char *str)
 	//	printf ("string: %s\n", str);
 
 	len = ft_strlen(str);
-	if (fcomp.sign == -1)
+	if (fcomp.sign == -1 && fcomp.nan_check != 1)
 		all->flag_sign_minus = 1;
-	if (all->width < len)
-		str = flags_ps_or_signs(all, str, &len);
+	if (all->width < len && fcomp.nan_check != 1)
+		str = flags_f_ps_or_signs(all, str, &len);
 	else if (all->width >= len)
-		str = float_w_mz_processing(all, str, &len);
+		str = float_w_mz_processing(all, str, &len, fcomp.nan_check);
 	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);

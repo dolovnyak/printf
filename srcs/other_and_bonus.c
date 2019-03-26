@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:19:15 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/24 13:58:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:28:04 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		do_letter_wzm(t_all *all, va_list *ap, char *str, char s)
 **function is almost copied but without that condition.
 */
 
-char		*float_w_mz_processing(t_all *all, char *str, int *len)
+/*char		*float_w_mz_processing(t_all *all, char *str, int *len)
 {
 	char	*new;
 	int		i;
@@ -97,7 +97,7 @@ char		*float_w_mz_processing(t_all *all, char *str, int *len)
 	*len = all->width;
 	ft_strdel(&str);
 	return (new);
-}
+}*/
 
 void		do_int2(t_all *all, va_list *ap, char *str)
 {

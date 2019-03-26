@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:17:26 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 08:38:47 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 11:31:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,15 @@ void			do_int2(t_all *all, va_list *ap, char *str);
 char			*merge_strings(char *s1, int len_1, char *s2, size_t n);
 void			get_fraction(char *b_fraction, t_fcomp *fcomp);
 char			*bit_fraction(long exponent, long b, int *len);
-char			*float_w_mz_processing(t_all *all, char *str, int *len);
 int				check_5(t_fcomp *fcomp, int count);
 void			norm_integer(t_fcomp *fcomp); //mb del
 void			get_integer(char *b_integer, t_fcomp *fcomp);
 char			*bit_integer(long exponent, long b, int *len);
 char			*get_string_integer(t_fcomp *fcomp);
 void			processing_overflow_integerpart(t_fcomp *fcomp);
+int				find_len_integer(int len_s);
+char			*flags_f_ps_or_signs(t_all *all, char *str, int *len);
+char			*float_w_mz_processing(t_all *all, char *str,
+		int *len, int flag);
 
 #endif
