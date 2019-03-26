@@ -6,44 +6,36 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 01:07:03 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 15:45:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 20:23:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int					find_len_integer(int len_s)
-{
-	int				res;
-
-	res = 0;
-	if (len_s < 10)
-	{
-		if (len_s % 3 == 0)
-			res = len_s / 3;
-		else
-			res = len_s / 3 + 1;
-	}
-	else
-	{
-		if (len_s % 10 >= 0 && len_s % 10 <= 3)
-			res = len_s / 10 + len_s / 5 + 1;
-		else
-			res = (len_s - (len_s / 10) * 10) / 7 + (len_s / 10) * 3 + 2;
-	}
-	return (res + 5);
-}
-
-void				norm_integer(t_fcomp *fcomp)
+char				*bit_integer_l(long exponent_l, int128_t bl, int *len)
 {
 	register int	i;
+	int128_t		one;
+	char			*b_integer;
 
-	if (fcomp->len_integer == 2 && fcomp->integer[0] == 0)
-		return ;
-	i = fcomp->len_integer - 1;
-	while (fcomp->integer[i] == 0)
-		i--;
-	fcomp->len_integer = i + 2;
+	one = 1;
+	if (exponent_l < 0)
+	{
+		*len = 2;
+		return (ft_strdup("0"));
+	}
+	*len = exponent_l + 1;
+	b_integer = ft_memalloc(*len + 2);
+	ft_memset((void*)b_integer, '0', *len + 1);
+	b_integer[0] = '1';
+	i = 0;
+	if (*len <= 63)
+		while (++i < *len)
+			b_integer[i] = ((one << (63 - i)) & bl) ? '1' : '0';
+	else
+		while (++i < 63)
+			b_integer[i] = ((one << (63 - i)) & bl) ? '1' : '0';
+	return (b_integer);
 }
 
 char				*bit_integer(long exponent, long b, int *len)

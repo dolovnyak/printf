@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 14:38:32 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 20:20:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*get_string_big_precision(t_fcomp *fcomp, int precision)
+char				*get_string_big_precision(t_fcomp *fcomp, int precision)
 {
 	char			*s;
 	register int	i;
@@ -30,7 +30,8 @@ char	*get_string_big_precision(t_fcomp *fcomp, int precision)
 	return (s);
 }
 
-void	processing_overflow_fractionpart(t_fcomp *fcomp, int precision)
+void				processing_overflow_fractionpart(t_fcomp *fcomp,
+		int precision)
 {
 	register int	i;
 	register int	flag_int_overflow;
@@ -54,7 +55,7 @@ void	processing_overflow_fractionpart(t_fcomp *fcomp, int precision)
 	}
 }
 
-char	*get_string_int_fract(t_fcomp *fcomp, int precision)
+char				*get_string_int_fract(t_fcomp *fcomp, int precision)
 {
 	char			*s;
 	register int	len;
@@ -83,7 +84,7 @@ char	*get_string_int_fract(t_fcomp *fcomp, int precision)
 	return (s);
 }
 
-char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
+char				*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 {
 	char			*s;
 	int				i;
@@ -92,7 +93,9 @@ char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 	all->precision = all->precision < 0 ? 6 : all->precision;
 	if (fcomp->inf_check)
 		return (ft_strdup("inf"));
-	if (fcomp->nan_check)
+	if (fcomp->nan_check == 1 && all->type == 'F')
+		return (ft_strdup("NAN"));
+	else if (fcomp->nan_check == 1)
 		return (ft_strdup("nan"));
 	if (all->precision == 0)
 		return (get_string_integer(fcomp));
@@ -103,15 +106,19 @@ char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 	return (s);
 }
 
-void	do_float(t_all *all, va_list *ap, char *str)
+void				do_float(t_all *all, va_list *ap, char *str)
 {
 	t_fcomp			fcomp;
 	int				len;
 
-	get_components(ap, &fcomp, all);
+	fcomp.one = 1;
+	if (all->modifier != 5)
+		get_components(ap, &fcomp, all);
+	else
+		get_components_l(ap, &fcomp, all);
 	str = get_string_with_precision(&fcomp, all);
 	len = ft_strlen(str);
-	if (fcomp.sign == -1 && fcomp.nan_check != 1)
+	if (fcomp.sign == -1 && fcomp.nan_check != 1 && fcomp.nan_check != 2)
 		all->flag_sign_minus = 1;
 	if (all->width < len && fcomp.nan_check != 1)
 		str = flags_f_ps_or_signs(all, str, &len);
@@ -120,7 +127,7 @@ void	do_float(t_all *all, va_list *ap, char *str)
 	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
-	if (fcomp.nan_check != 1)
+	if (fcomp.nan_check != 1 && fcomp.nan_check != 2)
 	{
 		free(fcomp.fraction);
 		free(fcomp.integer);

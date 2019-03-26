@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 13:41:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 20:31:20 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ char		*check_more_type(t_all *all, va_list *ap, char *s)
 	char	*str;
 
 	str = NULL;
-	if (*s == 'b')
+	if (*s == 'f')
+		do_float(all, ap, str);
+	else if (*s == 'b')
 		do_int2(all, ap, str);
 	else if (*s == 's')
 		do_string(all, ap, str);
@@ -98,8 +100,6 @@ char		*check_more_type(t_all *all, va_list *ap, char *s)
 		do_n(all, ap);
 	else if (*s == '%')
 		do_percent_or_uchar(all, ap, str, 0);
-	else if (*s == 'U')
-		do_uint(all, ap, str);
 	else
 		do_letter_wzm(all, ap, str, *s);
 	return (s);
@@ -110,24 +110,23 @@ char		*check_type_and_output(t_all *all, va_list *ap, char *s)
 	char	*str;
 
 	str = NULL;
-	if ((*s >= 'A' && *s <= 'Z') && *s != 'X')
+	if (*s == 'O' || *s == 'D' || *s == 'U')
 		all->modifier = 3;
-	if (*s == 'd' || *s == 'i')
+	if (*s == 'd' || *s == 'i' || *s == 'D')
 		do_int(all, ap, str);
-	else if (*s == 'D')
-		do_int(all, ap, str);
-	else if (*s == 'u')
+	else if (*s == 'u' || *s == 'U')
 		do_uint(all, ap, str);
-	else if (*s == 'o')
-		do_int8(all, ap, str);
-	else if (*s == 'O')
+	else if (*s == 'o' || *s == 'O')
 		do_int8(all, ap, str);
 	else if (*s == 'x')
 		do_int16x(all, ap, str);
 	else if (*s == 'X')
 		do_int16xupper(all, ap, str);
-	else if (*s == 'f')
+	else if (*s == 'F')
+	{
+		all->type = 'F';
 		do_float(all, ap, str);
+	}
 	else
 		s = check_more_type(all, ap, s);
 	s++;

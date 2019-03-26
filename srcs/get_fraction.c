@@ -6,20 +6,47 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 21:14:38 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 15:12:28 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 20:00:30 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*bit_fraction(long *exponent, long b, int *len)
+char				*bit_fraction_l(long *exponent_l, int128_t bl, int *len)
+{
+	register int	i;
+	register int	j;
+	int128_t		one;
+	char			*b_fraction;
+
+	one = 1;
+	*len = (*exponent_l == -16383) ? 64 + 16382 : 64 - *exponent_l;
+	b_fraction = ft_strnewsetchar(*len, '0');
+	if (*exponent_l < 0)
+	{
+		if (!(bl << 16 != 0 && *exponent_l == -16383))
+			b_fraction[*len - 65] = '1';
+		i = 64;
+		while (--i >= 0)
+			b_fraction[*len - 1 - i] = ((one << i) & bl) ? '1' : '0';
+	}
+	else
+	{
+		j = -1;
+		i = *len - 1;
+		while (--i >= 0)
+			b_fraction[++j] = ((one << i) & bl) ? '1' : '0';
+	}
+	*exponent_l = (*exponent_l == -16383) ? -16382 : *exponent_l;
+	return (b_fraction);
+}
+
+char				*bit_fraction(long *exponent, long b, int *len)
 {
 	register int	i;
 	register int	j;
 	char			*b_fraction;
 
-	if (*exponent >= 52)
-		return (ft_strdup("0"));
 	*len = (*exponent == -1023) ? 53 + 1022 : 53 - *exponent;
 	b_fraction = ft_memalloc(*len);
 	if (*exponent < 0)
@@ -42,7 +69,8 @@ char	*bit_fraction(long *exponent, long b, int *len)
 	return (b_fraction);
 }
 
-void	countup_fraction(t_fcomp *fcomp, int *num, char bit, int *count)
+void				countup_fraction(t_fcomp *fcomp, int *num,
+		char bit, int *count)
 {
 	*count = -1;
 	if (bit == '1')
@@ -55,7 +83,7 @@ void	countup_fraction(t_fcomp *fcomp, int *num, char bit, int *count)
 	*count = -1;
 }
 
-void	get_fraction(char *b_fraction, t_fcomp *fcomp)
+void				get_fraction(char *b_fraction, t_fcomp *fcomp)
 {
 	register int	i;
 	int				count;

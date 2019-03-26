@@ -6,11 +6,11 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/24 13:55:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 20:57:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void		initialization(t_all *all)
 {
@@ -23,6 +23,7 @@ void		initialization(t_all *all)
 	all->width = 0;
 	all->precision = -1;
 	all->modifier = 0;
+	all->type = 0;
 }
 
 char		*processing_and_output(t_all *all, char *s, va_list *ap)
@@ -64,7 +65,7 @@ char		*merge_strings(char *s1, int len_1, char *s2, size_t n)
 	ft_memcpy(new, s1, len_1);
 	while (i < len_1)
 		i++;
-	while (j < n)
+	while ((size_t)j < n)
 		new[i++] = s2[j++];
 	ft_strdel(&s1);
 	return (new);
