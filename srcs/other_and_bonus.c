@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:19:15 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/26 11:28:04 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 12:40:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,32 @@
 
 /*
 **P-type with zero works differently as int16x type with hash.
-**Therefore we decided to make other function
+**Therefore we decided to make other function. P-type works only with width and
+**minus flag.
 */
 
 void		do_ptype(t_all *all, va_list *ap, char *str)
 {
 	int		len;
+	char	*new;
 
 	str = ft_utoa_base(va_arg(*ap, unsigned long), 16);
 	len = ft_strlen(str);
 	str = int16x_h_processing(all, str, &len);
 	do_lower(str);
-	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
+	if (all->width >= len)
+	{
+		new = ft_strnewsetchar(all->width, ' ');
+		if (all->flag_minus == 1)
+			ft_memcpy((void*)new, (const void*)str, len);
+		else
+			ft_strcpy(&new[all->width - len], str);
+		len = all->width;
+		all->fin_str = merge_strings(all->fin_str, all->symbol_num, new, len);
+		free(new);
+	}
+	else
+		all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
 }
@@ -69,35 +83,6 @@ void		do_letter_wzm(t_all *all, va_list *ap, char *str, char s)
 **precision and precision with floats works differently from ints so the
 **function is almost copied but without that condition.
 */
-
-/*char		*float_w_mz_processing(t_all *all, char *str, int *len)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	if (all->flag_sign_minus == 1 || all->flag_plus == 1 ||
-			all->flag_space == 1)
-	{
-		str = flags_ps_or_signs(all, str, len);
-		i = 1;
-		all->width = all->width < *len ? *len : all->width;
-	}
-	new = ft_strnewsetchar(all->width, ' ');
-	if (all->flag_minus == 1)
-		ft_memcpy((void*)new, (const void*)str, *len);
-	else if (all->flag_zero == 1)
-	{
-		new[0] = str[0];
-		ft_memset((void*)&new[i], '0', (all->width - *len));
-		ft_strcpy(&new[all->width - *len + i], &str[i]);
-	}
-	else
-		ft_strcpy(&new[all->width - *len], str);
-	*len = all->width;
-	ft_strdel(&str);
-	return (new);
-}*/
 
 void		do_int2(t_all *all, va_list *ap, char *str)
 {
