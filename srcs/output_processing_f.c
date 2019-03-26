@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:21:44 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/26 11:36:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:44:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char		*float_w_mz_processing(t_all *all, char *str, int *len, int flag)
 	new = ft_strnewsetchar(all->width, ' ');
 	if (all->flag_minus == 1)
 		ft_memcpy((void*)new, (const void*)str, *len);
-	else if (all->flag_zero == 1)
+	else if (all->flag_zero == 1 && flag != 1)
 	{
 		new[0] = str[0];
 		ft_memset((void*)&new[i], '0', (all->width - *len));
