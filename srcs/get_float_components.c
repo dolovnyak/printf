@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:49:23 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 12:04:36 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 15:04:32 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ void	get_components(va_list *ap, t_fcomp *fcomp, t_all *all)
 	if (exception_handling(fcomp, b, exponent))
 		return ;
 	exponent -= 1023;
-	exponent = exponent == -1023 ? -1022 : exponent;
-	b_fraction = bit_fraction(exponent, b, &fcomp->len_fraction);
+	b_fraction = bit_fraction(&exponent, b, &fcomp->len_fraction);
 	get_fraction(b_fraction, fcomp);
 	b_integer = bit_integer(exponent, b, &fcomp->len_integer);
 	get_integer(b_integer, fcomp);

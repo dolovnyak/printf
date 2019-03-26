@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 01:07:03 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 12:05:19 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 14:03:37 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void    get_integer(char *b_integer, t_fcomp *fcomp)
 	int             count;
 
 	power = fcomp->len_integer - 1;
+	if (fcomp->len_integer != 2)
+		fcomp->len_integer = find_len_integer(fcomp->len_integer);
 	fcomp->integer = (int*)ft_memalloc((fcomp->len_integer + 1) * sizeof(int));
 	num = (int*)malloc((fcomp->len_integer + 1) * sizeof(int));
 	i = -1;
