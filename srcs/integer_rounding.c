@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 04:10:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 11:40:41 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 11:48:35 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		check_5(t_fcomp *fcomp, int count)
 	while (--i >= 0)
 		if (fcomp->fraction[i] != 0)
 			return (1);
-	printf ("CHECK\n");
+//	printf ("CHECK\n");
 	return (0);
 }
 

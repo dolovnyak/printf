@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/22 17:47:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:46:03 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,11 @@ char	*check_type_and_output(t_all *all, va_list *ap, char *s)
 	str = NULL;
 	if (*s == 'd' || *s == 'i')
 		do_int(all, ap, str);
+	else if (*s == 'D')
+	{
+		all->modifier = 3;
+		do_int(all, ap, str);
+	}
 	else if (*s == 'u')
 		do_uint(all, ap, str);
 	else if (*s == 'o')
