@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 00:00:19 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 12:44:31 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 12:58:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ char	*get_str(va_list *ap, char *str, t_all *all, int base)
 	}
 	return (str);
 }
+
+/*
+**"Flag 1" is for the o-type or int8 and "flag 0" is for the others (diuxX)
+*/
 
 void	zero_p(t_all *all, char *str, int *len, int flag)
 {

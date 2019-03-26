@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 12:49:23 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 13:41:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*check_flags(t_all *all, char *s)
+char		*check_flags(t_all *all, char *s)
 {
 	while (*s == '-' || *s == '0' || *s == '+' || *s == '#' || *s == ' ')
 	{
@@ -35,7 +35,8 @@ char	*check_flags(t_all *all, char *s)
 	return (s);
 }
 
-char	*check_width_or_precision(t_all *all, char *s, va_list *ap, char flag)
+char		*check_width_or_precision(t_all *all, char *s,
+		va_list *ap, char flag)
 {
 	if (*s == '*')
 	{
@@ -57,7 +58,7 @@ char	*check_width_or_precision(t_all *all, char *s, va_list *ap, char flag)
 	return (s);
 }
 
-char	*check_modifier(t_all *all, char *s)
+char		*check_modifier(t_all *all, char *s)
 {
 	if (*s == 'h')
 	{
@@ -80,14 +81,16 @@ char	*check_modifier(t_all *all, char *s)
 	return (s);
 }
 
-char	*check_more_type(t_all *all, va_list *ap, char *s)
+char		*check_more_type(t_all *all, va_list *ap, char *s)
 {
 	char	*str;
 
 	str = NULL;
-	if (*s == 's')
+	if (*s == 'b')
+		do_int2(all, ap, str);
+	else if (*s == 's')
 		do_string(all, ap, str);
-	else if (*s == 'c' || *s == 'C')
+	else if (*s == 'c')
 		do_percent_or_uchar(all, ap, str, 1);
 	else if (*s == 'p')
 		do_ptype(all, ap, str);
@@ -96,44 +99,35 @@ char	*check_more_type(t_all *all, va_list *ap, char *s)
 	else if (*s == '%')
 		do_percent_or_uchar(all, ap, str, 0);
 	else if (*s == 'U')
-	{
-		all->modifier = 4;
 		do_uint(all, ap, str);
-	}
 	else
 		do_letter_wzm(all, ap, str, *s);
 	return (s);
 }
 
-char	*check_type_and_output(t_all *all, va_list *ap, char *s)
+char		*check_type_and_output(t_all *all, va_list *ap, char *s)
 {
 	char	*str;
 
 	str = NULL;
+	if ((*s >= 'A' && *s <= 'Z') && *s != 'X')
+		all->modifier = 3;
 	if (*s == 'd' || *s == 'i')
 		do_int(all, ap, str);
 	else if (*s == 'D')
-	{
-		all->modifier = 3;
 		do_int(all, ap, str);
-	}
 	else if (*s == 'u')
 		do_uint(all, ap, str);
 	else if (*s == 'o')
 		do_int8(all, ap, str);
 	else if (*s == 'O')
-	{
-		all->modifier = 3;
 		do_int8(all, ap, str);
-	}
 	else if (*s == 'x')
 		do_int16x(all, ap, str);
 	else if (*s == 'X')
 		do_int16xupper(all, ap, str);
-	else if (*s == 'f' || *s == 'F')
+	else if (*s == 'f')
 		do_float(all, ap, str);
-	else if (*s == 'b' || *s == 'B')
-		do_int2(all, ap, str);
 	else
 		s = check_more_type(all, ap, s);
 	s++;
