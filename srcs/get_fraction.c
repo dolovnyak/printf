@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 21:14:38 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 16:32:46 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 07:56:42 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*bit_fraction(long exponent, long b, int *len)
 	if (exponent < 0)
 	{
 		ft_memset((void*)b_fraction, '0', *len - 1);
-		b_fraction[*len - 54] = '1';
+		if (b << 12 != 0 && exponent != -1022)
+			b_fraction[*len - 54] = '1';
 		i = 52;
 		while (--i >= 0)
 			b_fraction[*len - 2 - i] = ((1l << i) & b) ? '1' : '0';

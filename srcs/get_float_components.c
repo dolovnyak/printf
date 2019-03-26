@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:49:23 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 16:33:08 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 09:54:54 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,14 @@ int		exception_handling(t_fcomp *fcomp, long b, long exponent)
 {
 	fcomp->inf_check = 0;
 	fcomp->nan_check = 0;
+	b = b << 12;
 	if (exponent == 2047)
 	{
-		printf ("CHECK3\n");
-		b = b << 12;
 		if (b == 0)
 			return (fcomp->inf_check = 1);
 		else
 			return (fcomp->nan_check = 1);
 	}
-	b = b << 11;
-	b &= ~(1l << 63);
 	if (exponent == 0 && b == 0)
 	{
 		fcomp->len_integer = 2;
@@ -67,11 +64,6 @@ void	get_components(va_list *ap, t_fcomp *fcomp, t_all *all)
 
 	a = va_arg(*ap, double);
 	b = *((long*)&a);
-	int i = 64;
-	printf ("AAAA: ");
-	while (--i >= 0)
-		printf ("%d ", ((1l << i) & b) ? 1 : 0);
-	printf ("\n");
 	fcomp->sign = ((1lu << 63) & b) ? -1 : 1;
 	b &= ~(1l << 63);
 	exponent = b >> 52;
@@ -79,14 +71,15 @@ void	get_components(va_list *ap, t_fcomp *fcomp, t_all *all)
 	if (exception_handling(fcomp, b, exponent))
 		return ;
 	exponent -= 1023;
+	exponent = exponent == -1023 ? -1022 : exponent;
 	b_fraction = bit_fraction(exponent, b, &fcomp->len_fraction);
 	get_fraction(b_fraction, fcomp);
 	b_integer = bit_integer(exponent, b, &fcomp->len_integer);
 //	fcomp->len_integer = find_len_integer(fcomp->len_integer);
 	get_integer(b_integer, fcomp);
 	norm_integer(fcomp);
-//	printf("bit fract: %s\n", b_fraction); //del
-//	printf("bit integ: %s\n", b_integer);	//del
+	//printf("bit fract: %s\n", b_fraction); //del
+	//printf("bit integ: %s\n", b_integer);	//del
 	free(b_fraction);
 	free(b_integer);
 }

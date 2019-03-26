@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 11:40:55 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 11:12:57 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,28 @@ char	*get_string_big_precision(t_fcomp *fcomp, int precision)
 	while (--i >= 0)
 		s[++j] = fcomp->fraction[i] + '0';
 	return (s);
-	//printf ("S: %s\n", s);
-	//создать строку, полностью заполненую нулями, длиной = длина целой части + точность + точка + нуль
-	//с самого начала скопировать туда сначала инт, потом точку, потом дробную часть
 }
 
 void	processing_overflow_fractionpart(t_fcomp *fcomp, int precision)
 {
 	register int	i;
+	register int	flag_int_overflow;
 
+	flag_int_overflow = 0;
 	i = fcomp->len_fraction - precision - 1;
 	while (++i < fcomp->len_fraction && fcomp->fraction[i] == 10)
 	{
+		if (i == fcomp->len_fraction - 1)
+		{
+			flag_int_overflow = 1;
+			fcomp->fraction[i] = 0;
+		}
 		fcomp->fraction[i + 1]++;
 		fcomp->fraction[i] = 0;
 	}
-	if (i == fcomp->len_fraction - 1)
+	if (flag_int_overflow == 1)
 	{
-		fcomp->integer[0] = 10;
+		fcomp->integer[0]++;
 		processing_overflow_integerpart(fcomp);
 	}
 }
@@ -76,8 +80,6 @@ char	*get_string_int_fract(t_fcomp *fcomp, int precision)
 	while (--i >= fcomp->len_fraction - precision)
 		s[++j] = fcomp->fraction[i] + '0';
 	return (s);
-	//обработать округление и переполнение также как с интом, если переполнилась цифра, стоящая
-	//после точки - сделать ее равной нулю, увеличить последнюю интовоую цифру, обработать переполнение
 }
 
 char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
@@ -105,7 +107,6 @@ void	do_float(t_all *all, va_list *ap, char *str)
 	t_fcomp			fcomp;
 	int				len;
 	int				count; //del
-	int				i; //del
 
 	get_components(ap, &fcomp, all);
 
@@ -116,9 +117,9 @@ void	do_float(t_all *all, va_list *ap, char *str)
 		printf ("%d", fcomp.fraction[count]);
 	printf ("\n");
 	printf ("integer: ");
-	i = fcomp.len_integer - 1;
-	while (--i >= 0)
-		printf ("%d", fcomp.integer[i]);
+	count = fcomp.len_integer - 1;
+	while (--count >= 0)
+		printf ("%d", fcomp.integer[count]);
 	printf ("\n");*/
 	////////////////////////////////////////////////
 	str = get_string_with_precision(&fcomp, all);
@@ -134,6 +135,9 @@ void	do_float(t_all *all, va_list *ap, char *str)
 	all->fin_str = merge_strings(all->fin_str, all->symbol_num, str, len);
 	all->symbol_num += len;
 	free(str);
-	free(fcomp.fraction);
-	free(fcomp.integer);
+	if (fcomp.nan_check != 1)
+	{
+		free(fcomp.fraction);
+		free(fcomp.integer);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 01:07:03 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/25 13:25:46 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/26 09:59:32 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ char    *bit_integer(long exponent, long b, int *len)
 //	printf ("exp: %d\n", exponent);
 	*len = exponent + 1;
 	b_integer = ft_memalloc(*len + 2);
-	ft_memset((void*)b_integer, '0', *len);
+	ft_memset((void*)b_integer, '0', *len + 1);
 	b_integer[0] = '1';
 	i = 0;
-	if (*len < 52)
+	if (*len <= 52)
 		while (++i < *len)
 			b_integer[i] = ((1l << (52 - i)) & b) ? '1' : '0';
 	else
@@ -79,6 +79,7 @@ void    get_integer(char *b_integer, t_fcomp *fcomp)
 	int             count;
 
 	power = fcomp->len_integer - 1;
+//	printf ("power: %d\n", power);
 	fcomp->integer = (int*)ft_memalloc((fcomp->len_integer + 1) * sizeof(int));
 	num = (int*)malloc((fcomp->len_integer + 1) * sizeof(int));
 	i = -1;
