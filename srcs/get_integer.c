@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 01:07:03 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 20:23:27 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:19:36 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,19 @@ void				get_power(int power, int *num, t_fcomp *fcomp)
 	}
 }
 
+void				countup_integer(t_fcomp *fcomp, int *num)
+{
+	register int	count;
+
+	count = -1;
+	while (++count < fcomp->len_integer)
+	{
+		fcomp->integer[count] += num[count];
+		fcomp->integer[count + 1] += fcomp->integer[count] / 10;
+		fcomp->integer[count] %= 10;
+	}
+}
+
 void				get_integer(char *b_integer, t_fcomp *fcomp)
 {
 	register int	i;
@@ -102,13 +115,7 @@ void				get_integer(char *b_integer, t_fcomp *fcomp)
 		if (b_integer[i] == '1')
 		{
 			get_power(power, num, fcomp);
-			count = -1;
-			while (++count < fcomp->len_integer)
-			{
-				fcomp->integer[count] += num[count];
-				fcomp->integer[count + 1] += fcomp->integer[count] / 10;
-				fcomp->integer[count] %= 10;
-			}
+			countup_integer(fcomp, num);
 		}
 		power--;
 	}

@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 21:14:38 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 20:00:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:40:09 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char				*bit_fraction_l(long *exponent_l, int128_t bl, int *len)
+char	*bit_fraction_l(long *exponent_l, int128_t bl, int *len)
 {
 	register int	i;
 	register int	j;
@@ -41,7 +41,7 @@ char				*bit_fraction_l(long *exponent_l, int128_t bl, int *len)
 	return (b_fraction);
 }
 
-char				*bit_fraction(long *exponent, long b, int *len)
+char	*bit_fraction(long *exponent, long b, int *len)
 {
 	register int	i;
 	register int	j;
@@ -69,8 +69,7 @@ char				*bit_fraction(long *exponent, long b, int *len)
 	return (b_fraction);
 }
 
-void				countup_fraction(t_fcomp *fcomp, int *num,
-		char bit, int *count)
+void	countup_fraction(t_fcomp *fcomp, int *num, char bit, int *count)
 {
 	*count = -1;
 	if (bit == '1')
@@ -83,7 +82,26 @@ void				countup_fraction(t_fcomp *fcomp, int *num,
 	*count = -1;
 }
 
-void				get_fraction(char *b_fraction, t_fcomp *fcomp)
+void	get_negative_power(t_fcomp *fcomp, int *num, int i)
+{
+	int	count;
+
+	count = fcomp->len_fraction - i - 3;
+	while (++count < fcomp->len_fraction - 1)
+		num[count] = num[count + 1];
+	num[fcomp->len_fraction - 1] = 0;
+	count = fcomp->len_fraction - i - 3;
+	while (++count < fcomp->len_fraction)
+		num[count] *= 5;
+	count = fcomp->len_fraction - i - 3;
+	while (++count < fcomp->len_fraction)
+	{
+		num[count + 1] += num[count] / 10;
+		num[count] %= 10;
+	}
+}
+
+void	get_fraction(char *b_fraction, t_fcomp *fcomp)
 {
 	register int	i;
 	int				count;
@@ -96,18 +114,7 @@ void				get_fraction(char *b_fraction, t_fcomp *fcomp)
 	while (b_fraction[++i])
 	{
 		countup_fraction(fcomp, num, b_fraction[i], &count);
-		while (++count < fcomp->len_fraction - 1)
-			num[count] = num[count + 1];
-		num[fcomp->len_fraction - 1] = 0;
-		count = -1;
-		while (++count < fcomp->len_fraction)
-			num[count] *= 5;
-		count = -1;
-		while (++count < fcomp->len_fraction)
-		{
-			num[count + 1] += num[count] / 10;
-			num[count] %= 10;
-		}
+		get_negative_power(fcomp, num, i);
 	}
 	free(num);
 }

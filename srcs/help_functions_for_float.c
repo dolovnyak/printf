@@ -6,7 +6,7 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 04:10:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 19:37:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:57:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int					find_len_integer(int len_s)
 		else
 			res = (len_s - (len_s / 10) * 10) / 7 + (len_s / 10) * 3 + 2;
 	}
-	return (res + 5);
+	return (res + 2);
 }
 
 void				norm_integer(t_fcomp *fcomp)

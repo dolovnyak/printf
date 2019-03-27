@@ -6,11 +6,11 @@
 /*   By: sbecker <sbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 10:48:53 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 20:57:48 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/27 10:46:59 by sbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
 void		initialization(t_all *all)
 {
