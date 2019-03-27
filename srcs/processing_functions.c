@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 17:05:30 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/27 11:04:52 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/27 13:44:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*check_flags(t_all *all, char *s)
+char	*check_flags(t_all *all, char *s)
 {
 	while (*s == '-' || *s == '0' || *s == '+' || *s == '#' || *s == ' ')
 	{
@@ -35,8 +35,7 @@ char		*check_flags(t_all *all, char *s)
 	return (s);
 }
 
-char		*check_width_or_precision(t_all *all, char *s,
-		va_list *ap, char flag)
+char	*check_width_or_precision(t_all *all, char *s, va_list *ap, char flag)
 {
 	if (*s == '*')
 	{
@@ -58,7 +57,7 @@ char		*check_width_or_precision(t_all *all, char *s,
 	return (s);
 }
 
-char		*check_modifier(t_all *all, char *s)
+char	*check_modifier(t_all *all, char *s)
 {
 	if (*s == 'h')
 	{
@@ -81,7 +80,7 @@ char		*check_modifier(t_all *all, char *s)
 	return (s);
 }
 
-char		*check_more_type(t_all *all, va_list *ap, char *s)
+char	*check_more_type(t_all *all, va_list *ap, char *s)
 {
 	char	*str;
 
@@ -101,11 +100,11 @@ char		*check_more_type(t_all *all, va_list *ap, char *s)
 	else if (*s == '%')
 		do_percent_or_uchar(all, ap, str, 0);
 	else
-		do_letter_wzm(all, ap, str, *s);
+		do_letter_wzm(all, str, *s);
 	return (s);
 }
 
-char		*check_type_and_output(t_all *all, va_list *ap, char *s)
+char	*check_type_and_output(t_all *all, va_list *ap, char *s)
 {
 	char	*str;
 

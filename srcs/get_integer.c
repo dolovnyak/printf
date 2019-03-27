@@ -6,16 +6,16 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 01:07:03 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/27 13:19:36 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/27 13:55:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char				*bit_integer_l(long exponent_l, int128_t bl, int *len)
+char	*bit_integer_l(long exponent_l, t_int128 bl, int *len)
 {
 	register int	i;
-	int128_t		one;
+	t_int128		one;
 	char			*b_integer;
 
 	one = 1;
@@ -38,7 +38,7 @@ char				*bit_integer_l(long exponent_l, int128_t bl, int *len)
 	return (b_integer);
 }
 
-char				*bit_integer(long exponent, long b, int *len)
+char	*bit_integer(long exponent, long b, int *len)
 {
 	register int	i;
 	char			*b_integer;
@@ -62,7 +62,7 @@ char				*bit_integer(long exponent, long b, int *len)
 	return (b_integer);
 }
 
-void				get_power(int power, int *num, t_fcomp *fcomp)
+void	get_power(int power, int *num, t_fcomp *fcomp)
 {
 	int				count;
 	int				p_count;
@@ -84,7 +84,7 @@ void				get_power(int power, int *num, t_fcomp *fcomp)
 	}
 }
 
-void				countup_integer(t_fcomp *fcomp, int *num)
+void	countup_integer(t_fcomp *fcomp, int *num)
 {
 	register int	count;
 
@@ -97,12 +97,11 @@ void				countup_integer(t_fcomp *fcomp, int *num)
 	}
 }
 
-void				get_integer(char *b_integer, t_fcomp *fcomp)
+void	get_integer(char *b_integer, t_fcomp *fcomp)
 {
 	register int	i;
 	int				power;
 	int				*num;
-	int				count;
 
 	power = fcomp->len_integer - 1;
 	if (fcomp->len_integer != 2)

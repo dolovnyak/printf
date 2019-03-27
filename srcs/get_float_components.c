@@ -6,14 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:49:23 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 20:19:34 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:53:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int					exception_handl_l(t_fcomp *fcomp,
-		int128_t bl, long exponent_l)
+int		exception_handl_l(t_fcomp *fcomp, t_int128 bl, long exponent_l)
 {
 	fcomp->inf_check = 0;
 	fcomp->nan_check = 0;
@@ -35,16 +34,16 @@ int					exception_handl_l(t_fcomp *fcomp,
 	return (0);
 }
 
-void				get_components_l(va_list *ap, t_fcomp *fcomp, t_all *all)
+void	get_components_l(va_list *ap, t_fcomp *fcomp)
 {
 	long			exponent_l;
-	int128_t		bl;
+	t_int128		bl;
 	long double		al;
 	char			*b_fraction;
 	char			*b_integer;
 
 	al = va_arg(*ap, long double);
-	bl = *((int128_t*)&al);
+	bl = *((t_int128*)&al);
 	fcomp->sign = ((fcomp->one << 79) & bl) ? -1 : 1;
 	bl &= ~(fcomp->one << 79);
 	exponent_l = bl >> 64;
@@ -64,7 +63,7 @@ void				get_components_l(va_list *ap, t_fcomp *fcomp, t_all *all)
 	free(b_integer);
 }
 
-int					exception_handling(t_fcomp *fcomp, long b, long exponent)
+int		exception_handling(t_fcomp *fcomp, long b, long exponent)
 {
 	fcomp->inf_check = 0;
 	fcomp->nan_check = 0;
@@ -86,7 +85,7 @@ int					exception_handling(t_fcomp *fcomp, long b, long exponent)
 	return (0);
 }
 
-void				get_components(va_list *ap, t_fcomp *fcomp, t_all *all)
+void	get_components(va_list *ap, t_fcomp *fcomp)
 {
 	long			exponent;
 	long			b;

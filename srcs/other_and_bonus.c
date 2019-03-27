@@ -6,7 +6,7 @@
 /*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:19:15 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/26 13:35:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:15:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		do_ptype(t_all *all, va_list *ap, char *str)
 **For example: b, k, m, r, w, y.
 */
 
-void		do_letter_wzm(t_all *all, va_list *ap, char *str, char s)
+void		do_letter_wzm(t_all *all, char *str, char s)
 {
 	all->width = all->width == 0 ? 1 : all->width;
 	if ((s >= 0 && s <= 32) || s == 127)

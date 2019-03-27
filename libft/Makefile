@@ -1,6 +1,6 @@
 NAME = libft.a
 CC=gcc
-CFLAGS=-c -Wall -Werror -Wextra -O3
+CFLAGS=-c -Wall -Werror -Wextra
 SRC = ft_atoi.c \
 	  ft_isdigit.c \
 	  ft_memcpy.c \

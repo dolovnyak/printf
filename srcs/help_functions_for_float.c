@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 04:10:34 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/27 12:57:59 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/27 13:42:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int					find_len_integer(int len_s)
+int		find_len_integer(int len_s)
 {
 	int				res;
 
@@ -34,7 +34,7 @@ int					find_len_integer(int len_s)
 	return (res + 2);
 }
 
-void				norm_integer(t_fcomp *fcomp)
+void	norm_integer(t_fcomp *fcomp)
 {
 	register int	i;
 
@@ -46,7 +46,7 @@ void				norm_integer(t_fcomp *fcomp)
 	fcomp->len_integer = i + 2;
 }
 
-void				processing_overflow_integerpart(t_fcomp *fcomp)
+void	processing_overflow_integerpart(t_fcomp *fcomp)
 {
 	register int	i;
 
@@ -60,7 +60,7 @@ void				processing_overflow_integerpart(t_fcomp *fcomp)
 		fcomp->len_integer++;
 }
 
-int					check_5(t_fcomp *fcomp, int count)
+int		check_5(t_fcomp *fcomp, int count)
 {
 	register int	i;
 
@@ -71,7 +71,7 @@ int					check_5(t_fcomp *fcomp, int count)
 	return (0);
 }
 
-char				*get_string_integer(t_fcomp *fcomp)
+char	*get_string_integer(t_fcomp *fcomp)
 {
 	char			*s;
 	register int	i;

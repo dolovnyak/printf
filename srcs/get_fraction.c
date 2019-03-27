@@ -6,17 +6,17 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 21:14:38 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/27 12:40:09 by sbecker          ###   ########.fr       */
+/*   Updated: 2019/03/27 13:54:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*bit_fraction_l(long *exponent_l, int128_t bl, int *len)
+char	*bit_fraction_l(long *exponent_l, t_int128 bl, int *len)
 {
 	register int	i;
 	register int	j;
-	int128_t		one;
+	t_int128		one;
 	char			*b_fraction;
 
 	one = 1;

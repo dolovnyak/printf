@@ -6,13 +6,13 @@
 /*   By: sbecker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 17:47:27 by sbecker           #+#    #+#             */
-/*   Updated: 2019/03/26 20:20:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:39:59 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char				*get_string_big_precision(t_fcomp *fcomp, int precision)
+char	*get_string_big_precision(t_fcomp *fcomp, int precision)
 {
 	char			*s;
 	register int	i;
@@ -30,8 +30,7 @@ char				*get_string_big_precision(t_fcomp *fcomp, int precision)
 	return (s);
 }
 
-void				processing_overflow_fractionpart(t_fcomp *fcomp,
-		int precision)
+void	processing_overflow_fractionpart(t_fcomp *fcomp, int precision)
 {
 	register int	i;
 	register int	flag_int_overflow;
@@ -55,7 +54,7 @@ void				processing_overflow_fractionpart(t_fcomp *fcomp,
 	}
 }
 
-char				*get_string_int_fract(t_fcomp *fcomp, int precision)
+char	*get_string_int_fract(t_fcomp *fcomp, int precision)
 {
 	char			*s;
 	register int	len;
@@ -84,11 +83,9 @@ char				*get_string_int_fract(t_fcomp *fcomp, int precision)
 	return (s);
 }
 
-char				*get_string_with_precision(t_fcomp *fcomp, t_all *all)
+char	*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 {
 	char			*s;
-	int				i;
-	int				j;
 
 	all->precision = all->precision < 0 ? 6 : all->precision;
 	if (fcomp->inf_check)
@@ -106,16 +103,16 @@ char				*get_string_with_precision(t_fcomp *fcomp, t_all *all)
 	return (s);
 }
 
-void				do_float(t_all *all, va_list *ap, char *str)
+void	do_float(t_all *all, va_list *ap, char *str)
 {
 	t_fcomp			fcomp;
 	int				len;
 
 	fcomp.one = 1;
 	if (all->modifier != 5)
-		get_components(ap, &fcomp, all);
+		get_components(ap, &fcomp);
 	else
-		get_components_l(ap, &fcomp, all);
+		get_components_l(ap, &fcomp);
 	str = get_string_with_precision(&fcomp, all);
 	len = ft_strlen(str);
 	if (fcomp.sign == -1 && fcomp.nan_check != 1 && fcomp.nan_check != 2)
@@ -133,15 +130,3 @@ void				do_float(t_all *all, va_list *ap, char *str)
 		free(fcomp.integer);
 	}
 }
-/*	printf ("fraction:   ");
- *	count = fcomp.len_fraction;
- *	while (--count >= 0)
- *	printf ("%d", fcomp.fraction[count]);
- *	printf ("\n");
- *	printf ("integer: ");
- *	count = fcomp.len_integer - 1;
- *	while (--count >= 0)
- *	printf ("%d", fcomp.integer[count]);
- *	printf ("\n");
- *	printf ("string: %s\n", str);
- */
