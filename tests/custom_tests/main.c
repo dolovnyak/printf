@@ -8,7 +8,10 @@ int     main(void)
 	a = 120;
 	b = 120;
 
-	ft_printf ("\123\n");
+	ft_printf ("%-10kO\n", 0);
+	printf ("%-10kO\n", 0);
+
+/*	ft_printf ("\123\n");
 	printf	  ("%0+10d\n", 666);	
 	ft_printf ("%0+10d\n", 666);	
 	printf	  ("%0 10d\n", 666);	
@@ -84,6 +87,6 @@ int     main(void)
 	ft_printf("123%010ca", 'O');
 	printf("\n123%010ca\n", 'O');
 	ft_printf("123%10ca", 'O');
-	printf("\n123%10ca\n", 'O');
+	printf("\n123%10ca\n", 'O');*/
 	return (0);
 }

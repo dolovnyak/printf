@@ -17,6 +17,45 @@ typedef struct	s_proc_sym
 	int		type;
 }				t_procent_syms;
 
+static int  count_digits_u(unsigned long value, int base)
+{
+	int     res;
+
+	res = 0;
+	if (value == 0)
+		return (1);
+	while (value)
+	{
+		value /= base;
+		res++;
+	}
+	return (res);
+}
+
+char        *ft_utoa_base(unsigned long nb, int base)
+{
+	int     i;
+	char    *str;
+	int     len;
+	char    *main;
+
+	if (!nb && !base && !(base >= 2 && base <= 16))
+		return (NULL);
+	i = 0;
+	main = "0123456789ABCDEF";
+	len = count_digits_u(nb, base);
+	if (!(str = ft_strnew(len)))
+		return (NULL);
+	if (nb == 0)
+		str[0] = 0 + '0';
+	while (nb)
+	{
+		str[len - ++i] = main[nb % base];
+		nb /= base;
+	}
+	return (str);
+}
+
 int             ft_atoi(const char *str)
 {
 	int                     sign;
