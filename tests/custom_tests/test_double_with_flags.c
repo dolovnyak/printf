@@ -6,20 +6,9 @@ int		main(void)
 	double a;
 	double b;
 	
-	//a = -6789;
-	//b = -6789;
-	
 	a = 65.7869;
 	b = 65.7869;
 	
-	//a = 0;
-	//b = 0;
-
-	//a = 4356;
-	//b = 4356;
-
-	/*All with ints: -6789, 0 and 4356*/
-
 	printf("original: %f\n", a);
 	ft_printf("our     : %f\n\n", b);
 
@@ -52,7 +41,7 @@ int		main(void)
 	//width
 	printf("WIDTH\n");
 	printf("original: %12f\n", a);
-	ft_printf("our     : %19f\n\n", b);
+	ft_printf("our     : %12f\n\n", b);
 	
 	printf("original: %1f\n", a);
 	ft_printf("our     : %1f\n\n", b);
