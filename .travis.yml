@@ -1,8 +1,0 @@
-language: c
-compiler: clang
-os: osx
-script:
-  - make
-  - gcc libftprintf.a -I includes tests/custom_tests/test_simple.c
-  - ./a.out
-
