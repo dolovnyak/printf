@@ -1,6 +1,6 @@
 # printf
-## MacOS - [![Build Status](https://www.travis-ci.com/dolovnyak/printf.svg?branch=master)](https://www.travis-ci.com/dolovnyak/printf)
-###
+## MacOS - ![Build](https://github.com/dolovnyak/printf/actions/workflows/build.yml/badge.svg?branch=master)
+
 Copies most of the original printf behavior.
 ---------
 Build and run on `MacOS`
